@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+	<!-- Servlets -->
+
+	<!-- GetTodaysWord -->
+	<servlet>
+		<servlet-name>getTodaysWordServlet</servlet-name>
+		<servlet-class>wordOfTheDay.server.GetTodaysWordServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>getTodaysWordServlet</servlet-name>
+		<url-pattern>/wordoftheday/getTodaysWordServlet</url-pattern>
+	</servlet-mapping>
+
+	<!-- InitiateWords -->
+	<servlet>
+		<servlet-name>initiateWordsServlet</servlet-name>
+		<servlet-class>wordOfTheDay.server.InitiateWordsServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>initiateWordsServlet</servlet-name>
+		<url-pattern>/wordoftheday/initiateWordsServlet</url-pattern>
+	</servlet-mapping>
+
+	<!-- AddWord -->
+	<servlet>
+		<servlet-name>addWordServlet</servlet-name>
+		<servlet-class>wordOfTheDay.server.AddWordServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>addWordServlet</servlet-name>
+		<url-pattern>/wordoftheday/addWordServlet</url-pattern>
+	</servlet-mapping>
+
+	<!-- DeleteWords -->
+	<servlet>
+		<servlet-name>deleteWordsServlet</servlet-name>
+		<servlet-class>wordOfTheDay.server.DeleteWordsServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>deleteWordsServlet</servlet-name>
+		<url-pattern>/wordoftheday/deleteWordsServlet</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>WordOfTheDay.html</welcome-file>
+	</welcome-file-list>
+
+</web-app>

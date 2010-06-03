@@ -1,0 +1,138 @@
+/** Add css rules here for your application. 
+margin:25px 50px 75px 100px;
+    * top margin is 25px
+    * right margin is 50px
+    * bottom margin is 75px
+    * left margin is 100px*/
+.content {
+	background: #34393e;
+	width: 80%;
+	text-align: left;
+	margin: 0 auto 0 auto;
+}
+
+.total {
+	height: 600px;
+	float: center;
+}
+
+.simpleMargin {
+	margin: 10px 10px 10px 10px;
+	float: center;
+}
+
+.dashboard_left {
+	width: 400px;
+	padding: 0px;
+	margin: 10px;
+	float: left;
+}
+
+.dashboard_center {
+	width: 400px;
+	margin: 10px 0px 10px 0px;
+	float: left;
+}
+
+.dashboard_right {
+	width: 400px;
+	padding: 0px;
+	margin: 10px;
+	float: right;
+}
+
+h1 {
+	font-size: 40px;
+	font-weight: bold;
+	color: #777777;
+	margin: 30px 0px 30px;
+	text-align: center;
+}
+
+h2 {
+	font-size: 20px;
+	font-weight: bold;
+	color: #777777;
+	margin: 30px 0px 30px;
+	text-align: center;
+}
+
+.wordOfTheDay {
+	text-align: center;
+	color: #acc8d7;
+	font-size: 1em;
+}
+
+.addWord {
+	text-align: left;
+}
+
+#date {
+	margin: 3px 3px 10px 15px;
+	font-size: 1.2em;
+	font-weight: normal;
+	color: #acc8d7;
+}
+
+#date a {
+	padding: 3px 10px 3px 10px;
+	color: #c0b8a9;
+	text-decoration: none;
+}
+
+#date a:hover {
+	color: #d7ebf6;
+	background: #42484e;
+}
+
+.name {
+	font-size: 50px;
+	margin: 90px 20px 20px 20px;
+}
+
+.explanation {
+	font-size: 20px;
+}
+
+/*.usage {
+	font-size: 20px;
+	margin: 40px 40px 40px 40px;
+}*/
+.usageExample {
+	font-size: 20px;
+}
+
+.textArea {
+	width: 300px;
+	height: 100px;
+}
+
+.textBox {
+	width: 300px;
+}
+
+.label {
+	color: #777777;
+	font-size: 15px;
+	margin: 20px 20px 10px 20px;
+}
+
+#footer {
+	clear: both;
+	border-top: solid thin #c0b8a9;
+	text-align: left;
+	font-size: 0.9em;
+	color: #c0b8a9;
+	float: center;
+}
+
+#footer a {
+	color: #c0b8a9;
+	text-decoration: none;
+	font-variant: small-caps;
+	font-style: normal;
+}
+
+#footer a:hover {
+	color: #d7ebf6;
+}

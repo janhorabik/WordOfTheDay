@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+	<!-- Servlets -->
+
+	<!-- GetTodaysWord -->
+	<servlet>
+		<servlet-name>getTodaysWordServlet</servlet-name>
+		<servlet-class>wordOfTheDay.server.service.GetTodaysWordServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>getTodaysWordServlet</servlet-name>
+		<url-pattern>/wordoftheday/getTodaysWordServlet</url-pattern>
+	</servlet-mapping>
+
+	<!-- AddWord -->
+	<servlet>
+		<servlet-name>addWordServlet</servlet-name>
+		<servlet-class>wordOfTheDay.server.service.AddWordServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>addWordServlet</servlet-name>
+		<url-pattern>/wordoftheday/addWordServlet</url-pattern>
+	</servlet-mapping>
+
+	<!-- DeleteWords -->
+	<servlet>
+		<servlet-name>deleteWordsServlet</servlet-name>
+		<servlet-class>wordOfTheDay.server.service.DeleteWordsServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>deleteWordsServlet</servlet-name>
+		<url-pattern>/wordoftheday/deleteWordsServlet</url-pattern>
+	</servlet-mapping>
+
+	<!-- FileUpload -->
+	<servlet>
+		<servlet-name>fileUploadServlet</servlet-name>
+		<servlet-class>wordOfTheDay.server.service.FileUpload</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>fileUploadServlet</servlet-name>
+		<url-pattern>/wordoftheday/fileUploadServlet</url-pattern>
+	</servlet-mapping>
+
+	<!-- FileDownload -->
+	<servlet>
+		<servlet-name>fileDownloadServlet</servlet-name>
+		<servlet-class>wordOfTheDay.server.service.FileDownload</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>fileDownloadServlet</servlet-name>
+		<url-pattern>/wordoftheday/fileDownloadServlet</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- ListWords -->
+	<servlet>
+		<servlet-name>listWordsServlet</servlet-name>
+		<servlet-class>wordOfTheDay.server.service.ListWordsServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>listWordsServlet</servlet-name>
+		<url-pattern>/wordoftheday/listWordsServlet</url-pattern>
+	</servlet-mapping>
+
+	<!-- Login -->
+	<servlet>
+		<servlet-name>loginServlet</servlet-name>
+		<servlet-class>wordOfTheDay.server.service.LoginServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>loginServlet</servlet-name>
+		<url-pattern>/wordoftheday/loginServlet</url-pattern>
+	</servlet-mapping>
+
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>WordOfTheDay.html</welcome-file>
+	</welcome-file-list>
+
+</web-app>
