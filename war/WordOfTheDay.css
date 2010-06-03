@@ -85,6 +85,21 @@ h2 {
 	background: #42484e;
 }
 
+#loginText {
+	text-align: center;
+}
+
+.gwt-Button {
+  margin: 100;
+  padding: 3px 5px;
+  text-decoration: none;
+  font-size: small;
+  cursor: pointer;
+  cursor: hand;
+  background: url("images/hborder.png") repeat-x 0px -27px;
+  border: 1px outset #ccc;
+}
+
 .name {
 	font-size: 50px;
 	margin: 90px 20px 20px 20px;

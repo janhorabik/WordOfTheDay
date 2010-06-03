@@ -10,12 +10,13 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class LoginUpdater implements ServerResponse, ClickHandler {
-	public LoginUpdater(RootPanel loginNamePanelArg, AskServer askServerArg,
+	public LoginUpdater(HorizontalPanel loginNamePanel2, AskServer askServerArg,
 			Button loginButton, Home homeArg, Dashboard dashboardArg) {
-		loginNamePanel = loginNamePanelArg;
+		loginNamePanel = loginNamePanel2;
 		askServer = askServerArg;
 		if (loginButton != null) {
 			loginButton.addClickHandler(this);
@@ -48,7 +49,7 @@ public class LoginUpdater implements ServerResponse, ClickHandler {
 	}
 
 	private AskServer askServer;
-	private RootPanel loginNamePanel;
+	private HorizontalPanel loginNamePanel;
 	private Home home;
 	private Dashboard dashboard;
 }

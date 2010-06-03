@@ -29,10 +29,9 @@ public class WordOfTheDay implements EntryPoint {
 		}
 
 		final RootPanel loginPanel = RootPanel.get("login");
-		final RootPanel loginNamePanel = RootPanel.get("loginName");
 		if (loginPanel != null) {
 			Login login = new Login();
-			login.initiate(loginPanel, loginNamePanel, home, dashboard);
+			login.initiate(loginPanel, home, dashboard);
 		}
 		initiateFooter();
 	}

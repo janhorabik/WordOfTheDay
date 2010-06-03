@@ -16,8 +16,7 @@ import com.google.gwt.user.client.ui.TextBox;
 
 public class Login {
 
-	public void initiate(RootPanel rootPanel, RootPanel loginNamePanel,
-			Home home, Dashboard dashboard) {
+	public void initiate(RootPanel rootPanel, Home home, Dashboard dashboard) {
 		boolean isHome = (home != null);
 		final TextBox login = new TextBox();
 		login.setText("youremail@email.com");
@@ -38,7 +37,8 @@ public class Login {
 		loginPanel.add(new HTML("<div id='date'>"
 				+ (isHome ? "<a href='Dashboard.html'>Dashboard</a></div>"
 						: "<a href='WordOfTheDay.html'>Home</a></div>")));
-
+		HorizontalPanel loginNamePanel = new HorizontalPanel();
+		loginPanel.add(loginNamePanel);
 		login.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				login.setText("");
