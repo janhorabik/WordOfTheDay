@@ -20,7 +20,7 @@ public class WordOfTheDay implements EntryPoint {
 			home.initiate();
 		}
 
-		//second change on git
+		//third change on git
 		final RootPanel dashboardPanel = RootPanel.get("dashboard");
 		Dashboard dashboard = null;
 		if (dashboardPanel != null) {
