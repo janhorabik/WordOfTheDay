@@ -47,7 +47,7 @@ public class XMLParser {
 						PersistenceManager pm = PMF.get()
 								.getPersistenceManager();
 						pm
-								.makePersistent(new PersistentWord11(name,
+								.makePersistent(new PersistentWord13(name,
 										explanation, usage,
 										PMF.getYoungestAvailableDate(email),
 										email));
@@ -62,10 +62,10 @@ public class XMLParser {
 	}
 
 	public static String export(String email) {
-		List<PersistentWord11> words = PMF.getAllWords(email);
+		List<PersistentWord13> words = PMF.getAllWords(email);
 		String ret = new String();
 		ret += "<?xml version='1.0' encoding='UTF-8'?><words>";
-		for (PersistentWord11 word : words) {
+		for (PersistentWord13 word : words) {
 			ret += "<word><name>" + word.getName()
 					+ "</name><explanationEnglish>" + word.getExplanation()
 					+ "</explanationEnglish>";

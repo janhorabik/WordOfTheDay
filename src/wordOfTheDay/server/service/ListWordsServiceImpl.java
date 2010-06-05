@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Logger;
 
 import javax.jdo.PersistenceManager;
 
@@ -11,7 +12,7 @@ import wordOfTheDay.client.Word4;
 import wordOfTheDay.client.deleteWords.DeleteWordsService;
 import wordOfTheDay.client.listWords.ListWordsService;
 import wordOfTheDay.server.PMF;
-import wordOfTheDay.server.PersistentWord11;
+import wordOfTheDay.server.PersistentWord13;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -22,17 +23,27 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class ListWordsServiceImpl extends RemoteServiceServlet implements
 		ListWordsService {
 
+	private static final Logger log = Logger
+			.getLogger(ListWordsServiceImpl.class.getName());
+
 	public Vector<Word4> listWords() {
+		log.warning("list words start");
 		String email = (String) this.getThreadLocalRequest().getSession()
 				.getAttribute("email");
 		if (email == null)
 			email = "NULL";
-		List<PersistentWord11> persistentWords = PMF.getAllWords(email);
+		log.warning("list words get all words");
+		List<PersistentWord13> persistentWords = PMF.getAllWords(email);
+		log.warning("list words - all words got");
 		Vector<Word4> ret = new Vector<Word4>();
-		for (PersistentWord11 persistentWord : persistentWords) {
-			ret.add(PMF.persistentWordToWord(persistentWord));
+		for (PersistentWord13 persistentWord : persistentWords) {
+			ret.add(PMF.persistentWordToWordWithPreviousPossible(
+					persistentWord, true));
 		}
-		Collections.sort(ret);
+//		ret.get(0).setPreviousDayPossible(false);
+		log.warning("words converted");
+		// Collections.sort(ret);
+		// log.warning("words sorted");
 		return ret;
 	}
 }

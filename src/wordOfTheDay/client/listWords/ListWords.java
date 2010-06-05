@@ -22,7 +22,7 @@ public class ListWords {
 
 	public void initiateListWords(final VerticalPanel listWordsPanel) {
 		listWordsPanel.clear();
-		listWordsPanel.add(new HTML("Connecting..."));
+		listWordsPanel.add(new HTML("<div class='wordOfTheDay'>Connecting...</div>"));
 		listWordsService.listWords(new AsyncCallback<Vector<Word4>>() {
 			public void onFailure(Throwable caught) {
 				listWordsPanel.clear();

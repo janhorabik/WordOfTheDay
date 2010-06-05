@@ -6,6 +6,8 @@ import wordOfTheDay.client.downloadFile.DownloadXml;
 import wordOfTheDay.client.listWords.ListWords;
 import wordOfTheDay.client.uploadFile.AddWordsXml;
 
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.ui.DecoratedTabPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -19,7 +21,8 @@ public class Dashboard {
 	Dashboard(final RootPanel rootPanelArg) {
 		rootPanel = rootPanelArg;
 	}
-        //test
+
+	// test
 
 	private RootPanel rootPanel;
 
@@ -53,10 +56,17 @@ public class Dashboard {
 		tabPanel.add(deleteWordsPanel, "Delete Words");
 
 		// List Words tab
-		VerticalPanel listWordsPanel = new VerticalPanel();
-		ListWords listWords = new ListWords();
+		final VerticalPanel listWordsPanel = new VerticalPanel();
+		final ListWords listWords = new ListWords();
 		listWords.initiateListWords(listWordsPanel);
 		tabPanel.add(listWordsPanel, "List Words");
+		tabPanel.addSelectionHandler(new SelectionHandler<Integer>() {
+			public void onSelection(SelectionEvent<Integer> event) {
+				if (event.getSelectedItem() == 3) {
+					listWords.initiateListWords(listWordsPanel);
+				}
+			}
+		});
 
 		// Download Words tab
 		VerticalPanel downloadWordsPanel = new VerticalPanel();

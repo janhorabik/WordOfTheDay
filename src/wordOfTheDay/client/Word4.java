@@ -65,4 +65,8 @@ public class Word4 implements IsSerializable, Serializable, Comparable<Word4> {
 	public String getEmail() {
 		return email;
 	}
+
+	public void setPreviousDayPossible(boolean value) {
+		previousDayPossible = value;
+	}
 }
