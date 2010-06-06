@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 import javax.jdo.PersistenceManager;
 
-import wordOfTheDay.client.Word4;
+import wordOfTheDay.client.Word5;
 import wordOfTheDay.client.deleteWords.DeleteWordsService;
 import wordOfTheDay.client.listWords.ListWordsService;
 import wordOfTheDay.server.PMF;
@@ -26,7 +26,7 @@ public class ListWordsServiceImpl extends RemoteServiceServlet implements
 	private static final Logger log = Logger
 			.getLogger(ListWordsServiceImpl.class.getName());
 
-	public Vector<Word4> listWords() {
+	public Vector<Word5> listWords() {
 		log.warning("list words start");
 		String email = (String) this.getThreadLocalRequest().getSession()
 				.getAttribute("email");
@@ -35,7 +35,7 @@ public class ListWordsServiceImpl extends RemoteServiceServlet implements
 		log.warning("list words get all words");
 		List<PersistentWord13> persistentWords = PMF.getAllWords(email);
 		log.warning("list words - all words got");
-		Vector<Word4> ret = new Vector<Word4>();
+		Vector<Word5> ret = new Vector<Word5>();
 		for (PersistentWord13 persistentWord : persistentWords) {
 			ret.add(PMF.persistentWordToWordWithPreviousPossible(
 					persistentWord, true));

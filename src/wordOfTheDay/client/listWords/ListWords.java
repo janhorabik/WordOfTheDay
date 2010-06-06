@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Vector;
 
 import wordOfTheDay.client.DateHelper;
-import wordOfTheDay.client.Word4;
+import wordOfTheDay.client.Word5;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -23,14 +23,14 @@ public class ListWords {
 	public void initiateListWords(final VerticalPanel listWordsPanel) {
 		listWordsPanel.clear();
 		listWordsPanel.add(new HTML("<div class='wordOfTheDay'>Connecting...</div>"));
-		listWordsService.listWords(new AsyncCallback<Vector<Word4>>() {
+		listWordsService.listWords(new AsyncCallback<Vector<Word5>>() {
 			public void onFailure(Throwable caught) {
 				listWordsPanel.clear();
 				listWordsPanel.add(new HTML(
 						"Error occured while connecting the service"));
 			}
 
-			public void onSuccess(Vector<Word4> result) {
+			public void onSuccess(Vector<Word5> result) {
 
 				FlexTable tableWithTitles = new FlexTable();
 				Label date = new Label("Date");
@@ -49,7 +49,7 @@ public class ListWords {
 				int row = 0;
 				FlexTable table = new FlexTable();
 //				table.setWidth("800px");
-				for (Word4 word : result) {
+				for (Word5 word : result) {
 
 					Label label0 = new Label(DateHelper
 							.toStringWithoutSpace(word.getDate()));

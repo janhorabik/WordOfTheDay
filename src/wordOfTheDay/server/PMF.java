@@ -7,7 +7,7 @@ import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 
-import wordOfTheDay.client.Word4;
+import wordOfTheDay.client.Word5;
 
 public final class PMF {
 	private static final PersistenceManagerFactory pmfInstance = JDOHelper
@@ -20,16 +20,16 @@ public final class PMF {
 		return pmfInstance;
 	}
 
-	public static Word4 persistentWordToWord(PersistentWord13 persistentWord2) {
+	public static Word5 persistentWordToWord(PersistentWord13 persistentWord2) {
 		return persistentWordToWordWithPreviousPossible(persistentWord2,
 				hasPreviousThen(persistentWord2.getDate()));
 	}
 
-	public static Word4 persistentWordToWordWithPreviousPossible(
+	public static Word5 persistentWordToWordWithPreviousPossible(
 			PersistentWord13 persistentWord2, boolean previousPossible) {
 		boolean nextPossible = Date.getCurrentDate() > persistentWord2
 				.getDate();
-		return new Word4(persistentWord2.getName(), persistentWord2
+		return new Word5(persistentWord2.getName(), persistentWord2
 				.getExplanation(),
 				persistentWord2.getUsage() == null ? new LinkedList<String>()
 						: new LinkedList<String>(persistentWord2.getUsage()),

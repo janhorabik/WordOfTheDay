@@ -1,7 +1,7 @@
 package wordOfTheDay.client.home;
 
 import wordOfTheDay.client.DayChoice2;
-import wordOfTheDay.client.Word4;
+import wordOfTheDay.client.Word5;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -10,5 +10,5 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  */
 public interface GetTodaysWordServiceAsync {
 	public void getTodaysWord(int date, DayChoice2 dayChoice,
-			AsyncCallback<Word4> callback);
+			AsyncCallback<Word5> callback);
 }

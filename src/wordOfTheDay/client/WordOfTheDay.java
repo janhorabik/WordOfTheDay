@@ -17,7 +17,7 @@ public class WordOfTheDay implements EntryPoint {
 		Home home = null;
 		if (wordPanel != null) {
 			home = new Home(wordPanel);
-			home.initiate();
+//			home.initiate();
 		}
 
 		//third change on git

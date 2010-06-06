@@ -1,6 +1,6 @@
 package wordOfTheDay.client.addWord;
 
-import wordOfTheDay.client.Word4;
+import wordOfTheDay.client.Word5;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -10,5 +10,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 @RemoteServiceRelativePath("addWordServlet")
 public interface AddWordService extends RemoteService {
-	String addWord(Word4 word);
+	String addWord(Word5 word);
 }

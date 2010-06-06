@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.logging.Logger;
 
 import wordOfTheDay.client.DayChoice2;
-import wordOfTheDay.client.Word4;
+import wordOfTheDay.client.Word5;
 import wordOfTheDay.client.home.GetTodaysWordService;
 import wordOfTheDay.server.Date;
 import wordOfTheDay.server.PMF;
@@ -31,7 +31,7 @@ public class GetTodaysWordServiceImpl extends RemoteServiceServlet implements
 	// for users not logged in
 	private static final String defaultEmail = "janhorabik@gmail.com";
 
-	public Word4 getTodaysWord(int date, DayChoice2 dayChoice) {
+	public Word5 getTodaysWord(int date, DayChoice2 dayChoice) {
 		log.info("gettingWord entered");
 		String email = (String) this.getThreadLocalRequest().getSession()
 				.getAttribute("email");
@@ -50,20 +50,21 @@ public class GetTodaysWordServiceImpl extends RemoteServiceServlet implements
 		System.out.println("day: " + date);
 		log.info("getting Word: getting instance of WordsCache");
 		WordKey wordKey = new WordKey(date, email);
-		Word4 word = WordsCache.getInstance().get(wordKey);
+		Word5 word = WordsCache.getInstance().get(wordKey);
 		log.info("getting Word: instance of WordsCache got - finish");
 		if (word != null)
 			return word;
 		log.info("Word not found - getting from DB");
 		PersistentWord13 persistentWord = PMF.getWord(wordKey);
 		if (persistentWord != null) {
+			log.severe("Word got from DB - converting start");
 			word = PMF.persistentWordToWord(persistentWord);
 			WordsCache.getInstance().put(wordKey, word);
-			log.severe("Word got from DB - finish");
+			log.severe("converting word finished");
 			return word;
 		}
 		log.info("getting Word: returning empty word");
-		return new Word4("", "", new LinkedList<String>(), Date
+		return new Word5("", "", new LinkedList<String>(), Date
 				.getCurrentDate(), false, false, email);
 	}
 }
