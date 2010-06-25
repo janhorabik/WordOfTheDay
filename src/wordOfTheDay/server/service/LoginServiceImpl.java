@@ -1,5 +1,7 @@
 package wordOfTheDay.server.service;
 
+import java.util.logging.Logger;
+
 import wordOfTheDay.client.LoginResult;
 import wordOfTheDay.client.login.LoginService;
 import wordOfTheDay.server.MessageSender;
@@ -16,6 +18,9 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class LoginServiceImpl extends RemoteServiceServlet implements
 		LoginService {
 
+	private static final Logger log = Logger
+	.getLogger(LoginServiceImpl.class.getName());
+	
 	public String newUser(String email) {
 		if (!ValidationManager.emailIsValid(email))
 			return "This is not a valid email address";
@@ -39,15 +44,19 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 	}
 
 	public LoginResult login(String email, String password) {
+		log.info("login start");
 		String hashedPassword = Hasher.getHash(password);
 		String hashedPasswordFromDb = PMF.getHashedPasswordOf(email);
+		log.info("login got from db");
 		// if (hashedPasswordFromDb == null)
 		// return LoginResult.createFailure("Login and password do not match");
 		if (true/* hashedPassword.equals(hashedPasswordFromDb) */) {
 			System.out.println(this.getThreadLocalRequest().getSession()
 					.toString());
+			log.info("login setting email session");
 			this.getThreadLocalRequest().getSession().setAttribute("email",
 					email);
+			log.info("session set");
 			return LoginResult.createSuccess(email);
 		}
 		return LoginResult.createFailure("Login and password do not match");

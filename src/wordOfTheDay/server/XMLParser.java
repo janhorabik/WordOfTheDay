@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.jdo.PersistenceManager;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -13,10 +14,15 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import wordOfTheDay.server.service.GetTodaysWordServiceImpl;
+
 public class XMLParser {
+	private static final Logger log = Logger
+			.getLogger(GetTodaysWordServiceImpl.class.getName());
+
 	public static String initiateWords(ByteArrayInputStream stream, String email) {
 		try {
-			System.out.println("initiate words started");
+			log.info("initiate words started");
 			Document document = DocumentBuilderFactory.newInstance()
 					.newDocumentBuilder().parse(stream);
 			NodeList words = document.getElementsByTagName("word");
@@ -28,7 +34,7 @@ public class XMLParser {
 				List<String> usage = new LinkedList<String>();
 				for (int j = 0; j < children.getLength(); j++) {
 					Node child = children.item(j);
-					System.out.println(child);
+					log.info(child.toString());
 					if (child.getNodeType() == Node.ELEMENT_NODE) {
 						if (child.getNodeName().equals("name"))
 							name = child.getTextContent().trim();
@@ -39,15 +45,14 @@ public class XMLParser {
 					}
 				}
 				try {
-					System.out.println("saving: " + name + explanation
-							+ usage.size());
+					log.info("saving: " + name + explanation + usage.size());
 					if (name != null && explanation != null
 							&& (!name.equals("")) && (!explanation.equals(""))) {
-						System.out.println("making persistent");
+						log.info("making persistent");
 						PersistenceManager pm = PMF.get()
 								.getPersistenceManager();
 						pm
-								.makePersistent(new PersistentWord13(name,
+								.makePersistent(new PersistentWord14(name,
 										explanation, usage,
 										PMF.getYoungestAvailableDate(email),
 										email));
@@ -62,10 +67,10 @@ public class XMLParser {
 	}
 
 	public static String export(String email) {
-		List<PersistentWord13> words = PMF.getAllWords(email);
+		List<PersistentWord14> words = PMF.getAllWords(email);
 		String ret = new String();
 		ret += "<?xml version='1.0' encoding='UTF-8'?><words>";
-		for (PersistentWord13 word : words) {
+		for (PersistentWord14 word : words) {
 			ret += "<word><name>" + word.getName()
 					+ "</name><explanationEnglish>" + word.getExplanation()
 					+ "</explanationEnglish>";

@@ -8,7 +8,7 @@ import wordOfTheDay.client.Word5;
 import wordOfTheDay.client.home.GetTodaysWordService;
 import wordOfTheDay.server.Date;
 import wordOfTheDay.server.PMF;
-import wordOfTheDay.server.PersistentWord13;
+import wordOfTheDay.server.PersistentWord14;
 import wordOfTheDay.server.WordKey;
 import wordOfTheDay.server.WordsCache;
 
@@ -32,7 +32,7 @@ public class GetTodaysWordServiceImpl extends RemoteServiceServlet implements
 	private static final String defaultEmail = "janhorabik@gmail.com";
 
 	public Word5 getTodaysWord(int date, DayChoice2 dayChoice) {
-		log.info("gettingWord entered");
+		log.warning("gettingWord entered");
 		String email = (String) this.getThreadLocalRequest().getSession()
 				.getAttribute("email");
 		if (email == null)
@@ -48,14 +48,17 @@ public class GetTodaysWordServiceImpl extends RemoteServiceServlet implements
 			break;
 		}
 		System.out.println("day: " + date);
-		log.info("getting Word: getting instance of WordsCache");
+		log.warning("getting Word: getting instance of WordsCache");
 		WordKey wordKey = new WordKey(date, email);
 		Word5 word = WordsCache.getInstance().get(wordKey);
-		log.info("getting Word: instance of WordsCache got - finish");
+		log.warning("getting Word: instance of WordsCache got - finish");
 		if (word != null)
+		{
+			log.warning("word got from cache: " + word.getDate() + word.getEmail() + word.getName());
 			return word;
-		log.info("Word not found - getting from DB");
-		PersistentWord13 persistentWord = PMF.getWord(wordKey);
+		}
+		log.warning("Word not found - getting from DB");
+		PersistentWord14 persistentWord = PMF.getWord(wordKey);
 		if (persistentWord != null) {
 			log.severe("Word got from DB - converting start");
 			word = PMF.persistentWordToWord(persistentWord);
@@ -63,7 +66,7 @@ public class GetTodaysWordServiceImpl extends RemoteServiceServlet implements
 			log.severe("converting word finished");
 			return word;
 		}
-		log.info("getting Word: returning empty word");
+		log.warning("getting Word: returning empty word");
 		return new Word5("", "", new LinkedList<String>(), Date
 				.getCurrentDate(), false, false, email);
 	}
