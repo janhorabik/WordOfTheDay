@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<words>
+		<word>
+		<name>checkup</name>
+		<explanationPolish>badanie lekarskie</explanationPolish>
+	</word>
+	<word>
+		<name>commit</name>
+		<explanationEnglish>
+			promise or give your loyalty, time or money to a
+			particular
+			principle, person or plan of action
+		</explanationEnglish>
+		<example>
+			The government must commit itself to improving health care.
+		</example>
+	</word>
+
+	<word>
+		<name>track sth/sb down</name>
+		<explanationEnglish>
+			to find something or someone after looking for
+			them in a lot
+			of different places
+		</explanationEnglish>
+		<example>
+			He finally managed to track down the book he wanted
+		</example>
+	</word>
+	<word>
+		<name>rot</name>
+		<explanationEnglish>to (cause to) decay</explanationEnglish>
+		<explanationPolish>zgnic</explanationPolish>
+	</word>
+	<word>
+		<name>enhancement</name>
+		<explanationPolish>ulepszenie</explanationPolish>
+	</word>
+</words>

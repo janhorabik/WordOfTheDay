@@ -1,0 +1,862 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<words>
+	<word>
+		<name>responsive</name>
+		<explanationPolish>wrazliwy</explanationPolish>
+	</word>
+
+	<word>
+		<name>well-argued</name>
+		<explanationPolish>dobrze umotywowany</explanationPolish>
+	</word>
+
+	<word>
+		<name>daring</name>
+		<explanationPolish>smialy, odwazny</explanationPolish>
+		<explanationEnglish>taking risk, brave</explanationEnglish>
+	</word>
+
+	<word>
+		<name>driving</name>
+		<explanationPolish>silny, niepohamowany</explanationPolish>
+	</word>
+
+	<word>
+		<name>compassionate</name>
+		<explanationPolish>wspolczujacy</explanationPolish>
+	</word>
+
+	<word>
+		<name>cautious</name>
+		<explanationPolish>ostrozny</explanationPolish>
+	</word>
+
+	<word>
+		<name>accurate</name>
+		<explanationPolish>scisly</explanationPolish>
+	</word>
+
+	<word>
+		<name>forthright</name>
+		<explanationPolish>szczery, prosty</explanationPolish>
+	</word>
+
+	<word>
+		<name>check up on sb</name>
+		<explanationEnglish>
+			to try to discover what someone is doing in order
+			to be
+			certain that they are doing what they should be doing
+		</explanationEnglish>
+		<example>
+			My mum checks up on me most evenings to see that I've done
+			my
+			homework
+		</example>
+	</word>
+
+	<word>
+		<name>checkup</name>
+		<explanationEnglish>
+			a medical examination to test your general state
+			of health
+		</explanationEnglish>
+	</word>
+
+	<word>
+		<name>supposition</name>
+	</word>
+	<word>
+		<name>nightly</name>
+		<explanationPolish>nocne</explanationPolish>
+	</word>
+	<word>
+		<name>blue-chip</name>
+		<explanationEnglish>
+			company or investment is one that can be trusted
+			and is not
+			likely to fail
+		</explanationEnglish>
+	</word>
+	<word>
+		<name>dead cat bounce</name>
+		<explanationEnglish>
+			temporary increase in the value of the shares of a
+			company
+			after a large decrease
+		</explanationEnglish>
+	</word>
+	<word>
+		<name>rogue trader</name>
+		<explanationEnglish>
+			a trader that loses a large amount of their
+			employer's money
+			after a bad or illegal investment
+		</explanationEnglish>
+	</word>
+	<word>
+		<name>Gilt-edged securities</name>
+		<explanationEnglish>
+			securities that are low risk investments paying a
+			regular
+			interest.
+		</explanationEnglish>
+	</word>
+	<word>
+		<name>insider trading</name>
+		<explanationEnglish>
+			is the illegal buying and selling of shares by
+			people who
+			have special secret knowledge
+		</explanationEnglish>
+	</word>
+	<word>
+		<name>smart money</name>
+		<explanationEnglish>
+			is invested by experienced investors who know a
+			lot about
+			what they are doing
+		</explanationEnglish>
+	</word>
+	<word>
+		<name>holding company</name>
+		<explanationEnglish>
+			it's main purpose is to control another company
+			through
+			owning shares in it
+		</explanationEnglish>
+	</word>
+	<word>
+		<name>entirely</name>
+		<explanationEnglish>completely</explanationEnglish>
+	</word>
+	<word>
+		<name>set-up</name>
+		<explanationPolish>ustawione</explanationPolish>
+	</word>
+	<word>
+		<name>set sb/sth apart from</name>
+		<explanationEnglish>
+			If a quality or characteristic sets
+			someone/something apart,
+			it shows them to be different from, and
+			usually better than,
+			others of the same type
+		</explanationEnglish>
+		<example>
+			What set her apart from the other candidates for the job was
+			that she had a lot of original ideas.
+		</example>
+	</word>
+	<word>
+		<name>forge</name>
+		<explanationPolish>wykuc</explanationPolish>
+	</word>
+	<word>
+		<name>blend</name>
+		<explanationPolish>mieszanka, mieszac</explanationPolish>
+	</word>
+	<word>
+		<name>cosy</name>
+		<explanationPolish>przytulny</explanationPolish>
+	</word>
+	<word>
+		<name>brag</name>
+		<explanationPolish>przechwalac sie</explanationPolish>
+	</word>
+	<word>
+		<name>queasy</name>
+		<explanationEnglish>likely to vomit</explanationEnglish>
+		<example>
+			I started to feel queasy as soon as the boat left the
+			harbour
+		</example>
+	</word>
+	<word>
+		<name>knock sb off</name>
+		<explanationPolish>zamordowac - slang</explanationPolish>
+	</word>
+	<word>
+		<name>hazy</name>
+		<explanationPolish>mglisty, nieprzejrzysty</explanationPolish>
+	</word>
+	<word>
+		<name>obscure</name>
+		<explanationEnglish>unknown, unclear</explanationEnglish>
+	</word>
+	<word>
+		<name>help sb out</name>
+		<explanationEnglish>
+			f you help out, you do a part of someone's work or
+			give
+			someone money
+		</explanationEnglish>
+	</word>
+	<word>
+		<name>go off</name>
+		<explanationEnglish>
+			If a warning device goes off, it starts to ring
+			loudly or
+			make a loud noise
+		</explanationEnglish>
+		<example>
+			idn't you hear your alarm clock going off this morning?
+		</example>
+	</word>
+	<word>
+		<name>executive</name>
+		<explanationPolish>
+			dyrektor, wladza wykonawcza
+		</explanationPolish>
+	</word>
+	<word>
+		<name>trait</name>
+		<explanationPolish>cecha charakteru</explanationPolish>
+	</word>
+	<word>
+		<name>beware</name>
+		<explanationPolish>wystrzegac sie</explanationPolish>
+	</word>
+	<word>
+		<name>phase out</name>
+		<explanationEnglish>
+			to remove or stop using something gradually or in
+			stages
+		</explanationEnglish>
+	</word>
+	<word>
+		<name>asset stripping</name>
+		<explanationEnglish>
+			involves buying an company cheaply, selling its
+			assets
+			separately at a profit
+		</explanationEnglish>
+	</word>
+	<word>
+		<name>jam</name>
+		<explanationEnglish>
+			INFORMAL a difficult situation
+		</explanationEnglish>
+		<example>
+			How are we going to get ourselves out of this jam?
+		</example>
+	</word>
+	<word>
+		<name>seduce</name>
+		<explanationPolish>uwodzic</explanationPolish>
+	</word>
+	<word>
+		<name>at a push</name>
+		<explanationPolish>na sile</explanationPolish>
+	</word>
+	<word>
+		<name>jump the gun</name>
+		<explanationEnglish>
+			to do something too soon, especially without
+			thinking
+			carefully about it
+		</explanationEnglish>
+	</word>
+	<word>
+		<name>disposable</name>
+		<explanationPolish>jednorazowego uzycia</explanationPolish>
+	</word>
+	<word>
+		<name>exile</name>
+		<explanationPolish>wygnanie, emigracja</explanationPolish>
+	</word>
+	<word>
+		<name>cripple</name>
+		<explanationPolish>uszkodzony</explanationPolish>
+	</word>
+	<word>
+		<name>put on hold</name>
+		<explanationPolish>wstrzymac</explanationPolish>
+	</word>
+	<word>
+		<name>sneak</name>
+		<explanationEnglish>
+			to go somewhere secretly, or to take someone or
+			something
+			somewhere secretly
+		</explanationEnglish>
+	</word>
+	<word>
+		<name>lifespan</name>
+		<explanationEnglish>
+			the length of time for which a person, animal or
+			thing
+			exists
+		</explanationEnglish>
+	</word>
+	<word>
+		<name>raise (a few) eyebrows</name>
+		<explanationEnglish>
+			to cause surprise or shock
+		</explanationEnglish>
+	</word>
+	<word>
+		<name>emerge</name>
+		<explanationEnglish>appear</explanationEnglish>
+	</word>
+	<word>
+		<name>pottery</name>
+		<explanationPolish>garncarstwo</explanationPolish>
+	</word>
+
+	<word>
+		<name>on behalf of sb/on sb's behalf</name>
+		<explanationEnglish>
+			representing; instead of
+		</explanationEnglish>
+	</word>
+	<word>
+		<name>clue</name>
+		<explanationPolish>wskazowka</explanationPolish>
+	</word>
+	<word>
+		<name>take over</name>
+		<explanationPolish>przejac kontrole</explanationPolish>
+	</word>
+	<word>
+		<name>take off</name>
+		<explanationPolish>wystartowac</explanationPolish>
+	</word>
+	<word>
+		<name>back down</name>
+		<explanationEnglish>
+			to admit that you were wrong or that you have been
+			defeated
+		</explanationEnglish>
+		<example>
+			Eventually, Roberto backed down and apologized
+		</example>
+	</word>
+	<word>
+		<name>crop</name>
+		<explanationEnglish>
+			a plant such as a grain, fruit or vegetable grown
+			in large
+			amounts
+		</explanationEnglish>
+	</word>
+	<word>
+		<name>break out</name>
+		<explanationPolish>uciec z wiezienia</explanationPolish>
+	</word>
+	<word>
+		<name>oversight</name>
+		<explanationPolish>niedopatrzenie, nadzor</explanationPolish>
+	</word>
+	<word>
+		<name>rule of thumb</name>
+		<explanationEnglish>
+			a practical and approximate way of doing or
+			measuring
+			something
+		</explanationEnglish>
+		<example>
+			A good rule of thumb is that a portion of rice is two and a
+			half handfuls
+		</example>
+	</word>
+	<word>
+		<name>clobber</name>
+		<explanationPolish>majdan, manatki</explanationPolish>
+	</word>
+	<word>
+		<name>crack down</name>
+		<explanationEnglish>
+			to start dealing with bad or illegal behaviour in
+			a more
+			severe way
+		</explanationEnglish>
+		<example>
+			The library is cracking down on people who lose their books
+		</example>
+	</word>
+	<word>
+		<name>cell</name>
+		<explanationPolish>cela</explanationPolish>
+	</word>
+	<word>
+		<name>sleazy</name>
+		<explanationEnglish>
+			dirty, cheap or not socially acceptable,
+			especially relating
+			to moral or sexual matters
+		</explanationEnglish>
+	</word>
+	<word>
+		<name>clash</name>
+		<explanationPolish>kolidowac</explanationPolish>
+	</word>
+	<word>
+		<name>healthcare</name>
+		<explanationPolish>sluzba zdrowia</explanationPolish>
+	</word>
+	<word>
+		<name>concussion</name>
+		<explanationPolish>wstrzas mozgu</explanationPolish>
+	</word>
+	<word>
+		<name>make up sth</name>
+		<explanationPolish>wymyslic cos</explanationPolish>
+	</word>
+	<word>
+		<name>knock-off</name>
+		<explanationPolish>podrobka</explanationPolish>
+	</word>
+	<word>
+		<name>drain</name>
+		<explanationPolish>osuszac</explanationPolish>
+	</word>
+	<word>
+		<name>tangle</name>
+		<explanationPolish>poplatany, gaszcz</explanationPolish>
+	</word>
+	<word>
+		<name>keen</name>
+		<explanationEnglish>
+			very interested, eager or wanting (to do)
+			something very
+			much
+		</explanationEnglish>
+		<example>My son's mad keen on cycling</example>
+	</word>
+	<word>
+		<name>knock up</name>
+		<explanationEnglish>
+			Players knock up before beginning a game of tennis
+			or
+			similar sport by hitting the ball to each other
+		</explanationEnglish>
+	</word>
+	<word>
+		<name>sin</name>
+		<explanationPolish>grzech</explanationPolish>
+	</word>
+	<word>
+		<name>dandruff</name>
+		<explanationPolish>lupiez</explanationPolish>
+	</word>
+	<word>
+		<name>undergo</name>
+		<explanationEnglish>
+			to experience something which is unpleasant or
+			which
+			involves a change
+		</explanationEnglish>
+		<example>
+			She underwent an operation on a tumour in her left lung last
+			year.
+		</example>
+	</word>
+	<word>
+		<name>second</name>
+		<explanationEnglish>
+			to make a formal statement of support for a
+			suggestion made
+			by someone else during a meeting so that there can be
+			a
+			discussion or vote:
+		</explanationEnglish>
+		<example>
+			I could do with a drink. I'll second that (= I agree with
+			you)!
+		</example>
+	</word>
+	<word>
+		<name>propose</name>
+		<explanationEnglish>
+			to suggest someone for a position or for
+			membership of an
+			organization
+		</explanationEnglish>
+		<expample>
+			To be nominated for union president you need one person to
+			propose you and another to second you.
+		</expample>
+	</word>
+	<word>
+		<name>on the brink</name>
+		<explanationPolish>na krawedzi</explanationPolish>
+	</word>
+	<word>
+		<name>overstate</name>
+		<explanationPolish>wyolbrzymiać</explanationPolish>
+		<explanationEnglish>exaggerate</explanationEnglish>
+	</word>
+	<word>
+		<name>mishandle</name>
+		<explanationPolish>zle prowadzic</explanationPolish>
+		<explanationEnglish>
+			to deal with something without the necessary care
+			or skill
+		</explanationEnglish>
+	</word>
+	<word>
+		<name>discard</name>
+		<explanationEnglish>reject</explanationEnglish>
+		<explanationPolish>odrzucic</explanationPolish>
+	</word>
+	<word>
+		<name>blaze</name>
+		<explanationPolish>pozar, buchac (o ogniu)</explanationPolish>
+	</word>
+	<word>
+		<name>break off</name>
+		<explanationPolish>zerwac znajomosc</explanationPolish>
+	</word>
+	<word>
+		<name>paycheck</name>
+		<explanationEnglish>salary</explanationEnglish>
+	</word>
+	<word>
+		<name>remark</name>
+		<explanationEnglish>salary</explanationEnglish>
+	</word>
+	<word>
+		<name>priceless</name>
+		<explanationEnglish>invaluable</explanationEnglish>
+		<explanationPolish>bezcenny</explanationPolish>
+	</word>
+	<word>
+		<name>refined</name>
+		<explanationPolish>udoskonalony</explanationPolish>
+	</word>
+	<word>
+		<name>sappy</name>
+		<explanationEnglish>
+			describes something that is extremely emotional in
+			an
+			embarrassing way
+		</explanationEnglish>
+		<example>
+			It's a sappy film - take some tissues when you see it
+		</example>
+	</word>
+
+	<word>
+		<name>chunk</name>
+		<explanationPolish>bryla</explanationPolish>
+	</word>
+	<word>
+		<name>bulk</name>
+		<explanationPolish>cielsko</explanationPolish>
+	</word>
+	<word>
+		<name>nerd</name>
+		<explanationEnglish>
+			a person, especially a man, who is unattractive
+			and awkward
+			or socially embarrassing
+		</explanationEnglish>
+		<example>
+			He was a real nerd in high school - I can't believe he's so
+			handsome now
+		</example>
+	</word>
+	<word>
+		<name>stealth</name>
+		<explanationPolish>
+			czający się; podstępny; chytry
+		</explanationPolish>
+	</word>
+	<word>
+		<name>accomplished</name>
+		<explanationEnglish>skilled</explanationEnglish>
+		<example>He was accomplished in all the arts.</example>
+	</word>
+	<word>
+		<name>handful</name>
+		<explanationPolish>garstka</explanationPolish>
+	</word>
+	<word>
+		<name>exemplify</name>
+		<explanationEnglish>
+			to be or give a typical example of something
+		</explanationEnglish>
+	</word>
+	<word>
+		<name>carry out</name>
+		<explanationEnglish>
+			to do or complete something, especially that you
+			have said
+			you would do or that you have been told to do
+		</explanationEnglish>
+		<example>
+			Don't blame me, I'm only carrying out my orders/instructions
+		</example>
+	</word>
+
+	<word>
+		<name>hilarious</name>
+		<explanationEnglish>
+			extremely amusing and causing a lot of laughter
+		</explanationEnglish>
+		<example>
+			He didn't like the film at all - I thought it was hilarious
+		</example>
+	</word>
+	<word>
+		<name>dude</name>
+		<explanationEnglish>a man</explanationEnglish>
+		<use>US Slang</use>
+		<example>Jason was one cool dude</example>
+	</word>
+	<word>
+		<name>whenever</name>
+		<explanationEnglish>every or any time</explanationEnglish>
+		<example>
+			Will it be okay if I do it tomorrow? Sure, whenever (=
+			then or
+			at any other time).
+		</example>
+	</word>
+	<word>
+		<name>head off</name>
+		<explanationEnglish>
+			to start a journey or leave a place
+		</explanationEnglish>
+		<explanationPolish>
+			to start a journey or leave a place
+		</explanationPolish>
+		<example></example>
+	</word>
+	<word>
+		<name>sign up</name>
+		<explanationEnglish>
+			to agree to become involved in an organized
+			activity
+		</explanationEnglish>
+		<explanationPolish></explanationPolish>
+		<example></example>
+	</word>
+	<word>
+		<name>fill sth in/out</name>
+		<explanationEnglish>
+			to write the necessary information on an official
+			document
+		</explanationEnglish>
+		<explanationPolish></explanationPolish>
+		<example></example>
+	</word>
+	<word>
+		<name>powder</name>
+		<explanationEnglish></explanationEnglish>
+		<explanationPolish>snieg</explanationPolish>
+		<example></example>
+	</word>
+	<word>
+		<name>chip (sth) in</name>
+		<explanationEnglish>
+			to give some money when several people are giving
+			money to
+			pay for something together
+		</explanationEnglish>
+		<explanationPolish></explanationPolish>
+		<example>
+			to give some money when several people are giving money to
+			pay for something together
+		</example>
+	</word>
+	<word>
+		<name>best man</name>
+		<explanationEnglish>
+			a male friend or relative of the bridegroom who
+			stands with
+			him and helps him during a marriage ceremony
+		</explanationEnglish>
+		<explanationPolish></explanationPolish>
+		<example></example>
+	</word>
+	<word>
+		<name>vaccine</name>
+		<explanationEnglish></explanationEnglish>
+		<explanationPolish>szczepionka</explanationPolish>
+		<example></example>
+	</word>
+	<word>
+		<name>jab</name>
+		<explanationEnglish>an injection</explanationEnglish>
+		<use>UK INFORMAL</use>
+		<explanationPolish></explanationPolish>
+		<example>a flu jab</example>
+		<example>
+			You'll need some jabs if you're going to Egypt.
+		</example>
+	</word>
+	<word>
+		<name>litigation</name>
+		<explanationEnglish></explanationEnglish>
+		<explanationPolish>spor w sadzie</explanationPolish>
+		<example></example>
+	</word>
+	<word>
+		<name>harsh</name>
+		<explanationEnglish>
+			unpleasant, unkind, cruel or unnecessarily severe
+		</explanationEnglish>
+		<explanationPolish></explanationPolish>
+		<example>
+			He said some harsh words (= spoke unkindly) about his
+			brother
+		</example>
+	</word>
+	<word>
+		<name>assuage</name>
+		<explanationEnglish></explanationEnglish>
+		<explanationPolish>usmierzac, uspokajac</explanationPolish>
+		<example></example>
+	</word>
+	<word>
+		<name>gossip</name>
+		<explanationEnglish></explanationEnglish>
+		<explanationPolish>plotka</explanationPolish>
+		<example></example>
+	</word>
+	<word>
+		<name>take sth back</name>
+		<explanationEnglish>
+			to admit that something you said was wrong:
+		</explanationEnglish>
+		<explanationPolish></explanationPolish>
+		<example>
+			All right, I take it all back. It wasn't your fault
+		</example>
+	</word>
+	<word>
+		<name>rip sb off</name>
+		<explanationEnglish>
+			to cheat someone by making them pay too much money
+			for
+			something:
+		</explanationEnglish>
+		<explanationPolish></explanationPolish>
+		<example>
+			Bob's tickets cost much less than ours - I think we've been
+			ripped off
+		</example>
+	</word>
+	<word>
+		<name>rip-off</name>
+		<explanationEnglish>
+			something that is not worth what you pay for it
+		</explanationEnglish>
+		<explanationPolish>
+			$300 for that shirt? - That's a complete rip-off
+		</explanationPolish>
+		<example></example>
+	</word>
+	<word>
+		<name>dodgy</name>
+		<explanationEnglish>dishonest</explanationEnglish>
+		<example>a dodgy deal</example>
+		<example>
+			They got involved with a dodgy businessman and lost all
+			their
+			savings
+		</example>
+	</word>
+	<word>
+		<name>dodgy</name>
+		<explanationEnglish>
+			unable to be depended on or risky:
+		</explanationEnglish>
+		<example>
+			The weather might be a bit dodgy at this time of year.
+		</example>
+	</word>
+	<word>
+		<name>scrap</name>
+		<explanationPolish>ochlap</explanationPolish>
+	</word>
+	<word>
+		<name>drop out</name>
+		<explanationEnglish>
+			to not do something that you were going to do, or
+			to stop
+			doing something before you have completely finished
+		</explanationEnglish>
+		<example>He dropped out of the race after two laps</example>
+	</word>
+	<word>
+		<name>in charge</name>
+		<explanationEnglish>
+			being the person who has control of or is
+			responsible for
+			someone or something
+		</explanationEnglish>
+	</word>
+
+	<word>
+		<name>somewhat</name>
+		<explanationPolish>poniekad</explanationPolish>
+	</word>
+	<word>
+		<name>suffice</name>
+		<explanationPolish>wystarczyc</explanationPolish>
+	</word>
+
+	<word>
+		<name>auxiliary</name>
+		<explanationPolish>pomocniczy</explanationPolish>
+	</word>
+
+	<word>
+		<name>assess</name>
+		<explanationEnglish>
+			to judge or decide the amount, value, quality or
+			importance
+			of something
+		</explanationEnglish>
+	</word>
+	<word>
+		<name>scarce</name>
+		<explanationPolish>nieosiagalny</explanationPolish>
+	</word>
+	<word>
+		<name>hassle</name>
+		<explanationEnglish>
+			(a situation causing) difficulty or trouble
+		</explanationEnglish>
+		<example>I can't face the hassle of moving house again</example>
+	</word>
+	<word>
+		<name>checkup</name>
+		<explanationPolish>badanie lekarskie</explanationPolish>
+	</word>
+	<word>
+		<name>commit</name>
+		<explanationEnglish>
+			promise or give your loyalty, time or money to a
+			particular
+			principle, person or plan of action
+		</explanationEnglish>
+		<example>
+			The government must commit itself to improving health care.
+		</example>
+	</word>
+
+	<word>
+		<name>track sth/sb down</name>
+		<explanationEnglish>
+			to find something or someone after looking for
+			them in a lot
+			of different places
+		</explanationEnglish>
+		<example>
+			He finally managed to track down the book he wanted
+		</example>
+	</word>
+	<word>
+		<name>rot</name>
+		<explanationEnglish>to (cause to) decay</explanationEnglish>
+		<explanationPolish>zgnic</explanationPolish>
+	</word>
+	<word>
+		<name>enhancement</name>
+		<explanationPolish>ulepszenie</explanationPolish>
+	</word>
+</words>
