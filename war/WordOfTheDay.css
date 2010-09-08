@@ -12,7 +12,7 @@ margin:25px 50px 75px 100px;
 }
 
 .total {
-	height: 600px;
+	height: 750px;
 	float: center;
 }
 
@@ -63,6 +63,34 @@ h2 {
 	font-size: 1em;
 }
 
+.wordOfTheDayRight {
+	text-align: right;
+	color: #acc8d7;
+	font-size: 1em;
+}
+
+.advancedTableHeader {
+	color: #777777;
+	text-align: center;
+	font-size: 3em;
+}
+
+.advancedTableRow {
+}
+
+.advancedTableSelectedRow {
+	text-align: center;
+	color: #777777;
+	font-size: 1em;
+	
+}
+
+.highlight {
+	text-align: center;
+	color: #ff189S4;
+	font-size: 1em;
+}
+
 .addWord {
 	text-align: left;
 }
@@ -90,14 +118,14 @@ h2 {
 }
 
 .gwt-Button {
-  margin: 100;
-  padding: 3px 5px;
-  text-decoration: none;
-  font-size: small;
-  cursor: pointer;
-  cursor: hand;
-  background: url("images/hborder.png") repeat-x 0px -27px;
-  border: 1px outset #ccc;
+	margin: 100;
+	padding: 3px 5px;
+	text-decoration: none;
+	font-size: small;
+	cursor: pointer;
+	cursor: hand;
+	background: url("images/hborder.png") repeat-x 0px -27px;
+	border: 1px outset #ccc;
 }
 
 .name {

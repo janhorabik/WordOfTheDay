@@ -16,7 +16,8 @@ import com.google.gwt.user.client.ui.TextBox;
 
 public class Login {
 
-	public void initiate(RootPanel rootPanel, Home home, Dashboard dashboard) {
+	public void initiate(RootPanel rootPanel, Home home, Dashboard dashboard,
+			boolean loginUpdateNeeded) {
 		boolean isHome = (home != null);
 		final TextBox login = new TextBox();
 		login.setText("youremail@email.com");
@@ -53,11 +54,11 @@ public class Login {
 
 		AskServer askServerIfLogedIn = new AskServerIfLogedIn();
 		LoginUpdater loginCheckUpdater = new LoginUpdater(loginNamePanel,
-				askServerIfLogedIn, null, home, dashboard);
+				askServerIfLogedIn, null, home, dashboard, loginUpdateNeeded);
 
 		AskServer askServerToLogin = new AskServerToLogin(login, password);
 		LoginUpdater loginUpdater = new LoginUpdater(loginNamePanel,
-				askServerToLogin, loginButton, home, dashboard);
+				askServerToLogin, loginButton, home, dashboard, true);
 
 		AskServer askServerToCreateAccount = new AskServerToCreateAccount(login);
 		MyPopup myPopup2 = new MyPopup("Create an account",
@@ -65,6 +66,6 @@ public class Login {
 
 		AskServer askServerToLogout = new AskServerToLogout();
 		LoginUpdater logoutUpdater = new LoginUpdater(loginNamePanel,
-				askServerToLogout, logoutButton, home, dashboard);
+				askServerToLogout, logoutButton, home, dashboard, true);
 	}
 }

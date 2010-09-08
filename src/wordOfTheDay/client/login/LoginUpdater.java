@@ -11,11 +11,11 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.RootPanel;
 
 public class LoginUpdater implements ServerResponse, ClickHandler {
-	public LoginUpdater(HorizontalPanel loginNamePanel2, AskServer askServerArg,
-			Button loginButton, Home homeArg, Dashboard dashboardArg) {
+	public LoginUpdater(HorizontalPanel loginNamePanel2,
+			AskServer askServerArg, Button loginButton, Home homeArg,
+			Dashboard dashboardArg, boolean loginUpdateNeededArg) {
 		loginNamePanel = loginNamePanel2;
 		askServer = askServerArg;
 		if (loginButton != null) {
@@ -25,6 +25,7 @@ public class LoginUpdater implements ServerResponse, ClickHandler {
 		}
 		home = homeArg;
 		dashboard = dashboardArg;
+		loginUpdateNeeded = loginUpdateNeededArg;
 	}
 
 	public void error(String error) {
@@ -35,7 +36,7 @@ public class LoginUpdater implements ServerResponse, ClickHandler {
 		loginNamePanel.clear();
 		loginNamePanel
 				.add(new HTML("<div id='date'>Hello " + reply + "</div>"));
-		if (home != null) {
+		if (home != null && loginUpdateNeeded) {
 			home.initiate();
 		}
 		if (dashboard != null) {
@@ -45,11 +46,11 @@ public class LoginUpdater implements ServerResponse, ClickHandler {
 
 	public void onClick(ClickEvent event) {
 		askServer.askServer(this);
-
 	}
 
 	private AskServer askServer;
 	private HorizontalPanel loginNamePanel;
 	private Home home;
 	private Dashboard dashboard;
+	private boolean loginUpdateNeeded;
 }

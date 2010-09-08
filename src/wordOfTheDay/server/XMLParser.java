@@ -23,6 +23,8 @@ public class XMLParser {
 	public static String initiateWords(ByteArrayInputStream stream, String email) {
 		try {
 			log.info("initiate words started");
+			LinkedList<PersistentWord18> wordsToSave = new LinkedList<PersistentWord18>();
+			int youngestDate = PMF.getYoungestAvailableDate(email);
 			Document document = DocumentBuilderFactory.newInstance()
 					.newDocumentBuilder().parse(stream);
 			NodeList words = document.getElementsByTagName("word");
@@ -48,18 +50,16 @@ public class XMLParser {
 					log.info("saving: " + name + explanation + usage.size());
 					if (name != null && explanation != null
 							&& (!name.equals("")) && (!explanation.equals(""))) {
-						log.info("making persistent");
-						PersistenceManager pm = PMF.get()
-								.getPersistenceManager();
-						pm
-								.makePersistent(new PersistentWord14(name,
-										explanation, usage,
-										PMF.getYoungestAvailableDate(email),
-										email));
+						wordsToSave.add(new PersistentWord18(name, explanation,
+								usage, youngestDate, email));
+						youngestDate = Date.getNextDay(youngestDate);
 					}
 				} finally {
 				}
 			}
+			PersistenceManager pm = PMF.get().getPersistenceManager();
+			log.info("saving " + wordsToSave.size() + " words");
+			pm.makePersistentAll(wordsToSave);
 			return "Words have been initiated";
 		} catch (Exception e) {
 			return "An error occured while parsing the file: " + e.toString();
@@ -67,10 +67,10 @@ public class XMLParser {
 	}
 
 	public static String export(String email) {
-		List<PersistentWord14> words = PMF.getAllWords(email);
+		List<PersistentWord18> words = PMF.getAllWords(email);
 		String ret = new String();
 		ret += "<?xml version='1.0' encoding='UTF-8'?><words>";
-		for (PersistentWord14 word : words) {
+		for (PersistentWord18 word : words) {
 			ret += "<word><name>" + word.getName()
 					+ "</name><explanationEnglish>" + word.getExplanation()
 					+ "</explanationEnglish>";

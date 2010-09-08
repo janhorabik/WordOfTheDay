@@ -2,7 +2,7 @@ package wordOfTheDay.client.home;
 
 import wordOfTheDay.client.DateHelper;
 import wordOfTheDay.client.DayChoice2;
-import wordOfTheDay.client.Word5;
+import wordOfTheDay.client.Word6;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
@@ -24,7 +24,7 @@ public class Home {
 		wordPanel = wordPanelArg;
 	}
 
-	private DayChoice2 dayChoiceFromParam(String s) {
+	public static DayChoice2 dayChoiceFromParam(String s) {
 		System.out.println("day choice from param: " + s);
 		if (s == null || s.equals(""))
 			return DayChoice2.TODAY;
@@ -35,7 +35,6 @@ public class Home {
 		if (s.equals("p"))
 			return DayChoice2.YESTERDAY;
 		return DayChoice2.TODAY;
-
 	}
 
 	private int dateFromParam(String p) {
@@ -53,7 +52,7 @@ public class Home {
 		System.out.println(dayChoice);
 
 		getTodaysService.getTodaysWord(date, dayChoice,
-				new AsyncCallback<Word5>() {
+				new AsyncCallback<Word6>() {
 					public void onFailure(Throwable caught) {
 						wordPanel.clear();
 						wordPanel.add(new HTML(
@@ -61,14 +60,10 @@ public class Home {
 										+ caught.getMessage()));
 					}
 
-					public void onSuccess(Word5 result) {
+					public void onSuccess(Word6 result) {
 						HTML html = new HTML();
-						// String hello = (result.getEmail() == null) ? ""
-						// : result.getEmail();
 						String h = new String(
-								/*
-								 * hello +
-								 */"<div id='date'>"
+								"<div id='date'>"
 										+ (result.isPreviousDayPossible() ? "<a href='WordOfTheDay.html?date="
 												+ result.getDate()
 												+ "&dayChoice=p'>&nbsp;&nbsp;previous&nbsp;&nbsp;</a>"

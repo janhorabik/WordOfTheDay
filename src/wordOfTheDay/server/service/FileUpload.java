@@ -25,7 +25,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import wordOfTheDay.server.PMF;
-import wordOfTheDay.server.PersistentWord14;
+import wordOfTheDay.server.PersistentWord18;
 import wordOfTheDay.server.XMLParser;
 
 public class FileUpload extends HttpServlet {

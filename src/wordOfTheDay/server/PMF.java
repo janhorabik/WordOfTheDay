@@ -7,7 +7,7 @@ import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 
-import wordOfTheDay.client.Word5;
+import wordOfTheDay.client.Word6;
 
 public final class PMF {
 	private static final PersistenceManagerFactory pmfInstance = JDOHelper
@@ -20,46 +20,48 @@ public final class PMF {
 		return pmfInstance;
 	}
 
-	public static Word5 persistentWordToWord(PersistentWord14 persistentWord2) {
+	public static Word6 persistentWordToWord(PersistentWord18 persistentWord2) {
 		return persistentWordToWordWithPreviousPossible(persistentWord2,
 				hasPreviousThen(persistentWord2.getDate()));
 	}
 
-	public static Word5 persistentWordToWordWithPreviousPossible(
-			PersistentWord14 persistentWord2, boolean previousPossible) {
+	public static Word6 persistentWordToWordWithPreviousPossible(
+			PersistentWord18 persistentWord2, boolean previousPossible) {
+		System.out.println("convertion of " + persistentWord2);
 		boolean nextPossible = Date.getCurrentDate() > persistentWord2
 				.getDate();
-		return new Word5(persistentWord2.getName(), persistentWord2
+		return new Word6(persistentWord2.getName(), persistentWord2
 				.getExplanation(),
 				persistentWord2.getUsage() == null ? new LinkedList<String>()
 						: new LinkedList<String>(persistentWord2.getUsage()),
-				persistentWord2.getDate(), previousPossible, nextPossible,
+				persistentWord2.getDate(), previousPossible, nextPossible, Date
+						.getCurrentDate() == persistentWord2.getDate(),
 				persistentWord2.getEmail());
 	}
 
 	private static boolean hasPreviousThen(int date) {
 		PersistenceManager pm = pmfInstance.getPersistenceManager();
-		String query = "select from " + PersistentWord14.class.getName()
+		String query = "select from " + PersistentWord18.class.getName()
 				+ " where date < " + date;
-		return !((List<PersistentWord14>) pm.newQuery(query).execute())
+		return !((List<PersistentWord18>) pm.newQuery(query).execute())
 				.isEmpty();
 	}
 
-	public static List<PersistentWord14> getAllWords(String email) {
+	public static List<PersistentWord18> getAllWords(String email) {
 		email = getSQLString(email);
 		PersistenceManager pm = pmfInstance.getPersistenceManager();
-		String query = "select from " + PersistentWord14.class.getName()
+		String query = "select from " + PersistentWord18.class.getName()
 				+ " where email == " + email + " order by date ";
 		System.out.println("query: " + query);
-		return (List<PersistentWord14>) pm.newQuery(query).execute();
+		return (List<PersistentWord18>) pm.newQuery(query).execute();
 	}
 
-	public static PersistentWord14 getWord(WordKey wordKey) {
+	public static PersistentWord18 getWord(WordKey wordKey) {
 
 		try {
 			PersistenceManager pm = pmfInstance.getPersistenceManager();
-			PersistentWord14 word = pm.getObjectById(PersistentWord14.class,
-					PersistentWord14.generateKey(wordKey.getEmail(), wordKey
+			PersistentWord18 word = pm.getObjectById(PersistentWord18.class,
+					PersistentWord18.generateKey(wordKey.getEmail(), wordKey
 							.getDate()));
 			System.out.println(word + " got from db");
 			return word;
@@ -82,9 +84,9 @@ public final class PMF {
 	public static int getYoungestAvailableDate(String email) {
 		email = getSQLString(email);
 		PersistenceManager pm = pmfInstance.getPersistenceManager();
-		String query = "SELECT FROM " + PersistentWord14.class.getName()
+		String query = "SELECT FROM " + PersistentWord18.class.getName()
 				+ " where email == " + email + " ORDER BY date DESC LIMIT 1";
-		List<PersistentWord14> list = (List<PersistentWord14>) pm.newQuery(
+		List<PersistentWord18> list = (List<PersistentWord18>) pm.newQuery(
 				query).execute();
 		if (list.isEmpty())
 			return Date.getCurrentDate();
@@ -137,7 +139,7 @@ public final class PMF {
 	public static void deleteAllWords(String email) {
 		PersistenceManager pmi = PMF.get().getPersistenceManager();
 		email = getSQLString(email);
-		String query = "select from " + PersistentWord14.class.getName()
+		String query = "select from " + PersistentWord18.class.getName()
 				+ " where email == " + email;
 		pmi.newQuery(query).deletePersistentAll();
 	}
