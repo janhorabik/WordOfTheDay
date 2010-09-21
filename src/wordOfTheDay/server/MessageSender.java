@@ -11,6 +11,7 @@ public class MessageSender {
 	public static boolean sendMessage(String from, String topic, String text,
 			String to, String smtp) {
 		Properties props = System.getProperties();
+		
 		props.put("mail.smtp.host", smtp);
 		Session session = Session.getDefaultInstance(props, null);
 		session.setDebug(true);

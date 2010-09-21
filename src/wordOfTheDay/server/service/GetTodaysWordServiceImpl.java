@@ -4,11 +4,11 @@ import java.util.LinkedList;
 import java.util.logging.Logger;
 
 import wordOfTheDay.client.DayChoice2;
-import wordOfTheDay.client.Word6;
+import wordOfTheDay.client.Word7;
 import wordOfTheDay.client.home.GetTodaysWordService;
 import wordOfTheDay.server.Date;
 import wordOfTheDay.server.PMF;
-import wordOfTheDay.server.PersistentWord20;
+import wordOfTheDay.server.PersistentWord22;
 import wordOfTheDay.server.WordKey;
 import wordOfTheDay.server.WordsCache;
 
@@ -31,7 +31,7 @@ public class GetTodaysWordServiceImpl extends RemoteServiceServlet implements
 	// for users not logged in
 	public static final String defaultEmail = "janhorabik@gmail.com";
 
-	public Word6 getTodaysWord(int date, DayChoice2 dayChoice) {
+	public Word7 getTodaysWord(int date, DayChoice2 dayChoice) {
 		log.warning("gettingWord entered");
 		String email = (String) this.getThreadLocalRequest().getSession()
 				.getAttribute("email");
@@ -50,7 +50,7 @@ public class GetTodaysWordServiceImpl extends RemoteServiceServlet implements
 		System.out.println("day: " + date);
 		log.warning("getting Word: getting instance of WordsCache");
 		WordKey wordKey = new WordKey(date, email);
-		Word6 word = WordsCache.getInstance().get(wordKey);
+		Word7 word = WordsCache.getInstance().get(wordKey);
 		log.warning("getting Word: instance of WordsCache got - finish");
 		if (word != null) {
 			log.warning("word got from cache: " + word.getDate()
@@ -58,7 +58,7 @@ public class GetTodaysWordServiceImpl extends RemoteServiceServlet implements
 			return word;
 		}
 		log.warning("Word not found - getting from DB");
-		PersistentWord20 persistentWord = PMF.getWord(wordKey);
+		PersistentWord22 persistentWord = PMF.getWord(wordKey);
 		if (persistentWord != null) {
 			log.severe("Word got from DB - converting start");
 			word = PMF.persistentWordToWord(persistentWord);
@@ -67,7 +67,7 @@ public class GetTodaysWordServiceImpl extends RemoteServiceServlet implements
 			return word;
 		}
 		log.warning("getting Word: returning empty word");
-		return new Word6("", "", new LinkedList<String>(), Date
+		return new Word7("", "", new LinkedList<String>(), Date
 				.getCurrentDate(), false, false, false, email, null);
 	}
 }

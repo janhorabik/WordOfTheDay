@@ -25,7 +25,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import wordOfTheDay.server.PMF;
-import wordOfTheDay.server.PersistentWord20;
+import wordOfTheDay.server.PersistentWord22;
 import wordOfTheDay.server.XMLParser;
 
 public class FileUpload extends HttpServlet {
@@ -35,6 +35,7 @@ public class FileUpload extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		try {
+			
 			ServletFileUpload upload = new ServletFileUpload();
 			res.setContentType("text/plain");
 

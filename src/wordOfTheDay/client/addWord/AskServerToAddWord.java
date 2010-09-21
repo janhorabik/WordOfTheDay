@@ -3,7 +3,7 @@ package wordOfTheDay.client.addWord;
 import java.util.LinkedList;
 import java.util.List;
 
-import wordOfTheDay.client.Word6;
+import wordOfTheDay.client.Word7;
 import wordOfTheDay.client.MyPopup.AskServer;
 import wordOfTheDay.client.MyPopup.ServerResponse;
 
@@ -46,8 +46,10 @@ class AskServerToAddWord implements AskServer {
 		List<String> example = new LinkedList<String>();
 		example.add(usage);
 		String tag = tagField.getText();
-		addWordService.addWord(new Word6(name, explanation, example, 0, false,
-				false, false, null, tag), new AsyncCallback<String>() {
+		List<String> tags = new LinkedList<String>();
+		tags.add(tag);
+		addWordService.addWord(new Word7(name, explanation, example, 0, false,
+				false, false, null, tags), new AsyncCallback<String>() {
 			public void onFailure(Throwable caught) {
 				serverResponse.error(caught.toString());
 				clearFields();

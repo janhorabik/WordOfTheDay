@@ -9,7 +9,7 @@ import javax.jdo.PersistenceManagerFactory;
 
 import com.google.appengine.api.datastore.Query;
 
-import wordOfTheDay.client.Word6;
+import wordOfTheDay.client.Word7;
 
 public final class PMF {
 	private static final PersistenceManagerFactory pmfInstance = JDOHelper
@@ -22,51 +22,52 @@ public final class PMF {
 		return pmfInstance;
 	}
 
-	public static Word6 persistentWordToWord(PersistentWord20 persistentWord2) {
+	public static Word7 persistentWordToWord(PersistentWord22 persistentWord2) {
 		return persistentWordToWordWithPreviousPossible(persistentWord2,
 				hasPreviousThen(persistentWord2));
 	}
 
-	public static Word6 persistentWordToWordWithPreviousPossible(
-			PersistentWord20 persistentWord2, boolean previousPossible) {
-		System.out.println("convertion of " + persistentWord2);
-		boolean nextPossible = Date.getCurrentDate() > persistentWord2
-				.getDate();
-		return new Word6(persistentWord2.getName(), persistentWord2
+	public static Word7 persistentWordToWordWithPreviousPossible(
+			PersistentWord22 persistentWord, boolean previousPossible) {
+		System.out.println("convertion of " + persistentWord);
+		boolean nextPossible = Date.getCurrentDate() > persistentWord.getDate();
+		return new Word7(persistentWord.getName(), persistentWord
 				.getExplanation(),
-				persistentWord2.getUsage() == null ? new LinkedList<String>()
-						: new LinkedList<String>(persistentWord2.getUsage()),
-				persistentWord2.getDate(), previousPossible, nextPossible, Date
-						.getCurrentDate() == persistentWord2.getDate(),
-				persistentWord2.getEmail(), persistentWord2.getTag());
+				persistentWord.getUsage() == null ? new LinkedList<String>()
+						: new LinkedList<String>(persistentWord.getUsage()),
+				persistentWord.getDate(), previousPossible, nextPossible, Date
+						.getCurrentDate() == persistentWord.getDate(),
+				persistentWord.getEmail(),
+				persistentWord.getTags() == null ? new LinkedList<String>()
+						: new LinkedList<String>(persistentWord.getTags()));
 	}
 
-	private static boolean hasPreviousThen(PersistentWord20 word) {
+	private static boolean hasPreviousThen(PersistentWord22 word) {
 		PersistenceManager pm = pmfInstance.getPersistenceManager();
-		String query = "SELECT FROM " + PersistentWord20.class.getName()
-				+ " where email == " + word.getEmail() + " && date < "
+		String query = "SELECT FROM " + PersistentWord22.class.getName()
+				+ " where email == '" + word.getEmail() + "' && date < "
 				+ word.getDate();
-		List<PersistentWord20> list = (List<PersistentWord20>) pm.newQuery(
+		List<PersistentWord22> list = (List<PersistentWord22>) pm.newQuery(
 				query).execute();
 		System.out.println("size: " + list.size());
 		return !list.isEmpty();
 	}
 
-	public static List<PersistentWord20> getAllWords(String email) {
+	public static List<PersistentWord22> getAllWords(String email) {
 		email = getSQLString(email);
 		PersistenceManager pm = pmfInstance.getPersistenceManager();
-		String query = "select from " + PersistentWord20.class.getName()
+		String query = "select from " + PersistentWord22.class.getName()
 				+ " where email == " + email + " order by date ";
 		System.out.println("query: " + query);
-		return (List<PersistentWord20>) pm.newQuery(query).execute();
+		return (List<PersistentWord22>) pm.newQuery(query).execute();
 	}
 
-	public static PersistentWord20 getWord(WordKey wordKey) {
+	public static PersistentWord22 getWord(WordKey wordKey) {
 
 		try {
 			PersistenceManager pm = pmfInstance.getPersistenceManager();
-			PersistentWord20 word = pm.getObjectById(PersistentWord20.class,
-					PersistentWord20.generateKey(wordKey.getEmail(), wordKey
+			PersistentWord22 word = pm.getObjectById(PersistentWord22.class,
+					PersistentWord22.generateKey(wordKey.getEmail(), wordKey
 							.getDate()));
 			System.out.println(word + " got from db");
 			return word;
@@ -89,9 +90,9 @@ public final class PMF {
 	public static int getYoungestAvailableDate(String email) {
 		email = getSQLString(email);
 		PersistenceManager pm = pmfInstance.getPersistenceManager();
-		String query = "SELECT FROM " + PersistentWord20.class.getName()
+		String query = "SELECT FROM " + PersistentWord22.class.getName()
 				+ " where email == " + email + " ORDER BY date DESC LIMIT 1";
-		List<PersistentWord20> list = (List<PersistentWord20>) pm.newQuery(
+		List<PersistentWord22> list = (List<PersistentWord22>) pm.newQuery(
 				query).execute();
 		if (list.isEmpty())
 			return Date.getCurrentDate();
@@ -144,7 +145,7 @@ public final class PMF {
 	public static void deleteAllWords(String email) {
 		PersistenceManager pmi = PMF.get().getPersistenceManager();
 		email = getSQLString(email);
-		String query = "select from " + PersistentWord20.class.getName()
+		String query = "select from " + PersistentWord22.class.getName()
 				+ " where email == " + email;
 		pmi.newQuery(query).deletePersistentAll();
 	}

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Vector;
 
 import wordOfTheDay.client.DateHelper;
-import wordOfTheDay.client.Word6;
+import wordOfTheDay.client.Word7;
 import wordOfTheDay.client.advancedTable.GWTAdvancedTableExample;
 
 import com.google.gwt.core.client.GWT;
