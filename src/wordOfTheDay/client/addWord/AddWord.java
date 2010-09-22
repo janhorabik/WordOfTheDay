@@ -7,7 +7,9 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -39,6 +41,18 @@ public class AddWord {
 		final TextArea exampleField = new TextArea();
 		exampleField.addStyleName("textArea");
 
+		// tag
+		final Label tagLabel = new Label();
+		tagLabel.setText("Tag:");
+		tagLabel.addStyleName("wordOfTheDay");
+
+		MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
+		oracle.add("English");
+		oracle.add("French");
+		oracle.add("German");
+		oracle.add("Spanish");
+		SuggestBox tagField = new SuggestBox(oracle);
+
 		// submit
 		final Button sendButton = new Button("send");
 		sendButton.addStyleName("submit");
@@ -51,11 +65,14 @@ public class AddWord {
 		table.setWidget(1, 1, explanationField);
 		table.setWidget(2, 0, exampleLabel);
 		table.setWidget(2, 1, exampleField);
-		table.setWidget(3, 0, sendButton);
+		table.setWidget(3, 0, tagLabel);
+		table.setWidget(3, 1, tagField);
+		table.setWidget(4, 0, sendButton);
 		addWordPanel.add(table);
+
 		// Create the popup dialog box
 		AskServer askServer = new AskServerToAddWord(nameField,
-				explanationField, exampleField);
+				explanationField, exampleField, tagField);
 		MyPopup myPopup = new MyPopup("Add Word", askServer, sendButton);
 	}
 }

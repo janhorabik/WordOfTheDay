@@ -8,7 +8,7 @@ import wordOfTheDay.client.Word6;
 import wordOfTheDay.client.home.GetTodaysWordService;
 import wordOfTheDay.server.Date;
 import wordOfTheDay.server.PMF;
-import wordOfTheDay.server.PersistentWord18;
+import wordOfTheDay.server.PersistentWord20;
 import wordOfTheDay.server.WordKey;
 import wordOfTheDay.server.WordsCache;
 
@@ -52,13 +52,13 @@ public class GetTodaysWordServiceImpl extends RemoteServiceServlet implements
 		WordKey wordKey = new WordKey(date, email);
 		Word6 word = WordsCache.getInstance().get(wordKey);
 		log.warning("getting Word: instance of WordsCache got - finish");
-		if (word != null)
-		{
-			log.warning("word got from cache: " + word.getDate() + word.getEmail() + word.getName());
+		if (word != null) {
+			log.warning("word got from cache: " + word.getDate()
+					+ word.getEmail() + word.getName());
 			return word;
 		}
 		log.warning("Word not found - getting from DB");
-		PersistentWord18 persistentWord = PMF.getWord(wordKey);
+		PersistentWord20 persistentWord = PMF.getWord(wordKey);
 		if (persistentWord != null) {
 			log.severe("Word got from DB - converting start");
 			word = PMF.persistentWordToWord(persistentWord);
@@ -68,6 +68,6 @@ public class GetTodaysWordServiceImpl extends RemoteServiceServlet implements
 		}
 		log.warning("getting Word: returning empty word");
 		return new Word6("", "", new LinkedList<String>(), Date
-				.getCurrentDate(), false, false, false, email);
+				.getCurrentDate(), false, false, false, email, null);
 	}
 }

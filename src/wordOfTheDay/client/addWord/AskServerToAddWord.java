@@ -9,6 +9,7 @@ import wordOfTheDay.client.MyPopup.ServerResponse;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 
@@ -16,14 +17,17 @@ class AskServerToAddWord implements AskServer {
 	private TextBox nameField;
 	private TextArea explanationField;
 	private TextArea exampleField;
+	private SuggestBox tagField;
 	private final AddWordServiceAsync addWordService = GWT
 			.create(AddWordService.class);
 
 	public AskServerToAddWord(final TextBox nameField,
-			final TextArea explanationField, final TextArea exampleField) {
+			final TextArea explanationField, final TextArea exampleField,
+			SuggestBox tagField2) {
 		this.nameField = nameField;
 		this.explanationField = explanationField;
 		this.exampleField = exampleField;
+		this.tagField = tagField2;
 	}
 
 	private void clearFields() {
@@ -31,6 +35,7 @@ class AskServerToAddWord implements AskServer {
 		this.nameField.setText("");
 		this.explanationField.setText("");
 		this.exampleField.setText("");
+		this.tagField.setText("");
 	}
 
 	public void askServer(final ServerResponse serverResponse) {
@@ -40,8 +45,9 @@ class AskServerToAddWord implements AskServer {
 		String usage = exampleField.getText();
 		List<String> example = new LinkedList<String>();
 		example.add(usage);
+		String tag = tagField.getText();
 		addWordService.addWord(new Word6(name, explanation, example, 0, false,
-				false, false, null), new AsyncCallback<String>() {
+				false, false, null, tag), new AsyncCallback<String>() {
 			public void onFailure(Throwable caught) {
 				serverResponse.error(caught.toString());
 				clearFields();
