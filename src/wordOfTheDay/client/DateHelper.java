@@ -16,8 +16,15 @@ public class DateHelper {
 		ret += getSimpleString(getDay(date));
 		return ret;
 	}
-	
-	
+
+	public static Integer toIntWithoutSpace(String date) {
+		// "2010-02-13"
+		String[] tokens = date.split("-");
+		return 10000 * Integer.parseInt(tokens[0]) + 100
+				* Integer.parseInt(tokens[1]) + Integer.parseInt(tokens[2]);
+
+	}
+
 	public static String getSimpleString(int number) {
 		String ret = new String();
 		if (number >= 10)

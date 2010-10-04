@@ -45,7 +45,7 @@ public class Home {
 
 	public void initiate() {
 		wordPanel.clear();
-		wordPanel.add(new HTML("Connecting..."));
+		wordPanel.add(new HTML("<img src='Loading.gif'/>"));
 		final int date = dateFromParam(Window.Location.getParameter("date"));
 		DayChoice2 dayChoice = dayChoiceFromParam(Window.Location
 				.getParameter("dayChoice"));

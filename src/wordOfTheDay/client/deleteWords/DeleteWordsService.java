@@ -1,5 +1,7 @@
 package wordOfTheDay.client.deleteWords;
 
+import java.util.List;
+
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -9,4 +11,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("deleteWordsServlet")
 public interface DeleteWordsService extends RemoteService {
 	String deleteWords();
+
+	String deleteWords(List<String> dates);
 }

@@ -10,9 +10,12 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class MyPopup {
 	private final DialogBox dialogBox = new DialogBox();
 	private final HTML serverResponseLabel = new HTML();
+	private final boolean showPopup;
 
 	public MyPopup(String title, final AskServer askServer,
-			final Button sendButton) {
+			final Button sendButton, boolean showPopupArg) {
+		System.out.println("popup");
+		showPopup = showPopupArg;
 		dialogBox.setText(title);
 		dialogBox.setAnimationEnabled(true);
 		final Button closeButton = new Button("Close");
@@ -31,19 +34,25 @@ public class MyPopup {
 
 		class MyHandler implements ClickHandler, ServerResponse {
 			public void onClick(ClickEvent event) {
+				System.out.println("handler called");
 				askServer.askServer(this);
 			}
 
 			public void error(String error) {
 				serverResponseLabel
-						.setHTML("An error occured while connecting the service: " + error);
+						.setHTML("An error occured while connecting the service: "
+								+ error);
 				serverResponseLabel.addStyleName("serverResponseLabelError");
-				dialogBox.center();
+				if (showPopup) {
+					dialogBox.center();
+				}
 			}
 
 			public void serverReplied(String reply) {
 				serverResponseLabel.setHTML(reply);
-				dialogBox.center();
+				if (showPopup) {
+					dialogBox.center();
+				}
 			}
 		}
 		MyHandler handler = new MyHandler();

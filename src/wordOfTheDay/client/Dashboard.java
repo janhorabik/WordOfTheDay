@@ -26,6 +26,8 @@ public class Dashboard {
 
 	private RootPanel rootPanel;
 
+	public static final int listNum = 3;
+
 	public void initiate(String reply) {
 		rootPanel.clear();
 		if (reply.equals("Anonymous")) {
@@ -57,13 +59,13 @@ public class Dashboard {
 
 		// List Words tab
 		final VerticalPanel listWordsPanel = new VerticalPanel();
-		final ListWords listWords = new ListWords();
-		listWords.initiateListWords(listWordsPanel);
+		final ListWords listWords = new ListWords(listWordsPanel);
+		listWords.initiate();
 		tabPanel.add(listWordsPanel, "List Words");
 		tabPanel.addSelectionHandler(new SelectionHandler<Integer>() {
 			public void onSelection(SelectionEvent<Integer> event) {
-				if (event.getSelectedItem() == 3) {
-					listWords.initiateListWords(listWordsPanel);
+				if (event.getSelectedItem() == listNum) {
+					listWords.initiate();
 				}
 			}
 		});

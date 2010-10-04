@@ -37,7 +37,7 @@ public class DownloadXml {
 
 		AskServer askServer = new AskServerToDownloadFile(downloadForm);
 		MyPopup mypopup = new MyPopup("Send file", askServer,
-				downloadSubmitButton);
+				downloadSubmitButton, true);
 
 	}
 }

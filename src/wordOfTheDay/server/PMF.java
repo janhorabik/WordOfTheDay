@@ -9,6 +9,7 @@ import javax.jdo.PersistenceManagerFactory;
 
 import com.google.appengine.api.datastore.Query;
 
+import wordOfTheDay.client.DateHelper;
 import wordOfTheDay.client.Word7;
 
 public final class PMF {
@@ -155,5 +156,22 @@ public final class PMF {
 			return "NULL";
 		else
 			return value = "'" + value + "'";
+	}
+
+	public static void deleteWords(String email, List<String> dates) {
+		System.out.println("delete words " + dates);
+		for (String date : dates) {
+			deleteWord(email, date);
+		}
+	}
+
+	private static void deleteWord(String email, String date) {
+		System.out.println("delete " + date);
+		PersistenceManager pmi = PMF.get().getPersistenceManager();
+		email = getSQLString(email);
+		Integer dateInt = DateHelper.toIntWithoutSpace(date);
+		String query = "select FROM " + PersistentWord22.class.getName()
+				+ " where email == " + email + " && date == " + dateInt;
+		pmi.newQuery(query).deletePersistentAll();
 	}
 }

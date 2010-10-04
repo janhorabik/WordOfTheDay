@@ -62,7 +62,7 @@ public class Login {
 
 		AskServer askServerToCreateAccount = new AskServerToCreateAccount(login);
 		MyPopup myPopup2 = new MyPopup("Create an account",
-				askServerToCreateAccount, createAccountButton);
+				askServerToCreateAccount, createAccountButton, true);
 
 		AskServer askServerToLogout = new AskServerToLogout();
 		LoginUpdater logoutUpdater = new LoginUpdater(loginNamePanel,

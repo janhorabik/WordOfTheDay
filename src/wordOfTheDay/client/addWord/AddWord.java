@@ -73,6 +73,6 @@ public class AddWord {
 		// Create the popup dialog box
 		AskServer askServer = new AskServerToAddWord(nameField,
 				explanationField, exampleField, tagField);
-		MyPopup myPopup = new MyPopup("Add Word", askServer, sendButton);
+		MyPopup myPopup = new MyPopup("Add Word", askServer, sendButton, true);
 	}
 }

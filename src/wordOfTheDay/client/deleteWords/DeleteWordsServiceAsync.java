@@ -1,5 +1,7 @@
 package wordOfTheDay.client.deleteWords;
 
+import java.util.List;
+
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
@@ -7,4 +9,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  */
 public interface DeleteWordsServiceAsync {
 	public void deleteWords(AsyncCallback<String> callback);
+
+	void deleteWords(List<String> dates, AsyncCallback<String> callback);
 }

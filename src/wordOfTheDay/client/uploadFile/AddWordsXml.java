@@ -49,7 +49,7 @@ public class AddWordsXml {
 
 		AskServer askServer = new AskServerToUploadFile(uploadForm);
 		MyPopup mypopup = new MyPopup("Send file", askServer,
-				uploadSubmitButton);
+				uploadSubmitButton, true);
 
 	}
 }

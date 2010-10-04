@@ -17,6 +17,6 @@ public class DeleteWords {
 		deleteWordsPanel.add(deleteButton);
 
 		AskServer askServer = new AskServerToDeleteWords();
-		MyPopup myPopup = new MyPopup("Delete words", askServer, deleteButton);
+		MyPopup myPopup = new MyPopup("Delete words", askServer, deleteButton, true);
 	}
 }
