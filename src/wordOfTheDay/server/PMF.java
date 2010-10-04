@@ -39,8 +39,8 @@ public final class PMF {
 				persistentWord.getDate(), previousPossible, nextPossible, Date
 						.getCurrentDate() == persistentWord.getDate(),
 				persistentWord.getEmail(),
-				persistentWord.getTags() == null ? new LinkedList<String>()
-						: new LinkedList<String>(persistentWord.getTags()));
+				persistentWord.getLabels() == null ? new LinkedList<String>()
+						: new LinkedList<String>(persistentWord.getLabels()));
 	}
 
 	private static boolean hasPreviousThen(PersistentWord22 word) {

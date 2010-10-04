@@ -23,7 +23,7 @@ public class AddWordServiceImpl extends RemoteServiceServlet implements
 		
 		pm.makePersistent(new PersistentWord22(word.getName(), word
 				.getExplanation(), word.getUsage(), PMF
-				.getYoungestAvailableDate(email), email, word.getTags()));
+				.getYoungestAvailableDate(email), email, word.getLabels()));
 		return "Word added";
 	}
 }

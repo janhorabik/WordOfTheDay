@@ -43,7 +43,7 @@ public class AddWord {
 
 		// tag
 		final Label tagLabel = new Label();
-		tagLabel.setText("Tag:");
+		tagLabel.setText("Label:");
 		tagLabel.addStyleName("wordOfTheDay");
 
 		MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();

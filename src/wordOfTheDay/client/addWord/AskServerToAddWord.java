@@ -48,6 +48,10 @@ class AskServerToAddWord implements AskServer {
 		String tag = tagField.getText();
 		List<String> tags = new LinkedList<String>();
 		tags.add(tag);
+		if (name.equals("")) {
+			serverResponse.serverReplied("Name of the word cannot be empty");
+			return;
+		}
 		addWordService.addWord(new Word7(name, explanation, example, 0, false,
 				false, false, null, tags), new AsyncCallback<String>() {
 			public void onFailure(Throwable caught) {
