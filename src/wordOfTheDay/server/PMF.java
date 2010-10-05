@@ -158,6 +158,21 @@ public final class PMF {
 			return value = "'" + value + "'";
 	}
 
+	// in (20100908, 20100919) does not work
+	public static void fastDeleteWords(String email, List<String> dates) {
+		List<Integer> intDates = DateHelper.toIntWithoutSpace(dates);
+		String query = "select from " + PersistentWord22.class.getName()
+				+ " where email == " + getSQLString(email) + " && date in (";
+		for (Integer integer : intDates) {
+			query += "'" + integer + "', ";
+		}
+		query = query.substring(0, query.length() - 2);
+		query += ")";
+		PersistenceManager pmi = PMF.get().getPersistenceManager();
+		System.out.println("runnig query: delete: " + query);
+		pmi.newQuery(query).deletePersistentAll();
+	}
+
 	public static void deleteWords(String email, List<String> dates) {
 		System.out.println("delete words " + dates);
 		for (String date : dates) {

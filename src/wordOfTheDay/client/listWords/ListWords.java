@@ -7,9 +7,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ListWords {
 
-	private final ListWordsServiceAsync listWordsService = GWT
-			.create(ListWordsService.class);
-
 	public ListWords(final VerticalPanel listWordsPanelArg) {
 		listWordsPanel = listWordsPanelArg;
 	}

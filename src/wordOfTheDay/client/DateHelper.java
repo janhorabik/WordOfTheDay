@@ -1,5 +1,8 @@
 package wordOfTheDay.client;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class DateHelper {
 	public static String toString(int date) {
 		String ret = new String();
@@ -14,6 +17,14 @@ public class DateHelper {
 		ret += getYear(date) + "-";
 		ret += getSimpleString(getMonth(date)) + "-";
 		ret += getSimpleString(getDay(date));
+		return ret;
+	}
+
+	public static List<Integer> toIntWithoutSpace(List<String> dates) {
+		List<Integer> ret = new LinkedList<Integer>();
+		for (String date : dates) {
+			ret.add(toIntWithoutSpace(date));
+		}
 		return ret;
 	}
 
