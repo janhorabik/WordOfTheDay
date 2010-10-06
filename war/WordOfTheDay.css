@@ -69,22 +69,39 @@ h2 {
 	font-size: 1em;
 }
 
+/************************ ADVANCED TABLE  *****************/
+
+.advancedTable {
+	border: 3px solid #777777;
+}
+
 .advancedTableHeader {
 	color: #777777;
 	text-align: center;
-	font-size: 3em;
+	font-size: 16em;
+	border: 3px solid #777777;
 }
 
 .advancedTableRow {
-}
-
-.advancedTableSelectedRow {
 	text-align: center;
-	color: #777777;
+	color: #acc8d7;
 	font-size: 1em;
-	
+	border: 1px solid #777777;
 }
 
+.advancedTableRow:hover{
+	background: #282c31;
+}
+
+.advancedTableCheckedRow {
+	text-align: center;
+	color: #acc8d7;
+	font-size: 1em;
+	border: 1px solid #777777;
+	background-color: #CCFFCC;
+}
+
+/************************************************************/
 .highlight {
 	text-align: center;
 	color: #ff189S4;

@@ -1,8 +1,5 @@
 package wordOfTheDay.client.listWords;
 
-import wordOfTheDay.client.advancedTable.GWTAdvancedTableExample;
-
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ListWords {
@@ -13,7 +10,7 @@ public class ListWords {
 
 	public void initiate() {
 		listWordsPanel.clear();
-		GWTAdvancedTableExample example = new GWTAdvancedTableExample();
+		ListWordsWithAdvancedTable example = new ListWordsWithAdvancedTable();
 		example.onModuleLoad(listWordsPanel, this);
 
 	}

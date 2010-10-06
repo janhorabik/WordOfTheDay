@@ -10,7 +10,7 @@ import javax.jdo.PersistenceManagerFactory;
 import com.google.appengine.api.datastore.Query;
 
 import wordOfTheDay.client.DateHelper;
-import wordOfTheDay.client.Word7;
+import wordOfTheDay.client.Word8;
 
 public final class PMF {
 	private static final PersistenceManagerFactory pmfInstance = JDOHelper
@@ -23,16 +23,16 @@ public final class PMF {
 		return pmfInstance;
 	}
 
-	public static Word7 persistentWordToWord(PersistentWord22 persistentWord2) {
+	public static Word8 persistentWordToWord(PersistentWord22 persistentWord2) {
 		return persistentWordToWordWithPreviousPossible(persistentWord2,
 				hasPreviousThen(persistentWord2));
 	}
 
-	public static Word7 persistentWordToWordWithPreviousPossible(
+	public static Word8 persistentWordToWordWithPreviousPossible(
 			PersistentWord22 persistentWord, boolean previousPossible) {
 		System.out.println("convertion of " + persistentWord);
 		boolean nextPossible = Date.getCurrentDate() > persistentWord.getDate();
-		return new Word7(persistentWord.getName(), persistentWord
+		return new Word8(persistentWord.getName(), persistentWord
 				.getExplanation(),
 				persistentWord.getUsage() == null ? new LinkedList<String>()
 						: new LinkedList<String>(persistentWord.getUsage()),

@@ -2,7 +2,7 @@ package wordOfTheDay.client.home;
 
 import wordOfTheDay.client.DateHelper;
 import wordOfTheDay.client.DayChoice2;
-import wordOfTheDay.client.Word7;
+import wordOfTheDay.client.Word8;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
@@ -52,7 +52,7 @@ public class Home {
 		System.out.println(dayChoice);
 
 		getTodaysService.getTodaysWord(date, dayChoice,
-				new AsyncCallback<Word7>() {
+				new AsyncCallback<Word8>() {
 					public void onFailure(Throwable caught) {
 						wordPanel.clear();
 						wordPanel.add(new HTML(
@@ -60,7 +60,7 @@ public class Home {
 										+ caught.getMessage()));
 					}
 
-					public void onSuccess(Word7 result) {
+					public void onSuccess(Word8 result) {
 						HTML html = new HTML();
 						String h = new String(
 								"<div id='date'>"

@@ -3,7 +3,7 @@ package wordOfTheDay.client.addWord;
 import java.util.LinkedList;
 import java.util.List;
 
-import wordOfTheDay.client.Word7;
+import wordOfTheDay.client.Word8;
 import wordOfTheDay.client.MyPopup.AskServer;
 import wordOfTheDay.client.MyPopup.ServerResponse;
 
@@ -52,7 +52,7 @@ class AskServerToAddWord implements AskServer {
 			serverResponse.serverReplied("Name of the word cannot be empty");
 			return;
 		}
-		addWordService.addWord(new Word7(name, explanation, example, 0, false,
+		addWordService.addWord(new Word8(name, explanation, example, 0, false,
 				false, false, null, tags), new AsyncCallback<String>() {
 			public void onFailure(Throwable caught) {
 				serverResponse.error(caught.toString());

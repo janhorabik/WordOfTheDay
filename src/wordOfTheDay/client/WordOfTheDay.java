@@ -1,11 +1,11 @@
 package wordOfTheDay.client;
 
 import wordOfTheDay.client.advancedTable.AdvancedTable;
-import wordOfTheDay.client.advancedTable.GWTAdvancedTableExample;
 import wordOfTheDay.client.advancedTable.TableModelServiceAsync;
 import wordOfTheDay.client.home.GetTodaysWordService;
 import wordOfTheDay.client.home.GetTodaysWordServiceAsync;
 import wordOfTheDay.client.home.Home;
+import wordOfTheDay.client.listWords.ListWordsWithAdvancedTable;
 import wordOfTheDay.client.login.Login;
 
 import com.google.gwt.core.client.EntryPoint;

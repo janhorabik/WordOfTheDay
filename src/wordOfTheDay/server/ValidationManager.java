@@ -3,7 +3,7 @@ package wordOfTheDay.server;
 public final class ValidationManager {
 	public static String validate(String input) {
 		if (input == null || input.equals(""))
-			input = "_";
+			input = " ";
 		char[] charsInput = input.toCharArray();
 		String regex = "[#<>`~]";
 		for (int i = 0; i < charsInput.length; i++) {
@@ -11,7 +11,7 @@ public final class ValidationManager {
 			charTable[0] = charsInput[i];
 			String charString = new String(charTable);
 			if (charString.matches(regex)) {
-				charsInput[i] = '_';
+				charsInput[i] = ' ';
 			}
 		}
 		return new String(charsInput);
