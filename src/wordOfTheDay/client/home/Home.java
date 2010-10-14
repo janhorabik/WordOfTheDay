@@ -23,9 +23,6 @@ import com.google.gwt.user.client.ui.RootPanel;
  */
 public class Home {
 
-	private final GetTodaysWordServiceAsync getTodaysService = GWT
-			.create(GetTodaysWordService.class);
-
 	private final ListWordsServiceAsync listWordsService = GWT
 			.create(ListWordsService.class);
 
@@ -78,6 +75,7 @@ public class Home {
 	}
 
 	public void updateWord() {
+		// has some data
 		if (currentIndexOfWord != -1) {
 			Word9 word9 = words.get(currentIndexOfWord);
 			date = word9.getDate();
@@ -108,6 +106,8 @@ public class Home {
 		this.image.setVisible(true);
 		listWordsService.listWords(new AsyncCallback<Vector<Word9>>() {
 			public void onFailure(Throwable caught) {
+				System.out.println(caught);
+				wordName.setText(caught.toString());
 			}
 
 			public void onSuccess(Vector<Word9> result) {
@@ -126,47 +126,10 @@ public class Home {
 					}
 				}
 				currentIndexOfWord = -1;
+				todayIndex = -1;
+				image.setVisible(false);
 			}
 		});
-
-		// getTodaysService.getTodaysWord(date, dayChoice,
-		// new AsyncCallback<Word9>() {
-		// public void onFailure(Throwable caught) {
-		// setAllVisible(false);
-		// wordName
-		// .setText("Error while connecting to the service: "
-		// + caught.getMessage());
-		// wordName.setVisible(true);
-		// }
-		//
-		// public void onSuccess(Word9 result) {
-		// setAllVisible(true);
-		// image.setVisible(false);
-		// dayChoice = DayChoice2.TODAY;
-		// previousLink.setVisible(result.isPreviousDayPossible());
-		// previousLink.addClickHandler(new ClickHandler() {
-		// public void onClick(ClickEvent event) {
-		// dayChoice = DayChoice2.YESTERDAY;
-		// --currentIndexOfWord;
-		// update();
-		// }
-		// });
-		// date = result.getDate();
-		// dateLabel
-		// .setText(DateHelper.toString(result.getDate()));
-		// nextLink.setVisible(result.isNextDayPossible());
-		// nextLink.addClickHandler(new ClickHandler() {
-		// public void onClick(ClickEvent event) {
-		// dayChoice = DayChoice2.TOMORROW;
-		// update();
-		// }
-		// });
-		// wordName.setText(result.getName());
-		// meaningValue.setText(result.getExplanation());
-		// if (!result.getUsage().isEmpty())
-		// exampleValue.setText(result.getUsage().get(0));
-		// }
-		// });
 	}
 
 	public void initiate() {

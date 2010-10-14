@@ -31,7 +31,7 @@ public class ListWordsServiceImpl extends RemoteServiceServlet implements
 		String email = (String) this.getThreadLocalRequest().getSession()
 				.getAttribute("email");
 		if (email == null)
-			email = "NULL";
+			email = GetTodaysWordServiceImpl.defaultEmail;
 		log.warning("list words get all words");
 		List<PersistentWord24> persistentWords = PMF.getAllWords(email);
 		log.warning("list words - all words got");
@@ -40,7 +40,7 @@ public class ListWordsServiceImpl extends RemoteServiceServlet implements
 			ret.add(PMF.persistentWordToWordWithPreviousPossible(
 					persistentWord, true));
 		}
-//		ret.get(0).setPreviousDayPossible(false);
+		// ret.get(0).setPreviousDayPossible(false);
 		log.warning("words converted");
 		// Collections.sort(ret);
 		// log.warning("words sorted");
