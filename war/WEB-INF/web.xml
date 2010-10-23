@@ -96,17 +96,6 @@
 		<url-pattern>/wordoftheday/cronServlet</url-pattern>
 	</servlet-mapping>
 
-	<!-- AdvancedTable -->
-	<servlet>
-		<servlet-name>tableModelServlet</servlet-name>
-		<servlet-class>wordOfTheDay.server.advancedTable.UsersTableModelServiceImpl</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>tableModelServlet</servlet-name>
-		<url-pattern>/wordoftheday/tableModelServlet</url-pattern>
-	</servlet-mapping>
-
 	<!-- Default page to serve -->
 	<welcome-file-list>
 		<welcome-file>WordOfTheDay.html</welcome-file>

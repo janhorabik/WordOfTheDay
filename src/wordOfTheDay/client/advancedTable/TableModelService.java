@@ -21,13 +21,12 @@
 
 package wordOfTheDay.client.advancedTable;
 
-import com.google.gwt.user.client.rpc.RemoteService;
-import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-//@RemoteServiceRelativePath("tableModelServlet")
-public interface TableModelService extends RemoteService {
+public interface TableModelService {
 	public TableColumn[] getColumns();
+
 	public int getRowsCount(DataFilter[] filters);
+
 	public String[][] getRows(int startRow, int rowsCount,
-		DataFilter[] filters, String sortColumn, boolean sortOrder);
+			DataFilter[] filters, String sortColumn, boolean sortOrder);
 }

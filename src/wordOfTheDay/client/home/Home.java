@@ -11,7 +11,6 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Anchor;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
@@ -28,12 +27,12 @@ public class Home implements DatabaseUpdatedNotifier {
 	public Home(final RootPanel wordPanelArg, DatabaseOnClient database) {
 		this.database = database;
 		wordPanel = wordPanelArg;
-
 		wordPanel.clear();
 		wordPanel.add(image);
+		wordPanel.add(titleLabel);
 		HorizontalPanel dateLinkPanel = new HorizontalPanel();
 		dateLinkPanel.setWidth("100%");
-//		dateLinkPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_CENTER);
+		// dateLinkPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_CENTER);
 		dateLinkPanel.add(previousLink);
 		dateLinkPanel.add(dateLabel);
 		dateLinkPanel.add(nextLink);
@@ -45,6 +44,7 @@ public class Home implements DatabaseUpdatedNotifier {
 		wordPanel.add(exampleValue);
 
 		dateLabel.setStyleName("date");
+		titleLabel.setStyleName("h1");
 		wordName.setStyleName("name");
 		meaningLabel.setStyleName("label");
 		meaningValue.setStyleName("explanation");
@@ -66,6 +66,7 @@ public class Home implements DatabaseUpdatedNotifier {
 	}
 
 	private void setAllVisible(boolean visible) {
+		this.titleLabel.setVisible(visible);
 		this.previousLink.setVisible(visible);
 		this.dateLabel.setVisible(visible);
 		this.nextLink.setVisible(visible);
@@ -140,6 +141,8 @@ public class Home implements DatabaseUpdatedNotifier {
 	private final RootPanel wordPanel;
 
 	private final Anchor previousLink = new Anchor("previous");
+
+	private final Label titleLabel = new Label("Word of the day");
 
 	private final Label dateLabel = new Label();
 

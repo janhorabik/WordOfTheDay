@@ -12,6 +12,7 @@ import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.ui.DecoratedTabPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -85,6 +86,9 @@ public class Dashboard implements DatabaseUpdatedNotifier {
 		tabPanel.add(downloadWordsPanel, "Download Words");
 
 		tabPanel.selectTab(0);
+		Label l = new Label("Word of the day");
+		l.setStyleName("h1");
+		rootPanel.add(l);
 		rootPanel.add(tabPanel);
 	}
 

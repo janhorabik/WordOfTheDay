@@ -18,7 +18,7 @@ public class ListWords {
 	public void initiate() {
 		listWordsPanel.clear();
 		ListWordsWithAdvancedTable example = new ListWordsWithAdvancedTable();
-		example.onModuleLoad(listWordsPanel, this, this.database);
+		example.initiate(listWordsPanel, this, this.database);
 	}
 
 	private VerticalPanel listWordsPanel;

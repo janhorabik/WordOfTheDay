@@ -56,7 +56,7 @@
 	float: right;
 }
 
-h1 {
+.h1 {
 	font-size: 40px;
 	font-weight: bold;
 	color: #777777;
@@ -218,3 +218,19 @@ h2 {
 #footer a:hover {
 	color: #d7ebf6;
 }
+
+/************** Tree ******************/
+.gwt-Tree .gwt-TreeItem {
+  padding: 1px 0px;
+  margin: 0px;
+  white-space: nowrap;
+  cursor: hand;
+  cursor: pointer;
+  color: #c0b8a9;
+}
+
+.gwt-Tree .gwt-TreeItem-selected {
+  color: #d7ebf6;
+}
+
+/***************************************/

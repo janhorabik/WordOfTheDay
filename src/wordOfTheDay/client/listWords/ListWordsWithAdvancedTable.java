@@ -14,70 +14,42 @@ import wordOfTheDay.client.MyPopup.MyPopup;
 import wordOfTheDay.client.advancedTable.AdvancedTable;
 import wordOfTheDay.client.advancedTable.CheckBoxesListener;
 import wordOfTheDay.client.advancedTable.DataFilter;
+import wordOfTheDay.client.advancedTable.LabelExactFilter;
 import wordOfTheDay.client.advancedTable.RowSelectionListener;
-import wordOfTheDay.client.advancedTable.ServiceUtils;
 import wordOfTheDay.client.advancedTable.TableColumn;
 import wordOfTheDay.client.advancedTable.TableModelService;
-import wordOfTheDay.client.advancedTable.TableModelServiceAsync;
 import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
 
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Tree;
+import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-class Stub implements TableModelServiceAsync, TableModelService {
-
-	public TableColumn[] getColumns() {
-		TableColumn[] columns = new TableColumn[2];
-		columns[0] = new TableColumn("sss", "sss");
-		columns[1] = new TableColumn("sss", "sss");
-		return columns;
-	}
-
-	public String[][] getRows(int startRow, int rowsCount,
-			DataFilter[] filters, String sortColumn, boolean sortOrder) {
-		String[][] rows = new String[rowsCount + 5][5];
-		return rows;
-	}
-
-	public int getRowsCount(DataFilter[] filters) {
-		return 2;
-	}
-
-	public void getColumns(AsyncCallback callback) {
-		callback.onSuccess(getColumns());
-	}
-
-	public void getRows(int startRow, int rowsCount, DataFilter[] filters,
-			String sortColumn, boolean sortOrder, AsyncCallback callback) {
-		callback.onSuccess(getRows(startRow, rowsCount, filters, sortColumn,
-				sortOrder));
-	}
-
-	public void getRowsCount(DataFilter[] filters, AsyncCallback callback) {
-		callback.onSuccess(getRowsCount(filters));
-	}
-
-}
-
 public class ListWordsWithAdvancedTable implements CheckBoxesListener {
 
-	public void onModuleLoad(VerticalPanel rootPanel, ListWords listWords,
+	private DatabaseOnClient database;
+
+	private Button buttonRemoveSelected;
+
+	private AdvancedTable table;
+
+	public void initiate(VerticalPanel rootPanel, ListWords listWords,
 			DatabaseOnClient database) {
 
-		final AdvancedTable table = new AdvancedTable();
+		this.database = database;
+		table = new AdvancedTable();
 		table.setSize("990px", "400px");
 		table.setPageSize(10);
 		table.addCheckBoxesListener(this);
-		TableModelServiceAsync usersTableService = ServiceUtils
-				.getTableModelServiceAsync();
-		LocalGetWordsServiceImpl serice = new LocalGetWordsServiceImpl(
-				database);
+		LocalGetWordsServiceImpl serice = new LocalGetWordsServiceImpl(database);
 		table.setTableModelService(serice);
 		table.addRowSelectionListener(new RowSelectionListener() {
 			public void onRowSelected(AdvancedTable sender, String rowId) {
@@ -99,7 +71,8 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener {
 		buttonApplyFilter.addClickListener(new ClickListener() {
 			public void onClick(Widget sender) {
 				String filterText = textBoxFilter.getText();
-				DataFilter filter = new DataFilter("keyword", filterText);
+				DataFilter filter = new wordOfTheDay.client.advancedTable.SearchFilter(
+						filterText);
 				DataFilter[] filters = { filter };
 				table.applyFilters(filters);
 			}
@@ -120,12 +93,31 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener {
 				buttonRemoveSelected, false);
 
 		rootPanel.add(horizontalPanel);
-		rootPanel.add(table);
+		HorizontalPanel tablePanel = new HorizontalPanel();
+		tablePanel.add(createTree());
+		tablePanel.add(table);
+		rootPanel.add(tablePanel);
+	}
+
+	private Tree createTree() {
+		Tree tree = new Tree();
+		for (String label : database.getLabels()) {
+			TreeItem item = tree.addItem(label);
+		}
+		tree.addSelectionHandler(new SelectionHandler<TreeItem>() {
+			public void onSelection(SelectionEvent<TreeItem> event) {
+				String labelToFilter = event.getSelectedItem().getText();
+				DataFilter filter = new LabelExactFilter(labelToFilter);
+				DataFilter[] filters = { filter };
+				table.applyFilters(filters);
+			}
+		});
+
+		return tree;
 	}
 
 	public void checkBoxesChanged(boolean someRowsSelected) {
 		buttonRemoveSelected.setVisible(someRowsSelected);
 	}
 
-	private Button buttonRemoveSelected;
 }
