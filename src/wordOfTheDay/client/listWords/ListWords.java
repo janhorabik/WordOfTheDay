@@ -1,20 +1,24 @@
 package wordOfTheDay.client.listWords;
 
+import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
 import wordOfTheDay.client.home.Home;
 
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ListWords {
 
-	public ListWords(final VerticalPanel listWordsPanelArg) {
+	private DatabaseOnClient database;
+
+	public ListWords(final VerticalPanel listWordsPanelArg,
+			DatabaseOnClient database) {
 		listWordsPanel = listWordsPanelArg;
+		this.database = database;
 	}
 
-	public void initiate(Home home) {
+	public void initiate() {
 		listWordsPanel.clear();
 		ListWordsWithAdvancedTable example = new ListWordsWithAdvancedTable();
-		example.onModuleLoad(listWordsPanel, this, home);
-
+		example.onModuleLoad(listWordsPanel, this, this.database);
 	}
 
 	private VerticalPanel listWordsPanel;

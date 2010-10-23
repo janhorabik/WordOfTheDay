@@ -1,6 +1,5 @@
 package wordOfTheDay.client.login;
 
-import wordOfTheDay.client.LoginResult;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

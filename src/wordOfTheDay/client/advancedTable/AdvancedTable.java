@@ -73,7 +73,7 @@ public class AdvancedTable extends Composite {
 	private int pageSize = DEFAULT_PAGE_SIZE;
 	private boolean firstColumnVisible = true;
 	private boolean allowRowMark = true;
-	private TableModelServiceAsync tableModelService;
+	private TableModelService tableModelService;
 	private TableColumn[] columns;
 	private DataFilter[] filters;
 	private String[][] pageRows;
@@ -93,7 +93,7 @@ public class AdvancedTable extends Composite {
 		final DockPanel contentDockPanel = new DockPanel();
 		initWidget(contentDockPanel);
 		contentDockPanel.setSize("100%", "100%");
-		// this.setSize(DEFAULT_TABLE_WIDTH, DEFAULT_TABLE_HEIGHT);
+		this.setSize(DEFAULT_TABLE_WIDTH, DEFAULT_TABLE_HEIGHT);
 
 		scrollPanelGrid = new ScrollPanel();
 		scrollPanelGrid.setSize("100%", "100%");
@@ -241,7 +241,7 @@ public class AdvancedTable extends Composite {
 	/**
 	 * @return the current table data source (TableModelService).
 	 */
-	public TableModelServiceAsync getTableModelService() {
+	public TableModelService getTableModelService() {
 		return this.tableModelService;
 	}
 
@@ -290,7 +290,7 @@ public class AdvancedTable extends Composite {
 	 * the information coming from the server and redraws the table contents
 	 * (column titles and data rows).
 	 */
-	public void setTableModelService(TableModelServiceAsync tableModelService) {
+	public void setTableModelService(TableModelService tableModelService) {
 		this.tableModelService = tableModelService;
 		this.updateTableColumns(new AsyncCallback() {
 			public void onFailure(Throwable caught) {
@@ -321,17 +321,9 @@ public class AdvancedTable extends Composite {
 	 * the server.
 	 */
 	private void updateTableColumns(final AsyncCallback completedCallback) {
-		this.tableModelService.getColumns(new AsyncCallback() {
-			public void onFailure(Throwable caught) {
-				completedCallback.onFailure(caught);
-			}
-
-			public void onSuccess(Object result) {
-				TableColumn[] columns = (TableColumn[]) result;
-				AdvancedTable.this.updateTableColumns(columns);
-				completedCallback.onSuccess(result);
-			}
-		});
+		TableColumn[] columns = this.tableModelService.getColumns();
+		updateTableColumns(columns);
+		completedCallback.onSuccess(columns);
 	}
 
 	private void updateTableColumns(TableColumn[] newColumns) {
@@ -389,6 +381,7 @@ public class AdvancedTable extends Composite {
 		// 1 header row + pageSize data rows
 		grid.resizeRows(1 + this.pageSize);
 
+		// TODO uncomment
 		this.updateRowsCount(new AsyncCallback() {
 			public void onFailure(Throwable caught) {
 				AdvancedTable.this.showStatus(
@@ -458,17 +451,9 @@ public class AdvancedTable extends Composite {
 	}
 
 	private void updateRowsCount(final AsyncCallback completedCallback) {
-		this.tableModelService.getRowsCount(this.filters, new AsyncCallback() {
-			public void onFailure(Throwable caught) {
-				completedCallback.onFailure(caught);
-			}
-
-			public void onSuccess(Object result) {
-				int count = ((Integer) result).intValue();
-				AdvancedTable.this.totalRowsCount = count;
-				completedCallback.onSuccess(result);
-			}
-		});
+		int count = this.tableModelService.getRowsCount(this.filters);
+		totalRowsCount = count;
+		completedCallback.onSuccess(count);
 	}
 
 	public void updateRows() {
@@ -476,6 +461,7 @@ public class AdvancedTable extends Composite {
 
 		// Check for empty table - it is a special case
 		if (this.totalRowsCount == 0) {
+			// TODO uncomment
 			currentPageRowsCount = 0;
 			drawEmptyTable();
 			this.selectedRowIndex = NO_ROW_SELECTED;
@@ -497,20 +483,12 @@ public class AdvancedTable extends Composite {
 		}
 
 		// Asynchronously get rows from the server
-		this.tableModelService.getRows(this.currentPageStartRow,
-				this.currentPageRowsCount, this.filters, this.sortColumnName,
-				this.sortOrder, new AsyncCallback() {
-					public void onFailure(Throwable caught) {
-						AdvancedTable.this.showStatus(
-								"Can not get table rows data from the server.",
-								STATUS_ERROR);
-					}
-
-					public void onSuccess(Object result) {
-						AdvancedTable.this.pageRows = (String[][]) result;
-						AdvancedTable.this.redrawRows();
-					}
-				});
+		// TODO uncomment
+		String[][] result = this.tableModelService.getRows(
+				this.currentPageStartRow, this.currentPageRowsCount,
+				this.filters, this.sortColumnName, this.sortOrder);
+		this.pageRows = result;
+		redrawRows();
 	}
 
 	private int calcPagesCount() {
@@ -548,6 +526,7 @@ public class AdvancedTable extends Composite {
 			startDataColumn = 1;
 		}
 
+		// TODO UNCOMMENT
 		for (int row = 0; row < this.pageSize; row++) {
 			if (row < this.currentPageRowsCount) {
 				// Fill data row in the table
@@ -576,7 +555,7 @@ public class AdvancedTable extends Composite {
 		redrawSelectedRow();
 
 		redrawNavigationArea();
-
+		// TODO uncomment
 		fixGridSize();
 	}
 
@@ -620,7 +599,8 @@ public class AdvancedTable extends Composite {
 	private void redrawSelectedRow() {
 		RowFormatter gridRowFormatter = grid.getRowFormatter();
 		for (int row = 0; row < this.pageSize; row++) {
-			if (row < this.currentPageRowsCount) {
+			if (this.pageRows != null && row < this.pageRows.length
+					&& row < currentPageRowsCount) {
 				if (this.markedRows.contains(this.pageRows[row][0])) {
 					gridRowFormatter.setStyleName(row + 1, CHECKED_ROW_STYLE);
 				} else {
@@ -752,19 +732,9 @@ public class AdvancedTable extends Composite {
 	 */
 	public void markAllRows() {
 		// Asynchronously get all data rows from the server
-		this.tableModelService.getRows(0, this.totalRowsCount, this.filters,
-				null, false, new AsyncCallback() {
-					public void onFailure(Throwable caught) {
-						AdvancedTable.this.showStatus(
-								"Can not get table data rows from the server.",
-								STATUS_ERROR);
-					}
-
-					public void onSuccess(Object result) {
-						String[][] allTableRows = (String[][]) result;
-						AdvancedTable.this.markRows(allTableRows);
-					}
-				});
+		String[][] allTableRows = this.tableModelService.getRows(0,
+				this.totalRowsCount, this.filters, null, false);
+		AdvancedTable.this.markRows(allTableRows);
 	}
 
 	private void markRows(String[][] allTableRows) {

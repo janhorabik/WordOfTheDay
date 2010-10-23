@@ -1,9 +1,10 @@
 package wordOfTheDay.client;
 
 import wordOfTheDay.client.addWord.AddWord;
+import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
+import wordOfTheDay.client.dbOnClient.DatabaseUpdatedNotifier;
 import wordOfTheDay.client.deleteWords.DeleteWords;
 import wordOfTheDay.client.downloadFile.DownloadXml;
-import wordOfTheDay.client.home.Home;
 import wordOfTheDay.client.listWords.ListWords;
 import wordOfTheDay.client.uploadFile.AddWordsXml;
 
@@ -17,10 +18,14 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class Dashboard {
+public class Dashboard implements DatabaseUpdatedNotifier {
 
-	Dashboard(final RootPanel rootPanelArg) {
+	private DatabaseOnClient database;
+
+	Dashboard(final RootPanel rootPanelArg, DatabaseOnClient database) {
 		rootPanel = rootPanelArg;
+		this.database = database;
+		setVisible(false);
 	}
 
 	public void setVisible(boolean isVisible) {
@@ -31,9 +36,9 @@ public class Dashboard {
 
 	public static final int listNum = 3;
 
-	public void initiate(String reply, final Home home) {
+	public void initiate() {
 		rootPanel.clear();
-		if (reply.equals("Anonymous")) {
+		if (database.getLogin().equals("Anonymous")) {
 			rootPanel.add(new HTML("<div id='date'>Please log in.</div>"));
 			return;
 		}
@@ -45,7 +50,7 @@ public class Dashboard {
 		// Add Word tab
 		VerticalPanel addWordPanel = new VerticalPanel();
 		AddWord addWord = new AddWord();
-		addWord.initiateAddWord(addWordPanel, home);
+		addWord.initiateAddWord(addWordPanel, database);
 		tabPanel.add(addWordPanel, "Add Word");
 
 		// Add Words XML tab
@@ -62,13 +67,13 @@ public class Dashboard {
 
 		// List Words tab
 		final VerticalPanel listWordsPanel = new VerticalPanel();
-		final ListWords listWords = new ListWords(listWordsPanel);
-		listWords.initiate(home);
+		final ListWords listWords = new ListWords(listWordsPanel, database);
+		listWords.initiate();
 		tabPanel.add(listWordsPanel, "List Words");
 		tabPanel.addSelectionHandler(new SelectionHandler<Integer>() {
 			public void onSelection(SelectionEvent<Integer> event) {
 				if (event.getSelectedItem() == listNum) {
-					listWords.initiate(home);
+					listWords.initiate();
 				}
 			}
 		});
@@ -81,5 +86,9 @@ public class Dashboard {
 
 		tabPanel.selectTab(0);
 		rootPanel.add(tabPanel);
+	}
+
+	public void databaseUpdated() {
+		initiate();
 	}
 }

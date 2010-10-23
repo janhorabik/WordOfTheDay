@@ -8,6 +8,7 @@ import wordOfTheDay.client.Word9;
 import wordOfTheDay.client.MyPopup.AskServer;
 import wordOfTheDay.client.MyPopup.ServerResponse;
 import wordOfTheDay.client.advancedTable.AdvancedTable;
+import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
 import wordOfTheDay.client.deleteWords.DeleteWordsService;
 import wordOfTheDay.client.deleteWords.DeleteWordsServiceAsync;
 import wordOfTheDay.client.home.Home;
@@ -26,19 +27,20 @@ class AskServerToRemoveSelected implements AskServer {
 
 	private ListWords listWords;
 
-	private Home home;
+	private DatabaseOnClient database;
 
-	public AskServerToRemoveSelected(final AdvancedTable table, ListWords listWords, Home home) {
+	public AskServerToRemoveSelected(final AdvancedTable table,
+			ListWords listWords, DatabaseOnClient database) {
 		System.out.println("const");
 		this.table = table;
 		this.listWords = listWords;
-		this.home = home;
+		this.database = database;
 	}
 
 	private void clearFields() {
 		System.out.println("clear fields");
-		this.listWords.initiate(home);
-		this.home.update();
+		this.listWords.initiate();
+		this.database.update();
 	}
 
 	public void askServer(final ServerResponse serverResponse) {
@@ -47,7 +49,7 @@ class AskServerToRemoveSelected implements AskServer {
 		List<String> dates = new LinkedList<String>();
 		int i = 1;
 		for (Object o : set) {
-			dates.add((String)o);
+			dates.add((String) o);
 		}
 		System.out.println(set);
 		deleteWordService.deleteWords(dates, new AsyncCallback<String>() {

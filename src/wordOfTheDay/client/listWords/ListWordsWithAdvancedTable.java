@@ -16,9 +16,12 @@ import wordOfTheDay.client.advancedTable.CheckBoxesListener;
 import wordOfTheDay.client.advancedTable.DataFilter;
 import wordOfTheDay.client.advancedTable.RowSelectionListener;
 import wordOfTheDay.client.advancedTable.ServiceUtils;
+import wordOfTheDay.client.advancedTable.TableColumn;
+import wordOfTheDay.client.advancedTable.TableModelService;
 import wordOfTheDay.client.advancedTable.TableModelServiceAsync;
-import wordOfTheDay.client.home.Home;
+import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
 
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -27,23 +30,60 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+class Stub implements TableModelServiceAsync, TableModelService {
+
+	public TableColumn[] getColumns() {
+		TableColumn[] columns = new TableColumn[2];
+		columns[0] = new TableColumn("sss", "sss");
+		columns[1] = new TableColumn("sss", "sss");
+		return columns;
+	}
+
+	public String[][] getRows(int startRow, int rowsCount,
+			DataFilter[] filters, String sortColumn, boolean sortOrder) {
+		String[][] rows = new String[rowsCount + 5][5];
+		return rows;
+	}
+
+	public int getRowsCount(DataFilter[] filters) {
+		return 2;
+	}
+
+	public void getColumns(AsyncCallback callback) {
+		callback.onSuccess(getColumns());
+	}
+
+	public void getRows(int startRow, int rowsCount, DataFilter[] filters,
+			String sortColumn, boolean sortOrder, AsyncCallback callback) {
+		callback.onSuccess(getRows(startRow, rowsCount, filters, sortColumn,
+				sortOrder));
+	}
+
+	public void getRowsCount(DataFilter[] filters, AsyncCallback callback) {
+		callback.onSuccess(getRowsCount(filters));
+	}
+
+}
+
 public class ListWordsWithAdvancedTable implements CheckBoxesListener {
 
-	public void onModuleLoad(VerticalPanel rootPanel, ListWords listWords, Home home) {
+	public void onModuleLoad(VerticalPanel rootPanel, ListWords listWords,
+			DatabaseOnClient database) {
 
 		final AdvancedTable table = new AdvancedTable();
+		table.setSize("990px", "400px");
+		table.setPageSize(10);
 		table.addCheckBoxesListener(this);
 		TableModelServiceAsync usersTableService = ServiceUtils
 				.getTableModelServiceAsync();
-		table.setTableModelService(usersTableService);
+		LocalGetWordsServiceImpl serice = new LocalGetWordsServiceImpl(
+				database);
+		table.setTableModelService(serice);
 		table.addRowSelectionListener(new RowSelectionListener() {
 			public void onRowSelected(AdvancedTable sender, String rowId) {
 				System.out.println("Row " + rowId + " selected.");
 			}
 		});
-
-		table.setSize("990px", "400px");
-		table.setPageSize(10);
 
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(5);
@@ -74,7 +114,8 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener {
 		buttonRemoveSelected.setVisible(false);
 		horizontalPanel.add(buttonRemoveSelected);
 		buttonRemoveSelected.setWidth("100");
-		AskServer askServer = new AskServerToRemoveSelected(table, listWords, home);
+		AskServer askServer = new AskServerToRemoveSelected(table, listWords,
+				database);
 		MyPopup myPopup = new MyPopup("Remove words", askServer,
 				buttonRemoveSelected, false);
 

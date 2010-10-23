@@ -1,18 +1,17 @@
 package wordOfTheDay.client.home;
 
-import java.util.Vector;
-
 import wordOfTheDay.client.DateHelper;
-import wordOfTheDay.client.DayChoice2;
 import wordOfTheDay.client.Word9;
+import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
+import wordOfTheDay.client.dbOnClient.DatabaseUpdatedNotifier;
 import wordOfTheDay.client.listWords.ListWordsService;
 import wordOfTheDay.client.listWords.ListWordsServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
@@ -21,17 +20,20 @@ import com.google.gwt.user.client.ui.RootPanel;
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class Home {
+public class Home implements DatabaseUpdatedNotifier {
 
 	private final ListWordsServiceAsync listWordsService = GWT
 			.create(ListWordsService.class);
 
-	public Home(final RootPanel wordPanelArg) {
+	public Home(final RootPanel wordPanelArg, DatabaseOnClient database) {
+		this.database = database;
 		wordPanel = wordPanelArg;
+
 		wordPanel.clear();
 		wordPanel.add(image);
 		HorizontalPanel dateLinkPanel = new HorizontalPanel();
-		dateLinkPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_CENTER);
+		dateLinkPanel.setWidth("100%");
+//		dateLinkPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_CENTER);
 		dateLinkPanel.add(previousLink);
 		dateLinkPanel.add(dateLabel);
 		dateLinkPanel.add(nextLink);
@@ -60,6 +62,7 @@ public class Home {
 				updateWord();
 			}
 		});
+		setVisible(false);
 	}
 
 	private void setAllVisible(boolean visible) {
@@ -77,12 +80,12 @@ public class Home {
 	public void updateWord() {
 		// has some data
 		if (currentIndexOfWord != -1) {
-			Word9 word9 = words.get(currentIndexOfWord);
+			Word9 word9 = database.getWords().get(currentIndexOfWord);
 			date = word9.getDate();
 			previousLink.setVisible(currentIndexOfWord != 0);
 			dateLabel.setText(DateHelper.toString(date));
 			nextLink.setVisible(currentIndexOfWord != todayIndex
-					&& currentIndexOfWord != words.size() - 1);
+					&& currentIndexOfWord != database.getWords().size() - 1);
 			wordName.setText(word9.getName());
 			meaningValue.setText(word9.getExplanation());
 			if (!word9.getUsage().isEmpty())
@@ -104,32 +107,22 @@ public class Home {
 	public void update() {
 		setAllVisible(false);
 		this.image.setVisible(true);
-		listWordsService.listWords(new AsyncCallback<Vector<Word9>>() {
-			public void onFailure(Throwable caught) {
-				System.out.println(caught);
-				wordName.setText(caught.toString());
-			}
-
-			public void onSuccess(Vector<Word9> result) {
-				words = result;
-				date = getCurrentDate();
-				int i = -1;
-				for (Word9 word9 : result) {
-					++i;
-					if (word9.getDate() == date) {
-						currentIndexOfWord = i;
-						todayIndex = i;
-						setAllVisible(true);
-						image.setVisible(false);
-						updateWord();
-						return;
-					}
-				}
-				currentIndexOfWord = -1;
-				todayIndex = -1;
+		date = getCurrentDate();
+		int i = -1;
+		for (Word9 word9 : database.getWords()) {
+			++i;
+			if (word9.getDate() == date) {
+				currentIndexOfWord = i;
+				todayIndex = i;
+				setAllVisible(true);
 				image.setVisible(false);
+				updateWord();
+				return;
 			}
-		});
+		}
+		currentIndexOfWord = -1;
+		todayIndex = -1;
+		image.setVisible(/* true */false);
 	}
 
 	public void initiate() {
@@ -138,6 +131,10 @@ public class Home {
 
 	public void setVisible(boolean isVisible) {
 		wordPanel.setVisible(isVisible);
+	}
+
+	public void databaseUpdated() {
+		this.initiate();
 	}
 
 	private final RootPanel wordPanel;
@@ -162,9 +159,10 @@ public class Home {
 
 	private int date = 0;
 
-	Vector<Word9> words = new Vector<Word9>();
+	DatabaseOnClient database;
 
 	int currentIndexOfWord = -1;
 
 	int todayIndex = -1;
+
 }

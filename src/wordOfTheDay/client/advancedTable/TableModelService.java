@@ -24,7 +24,7 @@ package wordOfTheDay.client.advancedTable;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-@RemoteServiceRelativePath("tableModelServlet")
+//@RemoteServiceRelativePath("tableModelServlet")
 public interface TableModelService extends RemoteService {
 	public TableColumn[] getColumns();
 	public int getRowsCount(DataFilter[] filters);

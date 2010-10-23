@@ -6,6 +6,7 @@ import java.util.List;
 import wordOfTheDay.client.Word9;
 import wordOfTheDay.client.MyPopup.AskServer;
 import wordOfTheDay.client.MyPopup.ServerResponse;
+import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
 import wordOfTheDay.client.home.Home;
 
 import com.google.gwt.core.client.GWT;
@@ -21,16 +22,16 @@ class AskServerToAddWord implements AskServer {
 	private SuggestBox tagField;
 	private final AddWordServiceAsync addWordService = GWT
 			.create(AddWordService.class);
-	private Home home;
+	private DatabaseOnClient database;
 
 	public AskServerToAddWord(final TextBox nameField,
 			final TextArea explanationField, final TextArea exampleField,
-			SuggestBox tagField2, final Home home) {
+			SuggestBox tagField2, final DatabaseOnClient database) {
 		this.nameField = nameField;
 		this.explanationField = explanationField;
 		this.exampleField = exampleField;
 		this.tagField = tagField2;
-		this.home = home;
+		this.database = database;
 	}
 
 	private void clearFields() {
@@ -39,7 +40,7 @@ class AskServerToAddWord implements AskServer {
 		this.explanationField.setText("");
 		this.exampleField.setText("");
 		this.tagField.setText("");
-		this.home.update();
+		this.database.update();
 	}
 
 	public void askServer(final ServerResponse serverResponse) {

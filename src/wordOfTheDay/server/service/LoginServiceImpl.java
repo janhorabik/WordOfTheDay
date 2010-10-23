@@ -2,7 +2,7 @@ package wordOfTheDay.server.service;
 
 import java.util.logging.Logger;
 
-import wordOfTheDay.client.LoginResult;
+import wordOfTheDay.client.login.LoginResult;
 import wordOfTheDay.client.login.LoginService;
 import wordOfTheDay.server.MessageSender;
 import wordOfTheDay.server.PMF;

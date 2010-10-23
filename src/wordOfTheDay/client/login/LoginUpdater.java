@@ -1,10 +1,9 @@
 package wordOfTheDay.client.login;
 
-import wordOfTheDay.client.Dashboard;
 import wordOfTheDay.client.MyPopup.AskServer;
 import wordOfTheDay.client.MyPopup.MessageShower;
 import wordOfTheDay.client.MyPopup.ServerResponse;
-import wordOfTheDay.client.home.Home;
+import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -13,9 +12,10 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 
 public class LoginUpdater implements ServerResponse, ClickHandler {
+
 	public LoginUpdater(HorizontalPanel loginNamePanel2,
-			AskServer askServerArg, Button loginButton, Home homeArg,
-			Dashboard dashboardArg) {
+			AskServer askServerArg, Button loginButton,
+			DatabaseOnClient database) {
 		loginNamePanel = loginNamePanel2;
 		askServer = askServerArg;
 		if (loginButton != null) {
@@ -23,8 +23,7 @@ public class LoginUpdater implements ServerResponse, ClickHandler {
 		} else {
 			askServer.askServer(this);
 		}
-		home = homeArg;
-		dashboard = dashboardArg;
+		this.database = database;
 	}
 
 	public void error(String error) {
@@ -35,8 +34,8 @@ public class LoginUpdater implements ServerResponse, ClickHandler {
 		loginNamePanel.clear();
 		loginNamePanel
 				.add(new HTML("<div id='date'>Hello " + reply + "</div>"));
-		home.initiate();
-		dashboard.initiate(reply, home);
+		database.setLogin(reply);
+		database.update();
 	}
 
 	public void onClick(ClickEvent event) {
@@ -45,6 +44,5 @@ public class LoginUpdater implements ServerResponse, ClickHandler {
 
 	private AskServer askServer;
 	private HorizontalPanel loginNamePanel;
-	private Home home;
-	private Dashboard dashboard;
+	private DatabaseOnClient database;
 }

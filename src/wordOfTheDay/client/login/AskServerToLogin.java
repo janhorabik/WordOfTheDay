@@ -1,6 +1,5 @@
 package wordOfTheDay.client.login;
 
-import wordOfTheDay.client.LoginResult;
 import wordOfTheDay.client.WordOfTheDay;
 import wordOfTheDay.client.MyPopup.AskServer;
 import wordOfTheDay.client.MyPopup.ServerResponse;

@@ -2,6 +2,7 @@ package wordOfTheDay.client;
 
 import wordOfTheDay.client.advancedTable.AdvancedTable;
 import wordOfTheDay.client.advancedTable.TableModelServiceAsync;
+import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
 import wordOfTheDay.client.home.GetTodaysWordService;
 import wordOfTheDay.client.home.GetTodaysWordServiceAsync;
 import wordOfTheDay.client.home.Home;
@@ -19,23 +20,25 @@ import com.google.gwt.user.client.ui.RootPanel;
  */
 public class WordOfTheDay implements EntryPoint {
 
-	private final GetTodaysWordServiceAsync getTodaysService = GWT
-			.create(GetTodaysWordService.class);
+	private DatabaseOnClient database = new DatabaseOnClient();
 
 	public void onModuleLoad() {
-
 		final RootPanel homePanel = RootPanel.get("home");
-		Home home = new Home(homePanel);
-		home.initiate();
+		Home home = new Home(homePanel, database);
+		database.addNotifier(home);
+		// home.initiate();
 
 		final RootPanel dashboardPanel = RootPanel.get("dashboard");
-		Dashboard dashboard = new Dashboard(dashboardPanel);
-		dashboard.initiate("Anonymous", home);
+		Dashboard dashboard = new Dashboard(dashboardPanel, database);
+		database.addNotifier(dashboard);
+		// dashboard.initiate("Anonymous", home);
 
 		final RootPanel loginPanel = RootPanel.get("login");
-		Login login = new Login(loginPanel, home, dashboard);
+		Login login = new Login(loginPanel, home, dashboard, database);
+		database.addNotifier(login);
 
 		initiateFooter();
+//		database.update();
 	}
 
 	private void initiate(String id, String content) {

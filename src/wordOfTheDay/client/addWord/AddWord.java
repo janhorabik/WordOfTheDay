@@ -2,6 +2,7 @@ package wordOfTheDay.client.addWord;
 
 import wordOfTheDay.client.MyPopup.AskServer;
 import wordOfTheDay.client.MyPopup.MyPopup;
+import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
 import wordOfTheDay.client.home.Home;
 
 import com.google.gwt.user.client.ui.Button;
@@ -20,7 +21,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class AddWord {
 
-	public void initiateAddWord(final VerticalPanel addWordPanel, Home home) {
+	public void initiateAddWord(final VerticalPanel addWordPanel,
+			final DatabaseOnClient database) {
 		// name
 		final Label nameLabel = new Label();
 		nameLabel.setText("Word:");
@@ -48,10 +50,7 @@ public class AddWord {
 		tagLabel.addStyleName("wordOfTheDay");
 
 		MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
-		oracle.add("English");
-		oracle.add("French");
-		oracle.add("German");
-		oracle.add("Spanish");
+		oracle.addAll(database.getLabels());
 		SuggestBox tagField = new SuggestBox(oracle);
 
 		// submit
@@ -73,7 +72,7 @@ public class AddWord {
 
 		// Create the popup dialog box
 		AskServer askServer = new AskServerToAddWord(nameField,
-				explanationField, exampleField, tagField, home);
+				explanationField, exampleField, tagField, database);
 		MyPopup myPopup = new MyPopup("Add Word", askServer, sendButton, true);
 	}
 }
