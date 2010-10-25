@@ -1,6 +1,6 @@
 /************ Anchor ***********************************/
 .gwt-Anchor {
-	padding: 10px 10px 10px 10px;
+	padding: 3px 3px 3px 3px;
 	color: #c0b8a9;
 	text-decoration: none;
 	margin: 15px 15px 15px 15px;
@@ -26,10 +26,12 @@
 	height: 750px;
 	float: center;
 }
+
 /****** HorizontalPanel ***************************/
 .gwt-HorizontalPanel {
 	align: center;
 }
+
 /**************************************************/
 .simpleMargin {
 	margin: 10px 10px 10px 10px; /
@@ -112,7 +114,7 @@ h2 {
 	color: #acc8d7;
 	font-size: 1em;
 	border: 1px solid #777777;
-	background-color: #CCFFCC;
+	background-color: #42484e;
 }
 
 /************************************************************/
@@ -220,17 +222,14 @@ h2 {
 }
 
 /************** Tree ******************/
-.gwt-Tree .gwt-TreeItem {
-  padding: 1px 0px;
-  margin: 0px;
-  white-space: nowrap;
-  cursor: hand;
-  cursor: pointer;
-  color: #c0b8a9;
+.gwt-Tree {
+	margin: 5px;
 }
 
-.gwt-Tree .gwt-TreeItem-selected {
-  color: #d7ebf6;
+.gwt-Tree .gwt-TreeItem {
+	color: #c0b8a9;
+	margin: 5px;
+	padding: 1px 0px;
 }
 
 /***************************************/

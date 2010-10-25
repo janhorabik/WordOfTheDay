@@ -1,7 +1,5 @@
 package wordOfTheDay.client.dbOnClient;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,9 +7,6 @@ import java.util.Set;
 import java.util.Vector;
 
 import wordOfTheDay.client.Word9;
-import wordOfTheDay.client.advancedTable.DataFilter;
-import wordOfTheDay.client.advancedTable.TableColumn;
-import wordOfTheDay.client.advancedTable.TableModelService;
 import wordOfTheDay.client.listWords.ListWordsService;
 import wordOfTheDay.client.listWords.ListWordsServiceAsync;
 
@@ -49,6 +44,7 @@ public class DatabaseOnClient {
 
 			public void onSuccess(Vector<Word9> result) {
 				words = result;
+				labels.clear();
 				for (Word9 word9 : result) {
 					labels.addAll(word9.getLabels());
 				}

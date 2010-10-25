@@ -23,6 +23,7 @@ import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -101,8 +102,10 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener {
 
 	private Tree createTree() {
 		Tree tree = new Tree();
+		tree.setStyleName("wordoftheday");
 		for (String label : database.getLabels()) {
-			TreeItem item = tree.addItem(label);
+			TreeItem item = tree.addItem(new Anchor(label));
+			item.addItem("sub");
 		}
 		tree.addSelectionHandler(new SelectionHandler<TreeItem>() {
 			public void onSelection(SelectionEvent<TreeItem> event) {

@@ -23,28 +23,15 @@ public class Dashboard implements DatabaseUpdatedNotifier {
 
 	private DatabaseOnClient database;
 
+	DecoratedTabPanel tabPanel = new DecoratedTabPanel();
+
 	Dashboard(final RootPanel rootPanelArg, DatabaseOnClient database) {
 		rootPanel = rootPanelArg;
 		this.database = database;
-		setVisible(false);
-	}
-
-	public void setVisible(boolean isVisible) {
-		rootPanel.setVisible(isVisible);
-	}
-
-	private RootPanel rootPanel;
-
-	public static final int listNum = 3;
-
-	public void initiate() {
 		rootPanel.clear();
-		if (database.getLogin().equals("Anonymous")) {
-			rootPanel.add(new HTML("<div id='date'>Please log in.</div>"));
-			return;
-		}
+		rootPanel.add(notLoggedIn);
 		// Create a tab panel
-		DecoratedTabPanel tabPanel = new DecoratedTabPanel();
+
 		tabPanel.setWidth("1000px");
 		tabPanel.setAnimationEnabled(true);
 
@@ -68,7 +55,7 @@ public class Dashboard implements DatabaseUpdatedNotifier {
 
 		// List Words tab
 		final VerticalPanel listWordsPanel = new VerticalPanel();
-		final ListWords listWords = new ListWords(listWordsPanel, database);
+		listWords = new ListWords(listWordsPanel, database);
 		listWords.initiate();
 		tabPanel.add(listWordsPanel, "List Words");
 		tabPanel.addSelectionHandler(new SelectionHandler<Integer>() {
@@ -90,9 +77,86 @@ public class Dashboard implements DatabaseUpdatedNotifier {
 		l.setStyleName("h1");
 		rootPanel.add(l);
 		rootPanel.add(tabPanel);
+		setVisible(false);
+	}
+
+	public void setVisible(boolean isVisible) {
+		rootPanel.setVisible(isVisible);
+	}
+
+	private RootPanel rootPanel;
+
+	ListWords listWords = null;
+
+	private HTML notLoggedIn = new HTML("<div id='date'>Please log in.</div>");
+
+	public static final int listNum = 3;
+
+	public void initiate() {
+		// rootPanel.clear();
+		// if (database.getLogin().equals("Anonymous")) {
+		// rootPanel.add(new HTML("<div id='date'>Please log in.</div>"));
+		// return;
+		// }
+		// // Create a tab panel
+		// DecoratedTabPanel tabPanel = new DecoratedTabPanel();
+		// tabPanel.setWidth("1000px");
+		// tabPanel.setAnimationEnabled(true);
+		//
+		// // Add Word tab
+		// VerticalPanel addWordPanel = new VerticalPanel();
+		// AddWord addWord = new AddWord();
+		// addWord.initiateAddWord(addWordPanel, database);
+		// tabPanel.add(addWordPanel, "Add Word");
+		//
+		// // Add Words XML tab
+		// VerticalPanel addWordsXmlPanel = new VerticalPanel();
+		// AddWordsXml addWords = new AddWordsXml();
+		// addWords.initiateUploadFile(addWordsXmlPanel);
+		// tabPanel.add(addWordsXmlPanel, "Add Words from xml");
+		//
+		// // Delete Words tab
+		// VerticalPanel deleteWordsPanel = new VerticalPanel();
+		// DeleteWords deleteWords = new DeleteWords();
+		// deleteWords.initiateDeleteWords(deleteWordsPanel);
+		// tabPanel.add(deleteWordsPanel, "Delete Words");
+		//
+		// // List Words tab
+		// final VerticalPanel listWordsPanel = new VerticalPanel();
+		// listWords = new ListWords(listWordsPanel, database);
+		// listWords.initiate();
+		// tabPanel.add(listWordsPanel, "List Words");
+		// tabPanel.addSelectionHandler(new SelectionHandler<Integer>() {
+		// public void onSelection(SelectionEvent<Integer> event) {
+		// if (event.getSelectedItem() == listNum) {
+		// listWords.initiate();
+		// }
+		// }
+		// });
+		//
+		// // Download Words tab
+		// VerticalPanel downloadWordsPanel = new VerticalPanel();
+		// DownloadXml downloadXml = new DownloadXml();
+		// downloadXml.initiateDownloadFile(downloadWordsPanel);
+		// tabPanel.add(downloadWordsPanel, "Download Words");
+		//
+		// tabPanel.selectTab(0);
+		// Label l = new Label("Word of the day");
+		// l.setStyleName("h1");
+		// rootPanel.add(l);
+		// rootPanel.add(tabPanel);
 	}
 
 	public void databaseUpdated() {
-		initiate();
+		if (database.getLogin().equals("Anonymous")) {
+			tabPanel.setVisible(false);
+			notLoggedIn.setVisible(true);
+		} else {
+			tabPanel.setVisible(true);
+			notLoggedIn.setVisible(false);
+			// initiate();
+			if (listWords != null)
+				listWords.initiate();
+		}
 	}
 }

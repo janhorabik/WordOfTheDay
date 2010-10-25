@@ -52,7 +52,8 @@ class AskServerToAddWord implements AskServer {
 		example.add(usage);
 		String tag = tagField.getText();
 		List<String> tags = new LinkedList<String>();
-		tags.add(tag);
+		if (!tag.equals(""))
+			tags.add(tag);
 		if (name.equals("")) {
 			serverResponse.serverReplied("Name of the word cannot be empty");
 			return;

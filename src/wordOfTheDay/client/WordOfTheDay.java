@@ -1,6 +1,7 @@
 package wordOfTheDay.client;
 
 import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
+import wordOfTheDay.client.dbOnClient.DatabaseUpdatedNotifier;
 import wordOfTheDay.client.home.Home;
 import wordOfTheDay.client.login.Login;
 
@@ -11,7 +12,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class WordOfTheDay implements EntryPoint {
+public class WordOfTheDay implements EntryPoint, DatabaseUpdatedNotifier {
 
 	private DatabaseOnClient database = new DatabaseOnClient();
 
@@ -29,9 +30,9 @@ public class WordOfTheDay implements EntryPoint {
 		final RootPanel loginPanel = RootPanel.get("login");
 		Login login = new Login(loginPanel, home, dashboard, database);
 		database.addNotifier(login);
+		database.addNotifier(this);
 
-		initiateFooter();
-//		database.update();
+		// database.update();
 	}
 
 	private void initiate(String id, String content) {
@@ -49,6 +50,10 @@ public class WordOfTheDay implements EntryPoint {
 				"Webmaster: <a href='mailto:janhorabik@gmail.com' title='e-mail me'>Jan Horabik</a> ");
 		// &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Source: <a
 		// href='http://dictionary.cambridge.org/'>Cambridge Dictionary</a>
+	}
+
+	public void databaseUpdated() {
+		initiateFooter();
 	}
 
 }

@@ -12,7 +12,6 @@ package wordOfTheDay.client.listWords;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 
@@ -22,10 +21,6 @@ import wordOfTheDay.client.advancedTable.DataFilter;
 import wordOfTheDay.client.advancedTable.TableColumn;
 import wordOfTheDay.client.advancedTable.TableModelService;
 import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
-import wordOfTheDay.server.PMF;
-import wordOfTheDay.server.PersistentWord24;
-
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class LocalGetWordsServiceImpl implements TableModelService {
 
