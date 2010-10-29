@@ -1,9 +1,20 @@
-/** Add css rules here for your application. 
-margin:25px 50px 75px 100px;
-    * top margin is 25px
-    * right margin is 50px
-    * bottom margin is 75px
-    * left margin is 100px*/
+/************ Anchor ***********************************/
+.gwt-Anchor {
+	padding: 10px 10px 10px 10px;
+	color: #c0b8a9;
+	text-decoration: none;
+	margin: 15px 15px 15px 15px;
+	font-size: 1.2em;
+	font-weight: normal;
+	text-align: center;
+}
+
+.gwt-Anchor:hover {
+	color: #d7ebf6;
+	background: #42484e;
+}
+
+/***********************************************/
 .content {
 	background: #34393e;
 	width: 80%;
@@ -15,9 +26,13 @@ margin:25px 50px 75px 100px;
 	height: 750px;
 	float: center;
 }
-
+/****** HorizontalPanel ***************************/
+.gwt-HorizontalPanel {
+	align: center;
+}
+/**************************************************/
 .simpleMargin {
-	margin: 10px 10px 10px 10px;
+	margin: 10px 10px 10px 10px; /
 	float: center;
 }
 
@@ -69,8 +84,7 @@ h2 {
 	font-size: 1em;
 }
 
-/************************ ADVANCED TABLE  *****************/
-
+/************************ AdvancedTable *****************/
 .advancedTable {
 	border: 3px solid #777777;
 }
@@ -89,7 +103,7 @@ h2 {
 	border: 1px solid #777777;
 }
 
-.advancedTableRow:hover{
+.advancedTableRow:hover {
 	background: #282c31;
 }
 
@@ -110,6 +124,18 @@ h2 {
 
 .addWord {
 	text-align: left;
+}
+
+.date {
+	margin: 3px 3px 10px 15px;
+	font-size: 15px;
+	color: #acc8d7;
+}
+
+.label {
+	color: #777777;
+	font-size: 15px;
+	margin: 20px 20px 10px 20px;
 }
 
 #date {
@@ -154,10 +180,6 @@ h2 {
 	font-size: 20px;
 }
 
-/*.usage {
-	font-size: 20px;
-	margin: 40px 40px 40px 40px;
-}*/
 .usageExample {
 	font-size: 20px;
 }

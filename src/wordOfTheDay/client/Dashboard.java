@@ -3,6 +3,7 @@ package wordOfTheDay.client;
 import wordOfTheDay.client.addWord.AddWord;
 import wordOfTheDay.client.deleteWords.DeleteWords;
 import wordOfTheDay.client.downloadFile.DownloadXml;
+import wordOfTheDay.client.home.Home;
 import wordOfTheDay.client.listWords.ListWords;
 import wordOfTheDay.client.uploadFile.AddWordsXml;
 
@@ -22,13 +23,15 @@ public class Dashboard {
 		rootPanel = rootPanelArg;
 	}
 
-	// test
+	public void setVisible(boolean isVisible) {
+		rootPanel.setVisible(isVisible);
+	}
 
 	private RootPanel rootPanel;
 
 	public static final int listNum = 3;
 
-	public void initiate(String reply) {
+	public void initiate(String reply, final Home home) {
 		rootPanel.clear();
 		if (reply.equals("Anonymous")) {
 			rootPanel.add(new HTML("<div id='date'>Please log in.</div>"));
@@ -42,7 +45,7 @@ public class Dashboard {
 		// Add Word tab
 		VerticalPanel addWordPanel = new VerticalPanel();
 		AddWord addWord = new AddWord();
-		addWord.initiateAddWord(addWordPanel);
+		addWord.initiateAddWord(addWordPanel, home);
 		tabPanel.add(addWordPanel, "Add Word");
 
 		// Add Words XML tab
@@ -60,12 +63,12 @@ public class Dashboard {
 		// List Words tab
 		final VerticalPanel listWordsPanel = new VerticalPanel();
 		final ListWords listWords = new ListWords(listWordsPanel);
-		listWords.initiate();
+		listWords.initiate(home);
 		tabPanel.add(listWordsPanel, "List Words");
 		tabPanel.addSelectionHandler(new SelectionHandler<Integer>() {
 			public void onSelection(SelectionEvent<Integer> event) {
 				if (event.getSelectedItem() == listNum) {
-					listWords.initiate();
+					listWords.initiate(home);
 				}
 			}
 		});

@@ -23,7 +23,7 @@ public class XMLParser {
 	public static String initiateWords(ByteArrayInputStream stream, String email) {
 		try {
 			log.info("initiate words started");
-			LinkedList<PersistentWord22> wordsToSave = new LinkedList<PersistentWord22>();
+			LinkedList<PersistentWord24> wordsToSave = new LinkedList<PersistentWord24>();
 			int youngestDate = PMF.getYoungestAvailableDate(email);
 			Document document = DocumentBuilderFactory.newInstance()
 					.newDocumentBuilder().parse(stream);
@@ -50,7 +50,7 @@ public class XMLParser {
 					log.info("saving: " + name + explanation + usage.size());
 					if (name != null && explanation != null
 							&& (!name.equals("")) && (!explanation.equals(""))) {
-						wordsToSave.add(new PersistentWord22(name, explanation,
+						wordsToSave.add(new PersistentWord24(name, explanation,
 								usage, youngestDate, email,
 								new LinkedList<String>()));
 						youngestDate = Date.getNextDay(youngestDate);
@@ -68,10 +68,10 @@ public class XMLParser {
 	}
 
 	public static String export(String email) {
-		List<PersistentWord22> words = PMF.getAllWords(email);
+		List<PersistentWord24> words = PMF.getAllWords(email);
 		String ret = new String();
 		ret += "<?xml version='1.0' encoding='UTF-8'?><words>";
-		for (PersistentWord22 word : words) {
+		for (PersistentWord24 word : words) {
 			ret += "<word><name>" + word.getName()
 					+ "</name><explanationEnglish>" + word.getExplanation()
 					+ "</explanationEnglish>";

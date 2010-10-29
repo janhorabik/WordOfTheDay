@@ -10,7 +10,7 @@ import javax.jdo.PersistenceManagerFactory;
 import com.google.appengine.api.datastore.Query;
 
 import wordOfTheDay.client.DateHelper;
-import wordOfTheDay.client.Word8;
+import wordOfTheDay.client.Word9;
 
 public final class PMF {
 	private static final PersistenceManagerFactory pmfInstance = JDOHelper
@@ -23,16 +23,16 @@ public final class PMF {
 		return pmfInstance;
 	}
 
-	public static Word8 persistentWordToWord(PersistentWord22 persistentWord2) {
+	public static Word9 persistentWordToWord(PersistentWord24 persistentWord2) {
 		return persistentWordToWordWithPreviousPossible(persistentWord2,
 				hasPreviousThen(persistentWord2));
 	}
 
-	public static Word8 persistentWordToWordWithPreviousPossible(
-			PersistentWord22 persistentWord, boolean previousPossible) {
+	public static Word9 persistentWordToWordWithPreviousPossible(
+			PersistentWord24 persistentWord, boolean previousPossible) {
 		System.out.println("convertion of " + persistentWord);
 		boolean nextPossible = Date.getCurrentDate() > persistentWord.getDate();
-		return new Word8(persistentWord.getName(), persistentWord
+		return new Word9(persistentWord.getName(), persistentWord
 				.getExplanation(),
 				persistentWord.getUsage() == null ? new LinkedList<String>()
 						: new LinkedList<String>(persistentWord.getUsage()),
@@ -43,32 +43,32 @@ public final class PMF {
 						: new LinkedList<String>(persistentWord.getLabels()));
 	}
 
-	private static boolean hasPreviousThen(PersistentWord22 word) {
+	private static boolean hasPreviousThen(PersistentWord24 word) {
 		PersistenceManager pm = pmfInstance.getPersistenceManager();
-		String query = "SELECT FROM " + PersistentWord22.class.getName()
+		String query = "SELECT FROM " + PersistentWord24.class.getName()
 				+ " where email == '" + word.getEmail() + "' && date < "
 				+ word.getDate();
-		List<PersistentWord22> list = (List<PersistentWord22>) pm.newQuery(
+		List<PersistentWord24> list = (List<PersistentWord24>) pm.newQuery(
 				query).execute();
 		System.out.println("size: " + list.size());
 		return !list.isEmpty();
 	}
 
-	public static List<PersistentWord22> getAllWords(String email) {
+	public static List<PersistentWord24> getAllWords(String email) {
 		email = getSQLString(email);
 		PersistenceManager pm = pmfInstance.getPersistenceManager();
-		String query = "select from " + PersistentWord22.class.getName()
+		String query = "select from " + PersistentWord24.class.getName()
 				+ " where email == " + email + " order by date ";
 		System.out.println("query: " + query);
-		return (List<PersistentWord22>) pm.newQuery(query).execute();
+		return (List<PersistentWord24>) pm.newQuery(query).execute();
 	}
 
-	public static PersistentWord22 getWord(WordKey wordKey) {
+	public static PersistentWord24 getWord(WordKey wordKey) {
 
 		try {
 			PersistenceManager pm = pmfInstance.getPersistenceManager();
-			PersistentWord22 word = pm.getObjectById(PersistentWord22.class,
-					PersistentWord22.generateKey(wordKey.getEmail(), wordKey
+			PersistentWord24 word = pm.getObjectById(PersistentWord24.class,
+					PersistentWord24.generateKey(wordKey.getEmail(), wordKey
 							.getDate()));
 			System.out.println(word + " got from db");
 			return word;
@@ -91,9 +91,9 @@ public final class PMF {
 	public static int getYoungestAvailableDate(String email) {
 		email = getSQLString(email);
 		PersistenceManager pm = pmfInstance.getPersistenceManager();
-		String query = "SELECT FROM " + PersistentWord22.class.getName()
+		String query = "SELECT FROM " + PersistentWord24.class.getName()
 				+ " where email == " + email + " ORDER BY date DESC LIMIT 1";
-		List<PersistentWord22> list = (List<PersistentWord22>) pm.newQuery(
+		List<PersistentWord24> list = (List<PersistentWord24>) pm.newQuery(
 				query).execute();
 		if (list.isEmpty())
 			return Date.getCurrentDate();
@@ -146,7 +146,7 @@ public final class PMF {
 	public static void deleteAllWords(String email) {
 		PersistenceManager pmi = PMF.get().getPersistenceManager();
 		email = getSQLString(email);
-		String query = "select from " + PersistentWord22.class.getName()
+		String query = "select from " + PersistentWord24.class.getName()
 				+ " where email == " + email;
 		pmi.newQuery(query).deletePersistentAll();
 	}
@@ -161,7 +161,7 @@ public final class PMF {
 	// in (20100908, 20100919) does not work
 	public static void fastDeleteWords(String email, List<String> dates) {
 		List<Integer> intDates = DateHelper.toIntWithoutSpace(dates);
-		String query = "select from " + PersistentWord22.class.getName()
+		String query = "select from " + PersistentWord24.class.getName()
 				+ " where email == " + getSQLString(email) + " && date in (";
 		for (Integer integer : intDates) {
 			query += "'" + integer + "', ";
@@ -185,7 +185,7 @@ public final class PMF {
 		PersistenceManager pmi = PMF.get().getPersistenceManager();
 		email = getSQLString(email);
 		Integer dateInt = DateHelper.toIntWithoutSpace(date);
-		String query = "select FROM " + PersistentWord22.class.getName()
+		String query = "select FROM " + PersistentWord24.class.getName()
 				+ " where email == " + email + " && date == " + dateInt;
 		pmi.newQuery(query).deletePersistentAll();
 	}

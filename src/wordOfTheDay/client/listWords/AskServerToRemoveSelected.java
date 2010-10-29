@@ -4,12 +4,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import wordOfTheDay.client.Word8;
+import wordOfTheDay.client.Word9;
 import wordOfTheDay.client.MyPopup.AskServer;
 import wordOfTheDay.client.MyPopup.ServerResponse;
 import wordOfTheDay.client.advancedTable.AdvancedTable;
 import wordOfTheDay.client.deleteWords.DeleteWordsService;
 import wordOfTheDay.client.deleteWords.DeleteWordsServiceAsync;
+import wordOfTheDay.client.home.Home;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -25,15 +26,19 @@ class AskServerToRemoveSelected implements AskServer {
 
 	private ListWords listWords;
 
-	public AskServerToRemoveSelected(final AdvancedTable table, ListWords listWords) {
+	private Home home;
+
+	public AskServerToRemoveSelected(final AdvancedTable table, ListWords listWords, Home home) {
 		System.out.println("const");
 		this.table = table;
 		this.listWords = listWords;
+		this.home = home;
 	}
 
 	private void clearFields() {
 		System.out.println("clear fields");
-		this.listWords.initiate();
+		this.listWords.initiate(home);
+		this.home.update();
 	}
 
 	public void askServer(final ServerResponse serverResponse) {

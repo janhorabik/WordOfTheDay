@@ -10,9 +10,9 @@ package wordOfTheDay.server.advancedTable;
 
 import java.util.Comparator;
 
-import wordOfTheDay.client.Word8;
+import wordOfTheDay.client.Word9;
 
-public class UserComparator implements Comparator<Word8> {
+public class UserComparator implements Comparator<Word9> {
 
 	private String sortColumn;
 	private boolean sortingOrder;
@@ -23,7 +23,7 @@ public class UserComparator implements Comparator<Word8> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public int compare(Word8 word1, Word8 word2) {
+	public int compare(Word9 word1, Word9 word2) {
 		Comparable column1 = (Comparable) ReflectionUtils.getPropertyValue(
 				word1, this.sortColumn).toString();
 		Comparable column2 = (Comparable) ReflectionUtils.getPropertyValue(

@@ -3,9 +3,10 @@ package wordOfTheDay.client.addWord;
 import java.util.LinkedList;
 import java.util.List;
 
-import wordOfTheDay.client.Word8;
+import wordOfTheDay.client.Word9;
 import wordOfTheDay.client.MyPopup.AskServer;
 import wordOfTheDay.client.MyPopup.ServerResponse;
+import wordOfTheDay.client.home.Home;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -20,14 +21,16 @@ class AskServerToAddWord implements AskServer {
 	private SuggestBox tagField;
 	private final AddWordServiceAsync addWordService = GWT
 			.create(AddWordService.class);
+	private Home home;
 
 	public AskServerToAddWord(final TextBox nameField,
 			final TextArea explanationField, final TextArea exampleField,
-			SuggestBox tagField2) {
+			SuggestBox tagField2, final Home home) {
 		this.nameField = nameField;
 		this.explanationField = explanationField;
 		this.exampleField = exampleField;
 		this.tagField = tagField2;
+		this.home = home;
 	}
 
 	private void clearFields() {
@@ -36,6 +39,7 @@ class AskServerToAddWord implements AskServer {
 		this.explanationField.setText("");
 		this.exampleField.setText("");
 		this.tagField.setText("");
+		this.home.update();
 	}
 
 	public void askServer(final ServerResponse serverResponse) {
@@ -52,7 +56,7 @@ class AskServerToAddWord implements AskServer {
 			serverResponse.serverReplied("Name of the word cannot be empty");
 			return;
 		}
-		addWordService.addWord(new Word8(name, explanation, example, 0, false,
+		addWordService.addWord(new Word9(name, explanation, example, 0, false,
 				false, false, null, tags), new AsyncCallback<String>() {
 			public void onFailure(Throwable caught) {
 				serverResponse.error(caught.toString());

@@ -620,10 +620,12 @@ public class AdvancedTable extends Composite {
 	private void redrawSelectedRow() {
 		RowFormatter gridRowFormatter = grid.getRowFormatter();
 		for (int row = 0; row < this.pageSize; row++) {
-			if (this.markedRows.contains(this.pageRows[row][0])) {
-				gridRowFormatter.setStyleName(row + 1, CHECKED_ROW_STYLE);
-			} else {
-				gridRowFormatter.setStyleName(row + 1, DEFAULT_ROW_STYLE);
+			if (row < this.currentPageRowsCount) {
+				if (this.markedRows.contains(this.pageRows[row][0])) {
+					gridRowFormatter.setStyleName(row + 1, CHECKED_ROW_STYLE);
+				} else {
+					gridRowFormatter.setStyleName(row + 1, DEFAULT_ROW_STYLE);
+				}
 			}
 		}
 	}

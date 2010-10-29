@@ -24,29 +24,17 @@ public class WordOfTheDay implements EntryPoint {
 
 	public void onModuleLoad() {
 
-		final RootPanel wordPanel = RootPanel.get("word");
-
-		Home home = null;
-		boolean loginUpdateNeeded = (Home.dayChoiceFromParam(Window.Location
-				.getParameter("dayChoice")) == DayChoice2.TODAY);
-		if (wordPanel != null) {
-			home = new Home(wordPanel);
-			if (!loginUpdateNeeded)
-				home.initiate();
-		}
+		final RootPanel homePanel = RootPanel.get("home");
+		Home home = new Home(homePanel);
+		home.initiate();
 
 		final RootPanel dashboardPanel = RootPanel.get("dashboard");
-		Dashboard dashboard = null;
-		if (dashboardPanel != null) {
-			dashboard = new Dashboard(dashboardPanel);
-			dashboard.initiate("Anonymous");
-		}
+		Dashboard dashboard = new Dashboard(dashboardPanel);
+		dashboard.initiate("Anonymous", home);
 
 		final RootPanel loginPanel = RootPanel.get("login");
-		if (loginPanel != null) {
-			Login login = new Login();
-			login.initiate(loginPanel, home, dashboard, loginUpdateNeeded);
-		}
+		Login login = new Login(loginPanel, home, dashboard);
+
 		initiateFooter();
 	}
 

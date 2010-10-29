@@ -10,7 +10,7 @@ import com.google.appengine.api.memcache.jsr107cache.GCacheFactory;
 import net.sf.jsr107cache.Cache;
 import net.sf.jsr107cache.CacheException;
 import net.sf.jsr107cache.CacheManager;
-import wordOfTheDay.client.Word8;
+import wordOfTheDay.client.Word9;
 import wordOfTheDay.server.service.GetTodaysWordServiceImpl;
 
 public class WordsCache {
@@ -37,16 +37,16 @@ public class WordsCache {
 		}
 	}
 
-	public Word8 get(WordKey key) {
+	public Word9 get(WordKey key) {
 		System.out.println("getting " + key + " from cache");
-		return (Word8) cache.get(key);
+		return (Word9) cache.get(key);
 	}
 
 	public void clear() {
 		cache.clear();
 	}
 
-	public void put(WordKey key, Word8 word) {
+	public void put(WordKey key, Word9 word) {
 		cache.put(key, word);
 	}
 

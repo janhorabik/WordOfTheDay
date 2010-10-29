@@ -16,12 +16,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 
-import wordOfTheDay.client.Word8;
+import wordOfTheDay.client.Word9;
 import wordOfTheDay.client.advancedTable.DataFilter;
 import wordOfTheDay.client.advancedTable.TableColumn;
 import wordOfTheDay.client.advancedTable.TableModelService;
 import wordOfTheDay.server.PMF;
-import wordOfTheDay.server.PersistentWord22;
+import wordOfTheDay.server.PersistentWord24;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -35,18 +35,18 @@ public class UsersTableModelServiceImpl extends RemoteServiceServlet implements
 			new TableColumn("Explanation", "Explanation"),
 			new TableColumn("Usage", "Usage"), new TableColumn("Labels", "Labels") };
 
-	private Word8[] allWords = new Word8[0];
+	private Word9[] allWords = new Word9[0];
 
-	private List<Word8> filteredWords;
+	private List<Word9> filteredWords;
 
-	private Vector<Word8> getWords() {
+	private Vector<Word9> getWords() {
 		String email = (String) this.getThreadLocalRequest().getSession()
 				.getAttribute("email");
 		if (email == null)
 			email = "NULL";
-		List<PersistentWord22> persistentWords = PMF.getAllWords(email);
-		Vector<Word8> ret = new Vector<Word8>();
-		for (PersistentWord22 persistentWord : persistentWords) {
+		List<PersistentWord24> persistentWords = PMF.getAllWords(email);
+		Vector<Word9> ret = new Vector<Word9>();
+		for (PersistentWord24 persistentWord : persistentWords) {
 			System.out.println("word: " + persistentWord);
 			ret.add(PMF.persistentWordToWordWithPreviousPossible(
 					persistentWord, true));
@@ -55,9 +55,9 @@ public class UsersTableModelServiceImpl extends RemoteServiceServlet implements
 	}
 
 	void initiate() {
-		Vector<Word8> words = getWords();
+		Vector<Word9> words = getWords();
 		System.out.println("initiate begining: " + words.size());
-		allWords = new Word8[0];
+		allWords = new Word9[0];
 		allWords = words.toArray(allWords);
 		System.out.println("initiate: " + allWords.length);
 	}
@@ -82,7 +82,7 @@ public class UsersTableModelServiceImpl extends RemoteServiceServlet implements
 			DataFilter[] filters, String sortColumn, boolean sortingOrder) {
 		initiate();
 		System.out.println("rowsCount " + rowsCount);
-		Word8[] rowsData = getRowsData(startRow, rowsCount, filters,
+		Word9[] rowsData = getRowsData(startRow, rowsCount, filters,
 				sortColumn, sortingOrder);
 		int columnsCount = this.columns.length;
 		String[][] rows = new String[rowsCount][columnsCount];
@@ -96,11 +96,11 @@ public class UsersTableModelServiceImpl extends RemoteServiceServlet implements
 		return rows;
 	}
 
-	private Word8[] getRowsData(int startRow, int rowsCount,
+	private Word9[] getRowsData(int startRow, int rowsCount,
 			DataFilter[] filters, String sortColumn, boolean sortingOrder) {
 		applyDataFilters(filters);
 		applySorting(sortColumn, sortingOrder);
-		Word8[] rows = new Word8[rowsCount];
+		Word9[] rows = new Word9[rowsCount];
 		for (int row = startRow; row < startRow + rowsCount; row++) {
 			rows[row - startRow] = this.filteredWords.get(row);
 		}
@@ -108,17 +108,17 @@ public class UsersTableModelServiceImpl extends RemoteServiceServlet implements
 	}
 
 	private void applyDataFilters(DataFilter[] filters) {
-		this.filteredWords = new ArrayList<Word8>();
+		this.filteredWords = new ArrayList<Word9>();
 		if (filters == null) {
 			// No filter - append all users
-			for (Word8 word : this.allWords) {
+			for (Word9 word : this.allWords) {
 				this.filteredWords.add(word);
 			}
 		} else {
 			// Simulate data filtering
 			String keyword = filters[0].getValue().toUpperCase();
 			System.out.println("simulate filtering");
-			for (Word8 word : this.allWords) {
+			for (Word9 word : this.allWords) {
 				System.out.println("check " + word);
 				String name = word.getName();
 				if (name == null) {

@@ -2,7 +2,7 @@ package wordOfTheDay.client.listWords;
 
 import java.util.Vector;
 
-import wordOfTheDay.client.Word8;
+import wordOfTheDay.client.Word9;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -12,5 +12,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 @RemoteServiceRelativePath("listWordsServlet")
 public interface ListWordsService extends RemoteService {
-	Vector<Word8> listWords();
+	Vector<Word9> listWords();
 }

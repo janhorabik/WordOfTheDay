@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import wordOfTheDay.client.Word8;
+import wordOfTheDay.client.Word9;
 import wordOfTheDay.server.Date;
 import wordOfTheDay.server.PMF;
-import wordOfTheDay.server.PersistentWord22;
+import wordOfTheDay.server.PersistentWord24;
 import wordOfTheDay.server.WordKey;
 import wordOfTheDay.server.WordsCache;
 
@@ -28,14 +28,14 @@ public class CronService extends HttpServlet {
 		System.out.println("day: " + date);
 		log.warning("getting Word: getting instance of WordsCache");
 		WordKey wordKey = new WordKey(date, email);
-		Word8 word = WordsCache.getInstance().get(wordKey);
+		Word9 word = WordsCache.getInstance().get(wordKey);
 		log.warning("getting Word: instance of WordsCache got - finish");
 		if (word != null) {
 			log.warning("word got from cache: " + word.getDate()
 					+ word.getEmail() + word.getName());
 		}
 		log.warning("Word not found - getting from DB");
-		PersistentWord22 persistentWord = PMF.getWord(wordKey);
+		PersistentWord24 persistentWord = PMF.getWord(wordKey);
 		if (persistentWord != null) {
 			log.severe("Word got from DB - converting start");
 			word = PMF.persistentWordToWord(persistentWord);

@@ -15,7 +15,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 public class LoginUpdater implements ServerResponse, ClickHandler {
 	public LoginUpdater(HorizontalPanel loginNamePanel2,
 			AskServer askServerArg, Button loginButton, Home homeArg,
-			Dashboard dashboardArg, boolean loginUpdateNeededArg) {
+			Dashboard dashboardArg) {
 		loginNamePanel = loginNamePanel2;
 		askServer = askServerArg;
 		if (loginButton != null) {
@@ -25,7 +25,6 @@ public class LoginUpdater implements ServerResponse, ClickHandler {
 		}
 		home = homeArg;
 		dashboard = dashboardArg;
-		loginUpdateNeeded = loginUpdateNeededArg;
 	}
 
 	public void error(String error) {
@@ -36,12 +35,8 @@ public class LoginUpdater implements ServerResponse, ClickHandler {
 		loginNamePanel.clear();
 		loginNamePanel
 				.add(new HTML("<div id='date'>Hello " + reply + "</div>"));
-		if (home != null && loginUpdateNeeded) {
-			home.initiate();
-		}
-		if (dashboard != null) {
-			dashboard.initiate(reply);
-		}
+		home.initiate();
+		dashboard.initiate(reply, home);
 	}
 
 	public void onClick(ClickEvent event) {
@@ -52,5 +47,4 @@ public class LoginUpdater implements ServerResponse, ClickHandler {
 	private HorizontalPanel loginNamePanel;
 	private Home home;
 	private Dashboard dashboard;
-	private boolean loginUpdateNeeded;
 }

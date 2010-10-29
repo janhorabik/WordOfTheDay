@@ -17,6 +17,7 @@ import wordOfTheDay.client.advancedTable.DataFilter;
 import wordOfTheDay.client.advancedTable.RowSelectionListener;
 import wordOfTheDay.client.advancedTable.ServiceUtils;
 import wordOfTheDay.client.advancedTable.TableModelServiceAsync;
+import wordOfTheDay.client.home.Home;
 
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
@@ -28,7 +29,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class ListWordsWithAdvancedTable implements CheckBoxesListener {
 
-	public void onModuleLoad(VerticalPanel rootPanel, ListWords listWords) {
+	public void onModuleLoad(VerticalPanel rootPanel, ListWords listWords, Home home) {
 
 		final AdvancedTable table = new AdvancedTable();
 		table.addCheckBoxesListener(this);
@@ -73,7 +74,7 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener {
 		buttonRemoveSelected.setVisible(false);
 		horizontalPanel.add(buttonRemoveSelected);
 		buttonRemoveSelected.setWidth("100");
-		AskServer askServer = new AskServerToRemoveSelected(table, listWords);
+		AskServer askServer = new AskServerToRemoveSelected(table, listWords, home);
 		MyPopup myPopup = new MyPopup("Remove words", askServer,
 				buttonRemoveSelected, false);
 

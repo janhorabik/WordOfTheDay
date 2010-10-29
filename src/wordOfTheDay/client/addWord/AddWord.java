@@ -2,6 +2,7 @@ package wordOfTheDay.client.addWord;
 
 import wordOfTheDay.client.MyPopup.AskServer;
 import wordOfTheDay.client.MyPopup.MyPopup;
+import wordOfTheDay.client.home.Home;
 
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -19,7 +20,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class AddWord {
 
-	public void initiateAddWord(final VerticalPanel addWordPanel) {
+	public void initiateAddWord(final VerticalPanel addWordPanel, Home home) {
 		// name
 		final Label nameLabel = new Label();
 		nameLabel.setText("Word:");
@@ -72,7 +73,7 @@ public class AddWord {
 
 		// Create the popup dialog box
 		AskServer askServer = new AskServerToAddWord(nameField,
-				explanationField, exampleField, tagField);
+				explanationField, exampleField, tagField, home);
 		MyPopup myPopup = new MyPopup("Add Word", askServer, sendButton, true);
 	}
 }

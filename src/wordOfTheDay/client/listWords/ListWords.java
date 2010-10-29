@@ -1,5 +1,7 @@
 package wordOfTheDay.client.listWords;
 
+import wordOfTheDay.client.home.Home;
+
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ListWords {
@@ -8,10 +10,10 @@ public class ListWords {
 		listWordsPanel = listWordsPanelArg;
 	}
 
-	public void initiate() {
+	public void initiate(Home home) {
 		listWordsPanel.clear();
 		ListWordsWithAdvancedTable example = new ListWordsWithAdvancedTable();
-		example.onModuleLoad(listWordsPanel, this);
+		example.onModuleLoad(listWordsPanel, this, home);
 
 	}
 
