@@ -1,11 +1,14 @@
 package wordOfTheDay.client;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Word9 implements IsSerializable, Serializable, Comparable<Word9> {
+	public static final int SHORT_LEN = 50;
+
 	private String name;
 
 	private String explanation;
@@ -45,12 +48,53 @@ public class Word9 implements IsSerializable, Serializable, Comparable<Word9> {
 		return name;
 	}
 
+	public String getShortName() {
+		return getShort(name);
+	}
+
 	public String getExplanation() {
 		return explanation;
 	}
 
+	public String getShortExplanation() {
+		return getShort(explanation);
+	}
+
+	private String getShort(String field) {
+		return getShort(field, Word9.SHORT_LEN);
+	}
+
+	private String getShort(String field, int len) {
+		String ret = field.substring(0, Math.min(field.length(), len));
+		if (ret.length() != field.length())
+			ret = ret.concat("...");
+		return ret;
+
+	}
+
+	private List<String> getShort(List<String> list) {
+		List<String> ret = new LinkedList<String>();
+		int len = 0;
+		for (String string : list) {
+			String v = getShort(string);
+			int oldlen = len;
+			len += v.length();
+			if (len < Word9.SHORT_LEN)
+				ret.add(v);
+			else {
+				ret.add(getShort(v, Word9.SHORT_LEN - oldlen));
+				break;
+			}
+		}
+		return ret;
+	}
+
 	public List<String> getUsage() {
 		return usage;
+	}
+
+	public List<String> getShortUsage() {
+		return getShort(this.usage);
 	}
 
 	public int getDate() {
@@ -82,11 +126,16 @@ public class Word9 implements IsSerializable, Serializable, Comparable<Word9> {
 	}
 
 	public String toString() {
-		return "Name: " + name + ", Tags: " + labels + ", Explanation: " + explanation + ", Usage: " + usage + ", Date: "
-				+ date + ", Email: " + email;
+		return "Name: " + name + ", Tags: " + labels + ", Explanation: "
+				+ explanation + ", Usage: " + usage + ", Date: " + date
+				+ ", Email: " + email;
 	}
 
 	public List<String> getLabels() {
 		return labels;
+	}
+
+	public List<String> getShortLabels() {
+		return getShort(labels);
 	}
 }

@@ -20,7 +20,7 @@ public class DatabaseOnClient {
 	private String login = "Anonymous";
 
 	public DatabaseOnClient() {
-		update();
+		// update();
 	}
 
 	public void addNotifier(DatabaseUpdatedNotifier notifier) {
@@ -62,6 +62,14 @@ public class DatabaseOnClient {
 
 	public Set<String> getLabels() {
 		return labels;
+	}
+
+	public Word9 getWord(int date) {
+		for (Word9 word : words) {
+			if (word.getDate() == date)
+				return word;
+		}
+		return null;
 	}
 
 	private Vector<Word9> words = new Vector<Word9>();

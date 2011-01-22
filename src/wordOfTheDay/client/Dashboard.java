@@ -1,6 +1,6 @@
 package wordOfTheDay.client;
 
-import wordOfTheDay.client.addWord.AddWord;
+import wordOfTheDay.client.addWord.EditWord;
 import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
 import wordOfTheDay.client.dbOnClient.DatabaseUpdatedNotifier;
 import wordOfTheDay.client.deleteWords.DeleteWords;
@@ -25,6 +25,8 @@ public class Dashboard implements DatabaseUpdatedNotifier {
 
 	DecoratedTabPanel tabPanel = new DecoratedTabPanel();
 
+	EditWord addWord = null;
+
 	Dashboard(final RootPanel rootPanelArg, DatabaseOnClient database) {
 		rootPanel = rootPanelArg;
 		this.database = database;
@@ -37,20 +39,19 @@ public class Dashboard implements DatabaseUpdatedNotifier {
 
 		// Add Word tab
 		VerticalPanel addWordPanel = new VerticalPanel();
-		AddWord addWord = new AddWord();
-		addWord.initiateAddWord(addWordPanel, database);
+		addWord = new EditWord(addWordPanel, database, true);
 		tabPanel.add(addWordPanel, "Add Word");
 
 		// Add Words XML tab
 		VerticalPanel addWordsXmlPanel = new VerticalPanel();
 		AddWordsXml addWords = new AddWordsXml();
-		addWords.initiateUploadFile(addWordsXmlPanel);
+		addWords.initiateUploadFile(addWordsXmlPanel, database);
 		tabPanel.add(addWordsXmlPanel, "Add Words from xml");
 
 		// Delete Words tab
 		VerticalPanel deleteWordsPanel = new VerticalPanel();
 		DeleteWords deleteWords = new DeleteWords();
-		deleteWords.initiateDeleteWords(deleteWordsPanel);
+		deleteWords.initiateDeleteWords(deleteWordsPanel, database);
 		tabPanel.add(deleteWordsPanel, "Delete Words");
 
 		// List Words tab
@@ -92,61 +93,6 @@ public class Dashboard implements DatabaseUpdatedNotifier {
 
 	public static final int listNum = 3;
 
-	public void initiate() {
-		// rootPanel.clear();
-		// if (database.getLogin().equals("Anonymous")) {
-		// rootPanel.add(new HTML("<div id='date'>Please log in.</div>"));
-		// return;
-		// }
-		// // Create a tab panel
-		// DecoratedTabPanel tabPanel = new DecoratedTabPanel();
-		// tabPanel.setWidth("1000px");
-		// tabPanel.setAnimationEnabled(true);
-		//
-		// // Add Word tab
-		// VerticalPanel addWordPanel = new VerticalPanel();
-		// AddWord addWord = new AddWord();
-		// addWord.initiateAddWord(addWordPanel, database);
-		// tabPanel.add(addWordPanel, "Add Word");
-		//
-		// // Add Words XML tab
-		// VerticalPanel addWordsXmlPanel = new VerticalPanel();
-		// AddWordsXml addWords = new AddWordsXml();
-		// addWords.initiateUploadFile(addWordsXmlPanel);
-		// tabPanel.add(addWordsXmlPanel, "Add Words from xml");
-		//
-		// // Delete Words tab
-		// VerticalPanel deleteWordsPanel = new VerticalPanel();
-		// DeleteWords deleteWords = new DeleteWords();
-		// deleteWords.initiateDeleteWords(deleteWordsPanel);
-		// tabPanel.add(deleteWordsPanel, "Delete Words");
-		//
-		// // List Words tab
-		// final VerticalPanel listWordsPanel = new VerticalPanel();
-		// listWords = new ListWords(listWordsPanel, database);
-		// listWords.initiate();
-		// tabPanel.add(listWordsPanel, "List Words");
-		// tabPanel.addSelectionHandler(new SelectionHandler<Integer>() {
-		// public void onSelection(SelectionEvent<Integer> event) {
-		// if (event.getSelectedItem() == listNum) {
-		// listWords.initiate();
-		// }
-		// }
-		// });
-		//
-		// // Download Words tab
-		// VerticalPanel downloadWordsPanel = new VerticalPanel();
-		// DownloadXml downloadXml = new DownloadXml();
-		// downloadXml.initiateDownloadFile(downloadWordsPanel);
-		// tabPanel.add(downloadWordsPanel, "Download Words");
-		//
-		// tabPanel.selectTab(0);
-		// Label l = new Label("Word of the day");
-		// l.setStyleName("h1");
-		// rootPanel.add(l);
-		// rootPanel.add(tabPanel);
-	}
-
 	public void databaseUpdated() {
 		if (database.getLogin().equals("Anonymous")) {
 			tabPanel.setVisible(false);
@@ -155,8 +101,11 @@ public class Dashboard implements DatabaseUpdatedNotifier {
 			tabPanel.setVisible(true);
 			notLoggedIn.setVisible(false);
 			// initiate();
+
 			if (listWords != null)
 				listWords.initiate();
+			if (addWord != null)
+				addWord.update();
 		}
 	}
 }

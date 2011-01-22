@@ -31,12 +31,16 @@ public class Home implements DatabaseUpdatedNotifier {
 		wordPanel.add(image);
 		wordPanel.add(titleLabel);
 		HorizontalPanel dateLinkPanel = new HorizontalPanel();
-		dateLinkPanel.setWidth("100%");
-		// dateLinkPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_CENTER);
+		dateLinkPanel.setWidth("30%");
+		dateLinkPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
 		dateLinkPanel.add(previousLink);
+		dateLinkPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_CENTER);
 		dateLinkPanel.add(dateLabel);
+		dateLinkPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_RIGHT);
 		dateLinkPanel.add(nextLink);
+		
 		wordPanel.add(dateLinkPanel);
+		wordPanel.setWidgetPosition(dateLinkPanel, 500, 150);
 		wordPanel.add(wordName);
 		wordPanel.add(meaningLabel);
 		wordPanel.add(meaningValue);
@@ -62,7 +66,9 @@ public class Home implements DatabaseUpdatedNotifier {
 				updateWord();
 			}
 		});
-		setVisible(false);
+		setVisible(true);
+		setAllVisible(false);
+		this.image.setVisible(true);
 	}
 
 	private void setAllVisible(boolean visible) {
@@ -107,7 +113,6 @@ public class Home implements DatabaseUpdatedNotifier {
 
 	public void update() {
 		setAllVisible(false);
-		this.image.setVisible(true);
 		date = getCurrentDate();
 		int i = -1;
 		for (Word9 word9 : database.getWords()) {
@@ -123,7 +128,6 @@ public class Home implements DatabaseUpdatedNotifier {
 		}
 		currentIndexOfWord = -1;
 		todayIndex = -1;
-		image.setVisible(/* true */false);
 	}
 
 	public void initiate() {
@@ -135,7 +139,7 @@ public class Home implements DatabaseUpdatedNotifier {
 	}
 
 	public void databaseUpdated() {
-		this.initiate();
+		update();
 	}
 
 	private final RootPanel wordPanel;

@@ -6,7 +6,7 @@
  * This software is freeware. Use it at your own risk.
  */
 
-package wordOfTheDay.client.advancedTable;
+package wordOfTheDay.client.listWords.advancedTable;
 
 import java.util.EventListener;
 
@@ -16,9 +16,9 @@ public interface RowSelectionListener extends EventListener {
 	 * Fired when the currently selected row in the table changes.
 	 * 
 	 * @param sender
-	 *     the AdvancedTable widget sending the event
+	 *            the AdvancedTable widget sending the event
 	 * @param row
-	 *     the row identifier (primary key) of the row being selected
+	 *            the row identifier (primary key) of the row being selected
 	 */
-	void onRowSelected(AdvancedTable sender, String rowId);
+	void onRowSelected(String date);
 }

@@ -2,6 +2,7 @@ package wordOfTheDay.client.uploadFile;
 
 import wordOfTheDay.client.MyPopup.AskServer;
 import wordOfTheDay.client.MyPopup.MyPopup;
+import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
@@ -21,7 +22,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class AddWordsXml {
 
-	public void initiateUploadFile(final VerticalPanel rootPanel) {
+	public void initiateUploadFile(final VerticalPanel rootPanel, DatabaseOnClient database) {
 		// Create a FormPanel and point it at a service.
 		final FormPanel uploadForm = new FormPanel();
 		uploadForm.setAction(GWT.getModuleBaseURL() + "fileUploadServlet");
@@ -47,7 +48,7 @@ public class AddWordsXml {
 		panel.add(uploadSubmitButton);
 		rootPanel.add(uploadForm);
 
-		AskServer askServer = new AskServerToUploadFile(uploadForm);
+		AskServer askServer = new AskServerToUploadFile(uploadForm, database);
 		MyPopup mypopup = new MyPopup("Send file", askServer,
 				uploadSubmitButton, true);
 

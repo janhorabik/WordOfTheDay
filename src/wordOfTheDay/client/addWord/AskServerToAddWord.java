@@ -23,15 +23,24 @@ class AskServerToAddWord implements AskServer {
 	private final AddWordServiceAsync addWordService = GWT
 			.create(AddWordService.class);
 	private DatabaseOnClient database;
+	private boolean add;
+	private int date;
+
+	void setDate(int date) {
+		this.date = date;
+	}
 
 	public AskServerToAddWord(final TextBox nameField,
 			final TextArea explanationField, final TextArea exampleField,
-			SuggestBox tagField2, final DatabaseOnClient database) {
+			SuggestBox tagField2, int date, final DatabaseOnClient database,
+			boolean add) {
 		this.nameField = nameField;
 		this.explanationField = explanationField;
 		this.exampleField = exampleField;
 		this.tagField = tagField2;
 		this.database = database;
+		this.add = add;
+		this.date = date;
 	}
 
 	private void clearFields() {
@@ -58,18 +67,19 @@ class AskServerToAddWord implements AskServer {
 			serverResponse.serverReplied("Name of the word cannot be empty");
 			return;
 		}
-		addWordService.addWord(new Word9(name, explanation, example, 0, false,
-				false, false, null, tags), new AsyncCallback<String>() {
-			public void onFailure(Throwable caught) {
-				serverResponse.error(caught.toString());
-				clearFields();
-			}
+		addWordService.addWord(new Word9(name, explanation, example, date,
+				false, false, false, null, tags), add,
+				new AsyncCallback<String>() {
+					public void onFailure(Throwable caught) {
+						serverResponse.error(caught.toString());
+						clearFields();
+					}
 
-			public void onSuccess(String result) {
-				System.out.println("success");
-				serverResponse.serverReplied(result);
-				clearFields();
-			}
-		});
+					public void onSuccess(String result) {
+						System.out.println("success");
+						serverResponse.serverReplied(result);
+						clearFields();
+					}
+				});
 	}
 }

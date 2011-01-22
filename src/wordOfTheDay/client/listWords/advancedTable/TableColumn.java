@@ -8,7 +8,7 @@
  * This software is freeware. Use it at your own risk.
  */
 
-package wordOfTheDay.client.advancedTable;
+package wordOfTheDay.client.listWords.advancedTable;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
@@ -16,19 +16,21 @@ public class TableColumn implements IsSerializable {
 
 	private String name;
 	private String title;
-	
+	private String longName;
+
 	public TableColumn() {
 	}
-	
-	public TableColumn(String name, String title) {
+
+	public TableColumn(String name, String title, String longName) {
 		this.name = name;
 		this.title = title;
+		this.longName = longName;
 	}
 
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -36,7 +38,11 @@ public class TableColumn implements IsSerializable {
 	public String getTitle() {
 		return title;
 	}
-	
+
+	public String getLongName() {
+		return longName;
+	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}

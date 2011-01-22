@@ -180,7 +180,7 @@ public final class PMF {
 		}
 	}
 
-	private static void deleteWord(String email, String date) {
+	public static void deleteWord(String email, String date) {
 		System.out.println("delete " + date);
 		PersistenceManager pmi = PMF.get().getPersistenceManager();
 		email = getSQLString(email);

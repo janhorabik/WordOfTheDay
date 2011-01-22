@@ -17,20 +17,21 @@ import java.util.Vector;
 
 import wordOfTheDay.client.Word9;
 import wordOfTheDay.client.WordComparator;
-import wordOfTheDay.client.advancedTable.DataFilter;
-import wordOfTheDay.client.advancedTable.TableColumn;
-import wordOfTheDay.client.advancedTable.TableModelService;
 import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
+import wordOfTheDay.client.listWords.advancedTable.DataFilter;
+import wordOfTheDay.client.listWords.advancedTable.TableColumn;
+import wordOfTheDay.client.listWords.advancedTable.TableModelService;
 
 public class LocalGetWordsServiceImpl implements TableModelService {
 
 	private static final long serialVersionUID = 1L;
 
 	private TableColumn[] columns = new TableColumn[] {
-			new TableColumn("Date", "Date"), new TableColumn("Name", "Name"),
-			new TableColumn("Explanation", "Explanation"),
-			new TableColumn("Usage", "Usage"),
-			new TableColumn("Labels", "Labels") };
+			new TableColumn("Date", "Date", "Date"),
+			new TableColumn("ShortName", "Name", "Name"),
+			new TableColumn("ShortExplanation", "Explanation", "Explanation"),
+			new TableColumn("ShortUsage", "Usage", "Usage"),
+			new TableColumn("ShortLabels", "Labels", "Labels") };
 
 	private Word9[] allWords = new Word9[0];
 
@@ -70,19 +71,22 @@ public class LocalGetWordsServiceImpl implements TableModelService {
 		return count;
 	}
 
-	public String[][] getRows(int startRow, int rowsCount,
+	public String[][][] getRows(int startRow, int rowsCount,
 			DataFilter[] filters, String sortColumn, boolean sortingOrder) {
 		initiate();
 		System.out.println("rowsCount " + rowsCount);
 		Word9[] rowsData = getRowsData(startRow, rowsCount, filters,
 				sortColumn, sortingOrder);
 		int columnsCount = this.columns.length;
-		String[][] rows = new String[rowsCount][columnsCount];
+		String[][][] rows = new String[2][rowsCount][columnsCount];
 		for (int row = 0; row < rowsCount; row++) {
 			for (int col = 0; col < columnsCount; col++) {
 				String columnName = this.columns[col].getName();
-				rows[row][col] = ReflectionUtils.getPropertyStringValue(
+				String longName = this.columns[col].getLongName();
+				rows[0][row][col] = ReflectionUtils.getPropertyStringValue(
 						rowsData[row], columnName);
+				rows[1][row][col] = ReflectionUtils.getPropertyStringValue(
+						rowsData[row], longName);
 			}
 		}
 		return rows;
@@ -120,5 +124,4 @@ public class LocalGetWordsServiceImpl implements TableModelService {
 			Collections.sort(this.filteredWords, userComparator);
 		}
 	}
-
 }

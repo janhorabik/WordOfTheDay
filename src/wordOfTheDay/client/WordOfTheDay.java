@@ -17,6 +17,7 @@ public class WordOfTheDay implements EntryPoint, DatabaseUpdatedNotifier {
 	private DatabaseOnClient database = new DatabaseOnClient();
 
 	public void onModuleLoad() {
+//		DragAndDrop.test();
 		final RootPanel homePanel = RootPanel.get("home");
 		Home home = new Home(homePanel, database);
 		database.addNotifier(home);

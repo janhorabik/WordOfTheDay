@@ -8,5 +8,5 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  * The async counterpart of <code>AddWordService</code>.
  */
 public interface AddWordServiceAsync {
-	public void addWord(Word9 word, AsyncCallback<String> callback);
+	public void addWord(Word9 word, boolean add, AsyncCallback<String> callback);
 }

@@ -17,14 +17,22 @@ import wordOfTheDay.client.Word9;
 public class ReflectionUtils {
 
 	public static Object getPropertyValue(Word9 obj, String propertyName) {
-		if (propertyName.equals("Name"))
+		if (propertyName.equals("ShortName"))
+			return obj.getShortName();
+		else if (propertyName.equals("ShortExplanation"))
+			return obj.getShortExplanation();
+		else if (propertyName.equals("ShortUsage"))
+			return obj.getShortUsage();
+		else if (propertyName.equals("Date"))
+			return obj.getDate();
+		else if (propertyName.equals("ShortLabels"))
+			return obj.getShortLabels();
+		else if (propertyName.equals("Name"))
 			return obj.getName();
 		else if (propertyName.equals("Explanation"))
 			return obj.getExplanation();
 		else if (propertyName.equals("Usage"))
 			return obj.getUsage();
-		else if (propertyName.equals("Date"))
-			return obj.getDate();
 		else if (propertyName.equals("Labels"))
 			return obj.getLabels();
 		return new String("Not Found " + propertyName);
@@ -36,17 +44,17 @@ public class ReflectionUtils {
 			return null;
 		} else if (value.getClass() == Integer.class) {
 			return DateHelper.toStringWithoutSpace((Integer) value);
-		} else if (value.getClass() == List.class) {
+		} else if (value.getClass() == String.class) {
+			return value.toString();
+		} else { // list
 			String ret = "";
-			ret += "<ul>";
+			// ret += "<ul>";
 			for (String us : (List<String>) value) {
-				ret += "<li>" + us + "</li>";
+				// ret += "<li>" + us + "</li>";
+				ret += us + " ";
 			}
-			ret += "</ul>";
+			// ret += "</ul>";
 			return ret;
-		} else {
-			String valueStr = value.toString();
-			return valueStr;
 		}
 	}
 }

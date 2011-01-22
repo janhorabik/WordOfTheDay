@@ -7,11 +7,11 @@ import java.util.Set;
 import wordOfTheDay.client.Word9;
 import wordOfTheDay.client.MyPopup.AskServer;
 import wordOfTheDay.client.MyPopup.ServerResponse;
-import wordOfTheDay.client.advancedTable.AdvancedTable;
 import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
 import wordOfTheDay.client.deleteWords.DeleteWordsService;
 import wordOfTheDay.client.deleteWords.DeleteWordsServiceAsync;
 import wordOfTheDay.client.home.Home;
+import wordOfTheDay.client.listWords.advancedTable.AdvancedTable;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;

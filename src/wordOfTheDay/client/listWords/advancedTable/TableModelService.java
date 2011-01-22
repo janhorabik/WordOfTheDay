@@ -19,7 +19,7 @@
  * This software is freeware. Use it at your own risk.
  */
 
-package wordOfTheDay.client.advancedTable;
+package wordOfTheDay.client.listWords.advancedTable;
 
 
 public interface TableModelService {
@@ -27,6 +27,7 @@ public interface TableModelService {
 
 	public int getRowsCount(DataFilter[] filters);
 
-	public String[][] getRows(int startRow, int rowsCount,
+	public String[][][] getRows(int startRow, int rowsCount,
 			DataFilter[] filters, String sortColumn, boolean sortOrder);
+	
 }

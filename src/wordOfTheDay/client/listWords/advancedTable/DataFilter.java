@@ -15,7 +15,7 @@
  * This software is freeware. Use it at your own risk.
  */
 
-package wordOfTheDay.client.advancedTable;
+package wordOfTheDay.client.listWords.advancedTable;
 
 import wordOfTheDay.client.Word9;
 

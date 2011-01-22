@@ -1,4 +1,4 @@
-package wordOfTheDay.client.advancedTable;
+package wordOfTheDay.client.listWords.advancedTable;
 
 import java.util.LinkedList;
 import java.util.List;

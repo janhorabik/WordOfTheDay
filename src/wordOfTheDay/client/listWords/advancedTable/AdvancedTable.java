@@ -16,11 +16,13 @@
  * This software is freeware. Use it at your own risk.
  */
 
-package wordOfTheDay.client.advancedTable;
+package wordOfTheDay.client.listWords.advancedTable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
+import wordOfTheDay.client.TooltipListener;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.DOM;
@@ -86,6 +88,7 @@ public class AdvancedTable extends Composite {
 	private int selectedRowIndex;
 	private Set markedRows = new HashSet();
 	private CheckBoxesListener checkBoxesListener;
+	private String[][] pageLongRows;
 
 	public AdvancedTable() {
 		super();
@@ -332,7 +335,7 @@ public class AdvancedTable extends Composite {
 		if (this.firstColumnVisible) {
 			if (this.allowRowMark) {
 				this.columns = new TableColumn[newColumns.length + 1];
-				this.columns[0] = new TableColumn("", MARK_COLUMN_TITLE);
+				this.columns[0] = new TableColumn("", MARK_COLUMN_TITLE, "");
 				for (int i = 0; i < newColumns.length; i++) {
 					this.columns[i + 1] = newColumns[i];
 				}
@@ -342,7 +345,7 @@ public class AdvancedTable extends Composite {
 		} else {
 			if (this.allowRowMark) {
 				this.columns = newColumns;
-				this.columns[0] = new TableColumn("", MARK_COLUMN_TITLE);
+				this.columns[0] = new TableColumn("", MARK_COLUMN_TITLE, "");
 			} else {
 				this.columns = new TableColumn[newColumns.length - 1];
 				for (int i = 0; i < this.columns.length; i++) {
@@ -381,7 +384,6 @@ public class AdvancedTable extends Composite {
 		// 1 header row + pageSize data rows
 		grid.resizeRows(1 + this.pageSize);
 
-		// TODO uncomment
 		this.updateRowsCount(new AsyncCallback() {
 			public void onFailure(Throwable caught) {
 				AdvancedTable.this.showStatus(
@@ -461,7 +463,6 @@ public class AdvancedTable extends Composite {
 
 		// Check for empty table - it is a special case
 		if (this.totalRowsCount == 0) {
-			// TODO uncomment
 			currentPageRowsCount = 0;
 			drawEmptyTable();
 			this.selectedRowIndex = NO_ROW_SELECTED;
@@ -483,11 +484,11 @@ public class AdvancedTable extends Composite {
 		}
 
 		// Asynchronously get rows from the server
-		// TODO uncomment
-		String[][] result = this.tableModelService.getRows(
+		String[][][] result = this.tableModelService.getRows(
 				this.currentPageStartRow, this.currentPageRowsCount,
 				this.filters, this.sortColumnName, this.sortOrder);
-		this.pageRows = result;
+		this.pageRows = result[0];
+		this.pageLongRows = result[1];
 		redrawRows();
 	}
 
@@ -526,15 +527,21 @@ public class AdvancedTable extends Composite {
 			startDataColumn = 1;
 		}
 
-		// TODO UNCOMMENT
 		for (int row = 0; row < this.pageSize; row++) {
 			if (row < this.currentPageRowsCount) {
 				// Fill data row in the table
 				for (int col = startTableColumn; col < this.columns.length; col++) {
 					String cellValue = this.pageRows[row][col
 							- startTableColumn + startDataColumn];
+					String cellLongValue = this.pageLongRows[row][col
+							- startTableColumn + startDataColumn];
 					if (cellValue != null) {
-						grid.setHTML(row + 1, col, cellValue);
+						Label label = new Label(cellValue);
+						if (!cellValue.equals(cellLongValue)) {
+							label.addMouseListener(new TooltipListener(
+									cellLongValue, 4000));
+						}
+						grid.setWidget(row + 1, col, label);
 					} else {
 						grid.setHTML(row + 1, col, NULL_DISPLAY_VALUE);
 					}
@@ -555,7 +562,6 @@ public class AdvancedTable extends Composite {
 		redrawSelectedRow();
 
 		redrawNavigationArea();
-		// TODO uncomment
 		fixGridSize();
 	}
 
@@ -606,7 +612,8 @@ public class AdvancedTable extends Composite {
 				} else {
 					gridRowFormatter.setStyleName(row + 1, DEFAULT_ROW_STYLE);
 				}
-			}
+			} else
+				gridRowFormatter.setStyleName(row, DEFAULT_ROW_STYLE);
 		}
 	}
 
@@ -630,7 +637,7 @@ public class AdvancedTable extends Composite {
 			String columnName = this.columns[column].getName();
 			this.applySorting(columnName);
 		} else {
-			if (row <= this.currentPageRowsCount) {
+			if ((row <= this.currentPageRowsCount) && (column > 0)) {
 				selectRow(row);
 			}
 		}
@@ -647,7 +654,7 @@ public class AdvancedTable extends Composite {
 			for (int i = 0; i < this.rowSelectionListeners.size(); i++) {
 				RowSelectionListener listener = (RowSelectionListener) this.rowSelectionListeners
 						.get(i);
-				listener.onRowSelected(this, rowId);
+				listener.onRowSelected(this.pageLongRows[rowIndex-1][0]);
 			}
 		}
 	}
@@ -732,9 +739,9 @@ public class AdvancedTable extends Composite {
 	 */
 	public void markAllRows() {
 		// Asynchronously get all data rows from the server
-		String[][] allTableRows = this.tableModelService.getRows(0,
+		String[][][] allTableRows = this.tableModelService.getRows(0,
 				this.totalRowsCount, this.filters, null, false);
-		AdvancedTable.this.markRows(allTableRows);
+		AdvancedTable.this.markRows(allTableRows[0]);
 	}
 
 	private void markRows(String[][] allTableRows) {
@@ -769,5 +776,11 @@ public class AdvancedTable extends Composite {
 		int originalHeight = Integer.parseInt(originalHeightStr);
 		int newHeight = originalHeight - NAVIGATION_PANEL_HEIGHT;
 		scrollPanelGrid.setHeight("" + newHeight + "px");
+	}
+
+	public void addLabel(String label, int x, int y, String string) {
+		int startX = this.grid.getAbsoluteLeft();
+		int startY = this.grid.getAbsoluteTop();
+		grid.setHTML(2, 2, startX + ", " + startY + " " + string);
 	}
 }

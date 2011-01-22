@@ -16,6 +16,10 @@ public class Date {
 		return getDate(d.getYear() + 1900, d.getMonth() + 1, d.getDate());
 	}
 
+	public static String getDate(int date) {
+		return getYear(date) + "-" + getMonth(date) + "-" + getDay(date);
+	}
+
 	public static int getYear(int date) {
 		return DateHelper.getYear(date);
 	}
@@ -38,10 +42,10 @@ public class Date {
 
 	public static int addNrDays(int date, int numDays) {
 		Calendar calendar = new GregorianCalendar(getYear(date),
-				getMonth(date)-1, getDay(date));
+				getMonth(date) - 1, getDay(date));
 		calendar.add(Calendar.DAY_OF_MONTH, numDays);
 		return getDate(calendar.get(Calendar.YEAR), calendar
-				.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH));
+				.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
 	}
 
 	public static void main(String[] args) {

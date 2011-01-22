@@ -1,3 +1,7 @@
+HTML,BODY {
+	height: 100%;
+}
+
 /************ Anchor ***********************************/
 .gwt-Anchor {
 	padding: 3px 3px 3px 3px;
@@ -203,7 +207,7 @@ h2 {
 
 #footer {
 	clear: both;
-	border-top: solid thin #c0b8a9;
+	/*border-top: solid thin #c0b8a9;*/
 	text-align: left;
 	font-size: 0.9em;
 	color: #c0b8a9;
@@ -232,4 +236,10 @@ h2 {
 	padding: 1px 0px;
 }
 
+/***************************************/
+	/************ Tooltip *******************/
+.tooltipPopup {
+	color: #c0b8a9;
+	background: #42484e;
+}
 /***************************************/
