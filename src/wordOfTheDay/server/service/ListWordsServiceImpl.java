@@ -12,7 +12,7 @@ import wordOfTheDay.client.Word9;
 import wordOfTheDay.client.deleteWords.DeleteWordsService;
 import wordOfTheDay.client.listWords.ListWordsService;
 import wordOfTheDay.server.PMF;
-import wordOfTheDay.server.PersistentWord24;
+import wordOfTheDay.server.PersistentWord25;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -33,10 +33,10 @@ public class ListWordsServiceImpl extends RemoteServiceServlet implements
 		if (email == null)
 			email = GetTodaysWordServiceImpl.defaultEmail;
 		log.warning("list words get all words");
-		List<PersistentWord24> persistentWords = PMF.getAllWords(email);
+		List<PersistentWord25> persistentWords = PMF.getAllWords(email);
 		log.warning("list words - all words got");
 		Vector<Word9> ret = new Vector<Word9>();
-		for (PersistentWord24 persistentWord : persistentWords) {
+		for (PersistentWord25 persistentWord : persistentWords) {
 			ret.add(PMF.persistentWordToWordWithPreviousPossible(
 					persistentWord, true));
 		}

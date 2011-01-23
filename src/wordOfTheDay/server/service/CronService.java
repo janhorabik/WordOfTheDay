@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import wordOfTheDay.client.Word9;
 import wordOfTheDay.server.Date;
 import wordOfTheDay.server.PMF;
-import wordOfTheDay.server.PersistentWord24;
+import wordOfTheDay.server.PersistentWord25;
 import wordOfTheDay.server.WordKey;
 import wordOfTheDay.server.WordsCache;
 
@@ -35,7 +35,7 @@ public class CronService extends HttpServlet {
 					+ word.getEmail() + word.getName());
 		}
 		log.warning("Word not found - getting from DB");
-		PersistentWord24 persistentWord = PMF.getWord(wordKey);
+		PersistentWord25 persistentWord = PMF.getWord(wordKey);
 		if (persistentWord != null) {
 			log.severe("Word got from DB - converting start");
 			word = PMF.persistentWordToWord(persistentWord);

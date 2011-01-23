@@ -22,7 +22,7 @@ public class TooltipListener extends MouseListenerAdapter {
 			this.delay = delay;
 
 			Label contents = new Label(text);
-			contents.setWidth(270 + "px");
+//			contents.setWidth(270 + "px");
 			add(contents);
 
 			int left = sender.getAbsoluteLeft() + offsetX;

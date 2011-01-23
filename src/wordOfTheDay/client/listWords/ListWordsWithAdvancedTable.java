@@ -25,6 +25,8 @@ import wordOfTheDay.client.listWords.advancedTable.TableModelService;
 
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -132,7 +134,7 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 		for (final String label : database.getLabels()) {
 			String shortLabel = label.length() > MAX_LABEL_LEN ? label
 					.substring(0, MAX_LABEL_LEN) : label;
-			Anchor anchor = new Anchor(shortLabel);
+			final Anchor anchor = new Anchor(shortLabel);
 			if (shortLabel.length() != label.length())
 				anchor.addMouseListener(new TooltipListener(label, 4000));
 			TreeItem item = tree.addItem(anchor);

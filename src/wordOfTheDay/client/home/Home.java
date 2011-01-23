@@ -1,6 +1,7 @@
 package wordOfTheDay.client.home;
 
 import wordOfTheDay.client.DateHelper;
+import wordOfTheDay.client.DragAndDrop;
 import wordOfTheDay.client.Word9;
 import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
 import wordOfTheDay.client.dbOnClient.DatabaseUpdatedNotifier;

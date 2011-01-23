@@ -41,7 +41,11 @@ public class Word9 implements IsSerializable, Serializable, Comparable<Word9> {
 		this.isToday = isToday;
 		this.nextDayPossible = nexDayPossible;
 		this.email = email;
-		this.labels = labels;
+		this.labels = new LinkedList<String>();
+		for (String label : labels) {
+			if (!label.trim().equals(""))
+				this.labels.add(label);
+		}
 	}
 
 	public String getName() {

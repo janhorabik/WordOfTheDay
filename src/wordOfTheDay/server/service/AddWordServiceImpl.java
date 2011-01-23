@@ -6,7 +6,7 @@ import wordOfTheDay.client.Word9;
 import wordOfTheDay.client.addWord.AddWordService;
 import wordOfTheDay.server.Date;
 import wordOfTheDay.server.PMF;
-import wordOfTheDay.server.PersistentWord24;
+import wordOfTheDay.server.PersistentWord25;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -21,7 +21,7 @@ public class AddWordServiceImpl extends RemoteServiceServlet implements
 		String email = (String) this.getThreadLocalRequest().getSession()
 				.getAttribute("email");
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		PersistentWord24 pWord = new PersistentWord24(word.getName(), word
+		PersistentWord25 pWord = new PersistentWord25(word.getName(), word
 				.getExplanation(), word.getUsage(), add ? PMF
 				.getYoungestAvailableDate(email) : word.getDate(), email, word
 				.getLabels());

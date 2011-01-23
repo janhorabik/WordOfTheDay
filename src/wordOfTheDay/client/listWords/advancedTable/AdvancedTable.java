@@ -25,6 +25,8 @@ import java.util.Set;
 import wordOfTheDay.client.TooltipListener;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -536,7 +538,7 @@ public class AdvancedTable extends Composite {
 					String cellLongValue = this.pageLongRows[row][col
 							- startTableColumn + startDataColumn];
 					if (cellValue != null) {
-						Label label = new Label(cellValue);
+						final Label label = new Label(cellValue);
 						if (!cellValue.equals(cellLongValue)) {
 							label.addMouseListener(new TooltipListener(
 									cellLongValue, 4000));
@@ -654,7 +656,7 @@ public class AdvancedTable extends Composite {
 			for (int i = 0; i < this.rowSelectionListeners.size(); i++) {
 				RowSelectionListener listener = (RowSelectionListener) this.rowSelectionListeners
 						.get(i);
-				listener.onRowSelected(this.pageLongRows[rowIndex-1][0]);
+				listener.onRowSelected(this.pageLongRows[rowIndex - 1][0]);
 			}
 		}
 	}

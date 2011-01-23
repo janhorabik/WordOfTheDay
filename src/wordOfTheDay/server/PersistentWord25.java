@@ -8,16 +8,18 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import com.google.appengine.api.datastore.Text;
+
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
-public class PersistentWord24 {
+public class PersistentWord25 {
 	@Persistent
-	private String name;
+	private Text name;
 
 	@Persistent
-	private String explanation;
+	private Text explanation;
 
 	@Persistent
-	private List<String> usage;
+	private List<Text> usage;
 
 	@Persistent
 	@PrimaryKey
@@ -30,13 +32,13 @@ public class PersistentWord24 {
 	private int date;
 
 	@Persistent
-	private List<String> labele;
+	private List<Text> labele;
 
-	public PersistentWord24(String name, String explanation,
+	public PersistentWord25(String name, String explanation,
 			List<String> usage, int date, String email, List<String> labels) {
 		this.name = ValidationManager.validate(name);
 		this.explanation = ValidationManager.validate(explanation);
-		List<String> newList = new LinkedList<String>();
+		List<Text> newList = new LinkedList<Text>();
 		for (String us : usage) {
 			newList.add(ValidationManager.validate(us));
 		}
@@ -44,7 +46,7 @@ public class PersistentWord24 {
 		this.wordKey = generateKey(email, date);
 		this.date = date;
 		this.email = email;
-		newList = new LinkedList<String>();
+		newList = new LinkedList<Text>();
 		for (String us : labels) {
 			newList.add(ValidationManager.validate(us));
 		}
@@ -60,15 +62,23 @@ public class PersistentWord24 {
 	}
 
 	public String getName() {
-		return name;
+		return name.getValue();
 	}
 
 	public String getExplanation() {
-		return explanation;
+		return explanation.getValue();
+	}
+
+	private static List<String> toString(List<Text> list) {
+		List<String> ret = new LinkedList<String>();
+		for (Text text : list) {
+			ret.add(text.getValue());
+		}
+		return ret;
 	}
 
 	public List<String> getUsage() {
-		return usage;
+		return toString(this.usage);
 	}
 
 	public int getDate() {
@@ -85,6 +95,6 @@ public class PersistentWord24 {
 	}
 
 	public List<String> getLabels() {
-		return labele;
+		return toString(this.labele);
 	}
 }

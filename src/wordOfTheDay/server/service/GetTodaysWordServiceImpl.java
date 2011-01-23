@@ -8,7 +8,7 @@ import wordOfTheDay.client.Word9;
 import wordOfTheDay.client.home.GetTodaysWordService;
 import wordOfTheDay.server.Date;
 import wordOfTheDay.server.PMF;
-import wordOfTheDay.server.PersistentWord24;
+import wordOfTheDay.server.PersistentWord25;
 import wordOfTheDay.server.WordKey;
 import wordOfTheDay.server.WordsCache;
 
@@ -58,7 +58,7 @@ public class GetTodaysWordServiceImpl extends RemoteServiceServlet implements
 			return word;
 		}
 		log.warning("Word not found - getting from DB");
-		PersistentWord24 persistentWord = PMF.getWord(wordKey);
+		PersistentWord25 persistentWord = PMF.getWord(wordKey);
 		if (persistentWord != null) {
 			log.severe("Word got from DB - converting start");
 			word = PMF.persistentWordToWord(persistentWord);
