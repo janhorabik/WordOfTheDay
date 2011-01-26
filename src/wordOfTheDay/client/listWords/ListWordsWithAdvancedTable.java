@@ -130,7 +130,7 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 
 	private Tree createTree() {
 		Tree tree = new Tree();
-		tree.setStyleName("wordoftheday");
+		tree.setStyleName("wordOfTheDayLeft");
 		for (final String treeLabel : database.getLabels()) {
 			TreeItem parentItem = null;
 			for (final String label : treeLabel.split(":")) {
@@ -200,8 +200,8 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 		String shortLabel = label.length() > MAX_LABEL_LEN ? label.substring(0,
 				MAX_LABEL_LEN) : label;
 		final Anchor anchor = new Anchor(shortLabel);
-		if (shortLabel.length() != label.length())
-			anchor.addMouseListener(new TooltipListener(label, 4000));
+//		if (shortLabel.length() != label.length())
+//			anchor.addMouseListener(new TooltipListener(label, 4000));
 		return anchor;
 	}
 

@@ -84,6 +84,12 @@ h2 {
 	font-size: 1em;
 }
 
+.wordOfTheDayLeft {
+	text-align: left;
+	color: #acc8d7;
+	font-size: 1em;
+}
+
 .wordOfTheDayRight {
 	text-align: right;
 	color: #acc8d7;
