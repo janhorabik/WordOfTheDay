@@ -18,7 +18,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class EditWord {
 
-	MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
+	MultiWordSuggestOracle oracle = new MultiWordSuggestOracle(" :");
 
 	DatabaseOnClient database;
 

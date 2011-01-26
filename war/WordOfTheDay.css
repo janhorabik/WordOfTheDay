@@ -97,24 +97,26 @@ h2 {
 
 .advancedTableHeader {
 	color: #777777;
-	text-align: center;
+	text-align: left;
 	font-size: 16em;
 	border: 3px solid #777777;
 }
 
 .advancedTableRow {
-	text-align: center;
+	text-align: left;
 	color: #acc8d7;
 	font-size: 1em;
 	border: 1px solid #777777;
+	cursor: pointer;
 }
 
 .advancedTableRow:hover {
 	background: #282c31;
+	background-color: #42484e;
 }
 
 .advancedTableCheckedRow {
-	text-align: center;
+	text-align: left;
 	color: #acc8d7;
 	font-size: 1em;
 	border: 1px solid #777777;

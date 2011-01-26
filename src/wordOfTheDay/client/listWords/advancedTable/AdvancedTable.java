@@ -61,6 +61,7 @@ public class AdvancedTable extends Composite {
 	private static final int NO_ROW_SELECTED = -1;
 	private static final String DEFAULT_ROW_STYLE = "advancedTableRow";
 	private static final String CHECKED_ROW_STYLE = "advancedTableCheckedRow";
+	private static final String HOVER_ROW_STYLE = "advancedTableHoverRow";
 	private static final String NULL_DISPLAY_VALUE = "&nbsp;";
 
 	private ScrollPanel scrollPanelGrid;
@@ -83,7 +84,9 @@ public class AdvancedTable extends Composite {
 	private String[][] pageRows;
 	private int totalRowsCount;
 	private int currentPageRowsCount;
+	// globalny numer row'a
 	private int currentPageStartRow;
+	// ktora strona jest wyswietlana
 	private int currentPageIndex;
 	private String sortColumnName;
 	private boolean sortOrder;
@@ -607,15 +610,15 @@ public class AdvancedTable extends Composite {
 	private void redrawSelectedRow() {
 		RowFormatter gridRowFormatter = grid.getRowFormatter();
 		for (int row = 0; row < this.pageSize; row++) {
-			if (this.pageRows != null && row < this.pageRows.length
-					&& row < currentPageRowsCount) {
+			if (row < this.currentPageRowsCount) {
 				if (this.markedRows.contains(this.pageRows[row][0])) {
 					gridRowFormatter.setStyleName(row + 1, CHECKED_ROW_STYLE);
 				} else {
 					gridRowFormatter.setStyleName(row + 1, DEFAULT_ROW_STYLE);
 				}
-			} else
-				gridRowFormatter.setStyleName(row, DEFAULT_ROW_STYLE);
+			} else {
+				gridRowFormatter.setStyleName(row + 1, DEFAULT_ROW_STYLE);
+			}
 		}
 	}
 

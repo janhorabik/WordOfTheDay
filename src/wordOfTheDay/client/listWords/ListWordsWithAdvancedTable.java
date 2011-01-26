@@ -18,7 +18,7 @@ import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
 import wordOfTheDay.client.listWords.advancedTable.AdvancedTable;
 import wordOfTheDay.client.listWords.advancedTable.CheckBoxesListener;
 import wordOfTheDay.client.listWords.advancedTable.DataFilter;
-import wordOfTheDay.client.listWords.advancedTable.LabelExactFilter;
+import wordOfTheDay.client.listWords.advancedTable.LabelBeginFilter;
 import wordOfTheDay.client.listWords.advancedTable.RowSelectionListener;
 import wordOfTheDay.client.listWords.advancedTable.TableColumn;
 import wordOfTheDay.client.listWords.advancedTable.TableModelService;
@@ -131,19 +131,39 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 	private Tree createTree() {
 		Tree tree = new Tree();
 		tree.setStyleName("wordoftheday");
-		for (final String label : database.getLabels()) {
-			String shortLabel = label.length() > MAX_LABEL_LEN ? label
-					.substring(0, MAX_LABEL_LEN) : label;
-			final Anchor anchor = new Anchor(shortLabel);
-			if (shortLabel.length() != label.length())
-				anchor.addMouseListener(new TooltipListener(label, 4000));
-			TreeItem item = tree.addItem(anchor);
-			item.addItem("sub");
+		for (final String treeLabel : database.getLabels()) {
+			TreeItem parentItem = null;
+			for (final String label : treeLabel.split(":")) {
+				final Anchor anchor = createAnchor(label);
+				if (parentItem == null) {
+					// look at top:
+					parentItem = findElement(tree, label);
+					if (parentItem == null) {
+						// create new
+						parentItem = tree.addItem(anchor);
+						parentItem.setTitle(label);
+					}
+				} else {
+					TreeItem currentItem = findElement(parentItem, label);
+					if (currentItem == null) {
+						// create new
+						currentItem = parentItem.addItem(anchor);
+						currentItem.setTitle(label);
+					}
+					parentItem = currentItem;
+				}
+			}
 		}
 		tree.addSelectionHandler(new SelectionHandler<TreeItem>() {
 			public void onSelection(SelectionEvent<TreeItem> event) {
-				String labelToFilter = event.getSelectedItem().getText();
-				DataFilter filter = new LabelExactFilter(labelToFilter);
+				String labelToFilter = "";
+				TreeItem item = event.getSelectedItem();
+				while (item != null) {
+					labelToFilter = item.getText() + ":" + labelToFilter;
+					item = item.getParentItem();
+				}
+				DataFilter filter = new LabelBeginFilter(labelToFilter
+						.substring(0, labelToFilter.length() - 2));
 				DataFilter[] filters = { filter };
 				table.applyFilters(filters);
 			}
@@ -156,6 +176,33 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 			}
 		});
 		return tree;
+	}
+
+	private TreeItem findElement(TreeItem parentItem, String label) {
+		int numElements = parentItem.getChildCount();
+		for (int i = 0; i < numElements; ++i) {
+			if (parentItem.getChild(i).getElement().getTitle().equals(label))
+				return parentItem.getChild(i);
+		}
+		return null;
+	}
+
+	private TreeItem findElement(Tree tree, String label) {
+		int numElements = tree.getItemCount();
+		for (int i = 0; i < numElements; ++i)
+			if (tree.getItem(i).getElement().getTitle().equals(label)) {
+				return tree.getItem(i);
+			}
+		return null;
+	}
+
+	private Anchor createAnchor(final String label) {
+		String shortLabel = label.length() > MAX_LABEL_LEN ? label.substring(0,
+				MAX_LABEL_LEN) : label;
+		final Anchor anchor = new Anchor(shortLabel);
+		if (shortLabel.length() != label.length())
+			anchor.addMouseListener(new TooltipListener(label, 4000));
+		return anchor;
 	}
 
 	public void checkBoxesChanged(boolean someRowsSelected) {

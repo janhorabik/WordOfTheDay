@@ -139,7 +139,18 @@ public class Word9 implements IsSerializable, Serializable, Comparable<Word9> {
 		return labels;
 	}
 
+	private List<String> getLastDots(List<String> list) {
+		List<String> ret = new LinkedList<String>();
+		for (String string : list) {
+			String[] elements = string.split(":");
+			String v = elements[elements.length - 1];
+			ret.add(v);
+		}
+		return ret;
+	}
+
 	public List<String> getShortLabels() {
-		return getShort(labels);
+		List<String> lastDots = getLastDots(labels);
+		return getShort(lastDots);
 	}
 }
