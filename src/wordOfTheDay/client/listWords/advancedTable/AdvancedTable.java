@@ -543,8 +543,7 @@ public class AdvancedTable extends Composite {
 					if (cellValue != null) {
 						final Label label = new Label(cellValue);
 						if (!cellValue.equals(cellLongValue)) {
-							label.addMouseListener(new TooltipListener(
-									cellLongValue, 4000));
+							label.setTitle(cellLongValue);
 						}
 						grid.setWidget(row + 1, col, label);
 					} else {
@@ -781,11 +780,5 @@ public class AdvancedTable extends Composite {
 		int originalHeight = Integer.parseInt(originalHeightStr);
 		int newHeight = originalHeight - NAVIGATION_PANEL_HEIGHT;
 		scrollPanelGrid.setHeight("" + newHeight + "px");
-	}
-
-	public void addLabel(String label, int x, int y, String string) {
-		int startX = this.grid.getAbsoluteLeft();
-		int startY = this.grid.getAbsoluteTop();
-		grid.setHTML(2, 2, startX + ", " + startY + " " + string);
 	}
 }

@@ -134,21 +134,18 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 		for (final String treeLabel : database.getLabels()) {
 			TreeItem parentItem = null;
 			for (final String label : treeLabel.split(":")) {
-				final Anchor anchor = createAnchor(label);
 				if (parentItem == null) {
 					// look at top:
 					parentItem = findElement(tree, label);
 					if (parentItem == null) {
 						// create new
-						parentItem = tree.addItem(anchor);
-						parentItem.setTitle(label);
+						parentItem = createItem(tree, label);
 					}
 				} else {
 					TreeItem currentItem = findElement(parentItem, label);
 					if (currentItem == null) {
 						// create new
-						currentItem = parentItem.addItem(anchor);
-						currentItem.setTitle(label);
+						currentItem = createItem(parentItem, label);
 					}
 					parentItem = currentItem;
 				}
@@ -178,10 +175,32 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 		return tree;
 	}
 
+	private TreeItem createItem(TreeItem parentItem, final String label) {
+		TreeItem currentItem;
+		Anchor anchor = createAnchor(label);
+		currentItem = parentItem.addItem(anchor);
+		if (label.length() > MAX_LABEL_LEN) {
+			currentItem.setTitle(label);
+		}
+		currentItem.setUserObject(label);
+		return currentItem;
+	}
+
+	private TreeItem createItem(Tree tree, final String label) {
+		TreeItem parentItem;
+		Anchor anchor = createAnchor(label);
+		parentItem = tree.addItem(anchor);
+		if (label.length() > MAX_LABEL_LEN) {
+			parentItem.setTitle(label);
+		}
+		parentItem.setUserObject(label);
+		return parentItem;
+	}
+
 	private TreeItem findElement(TreeItem parentItem, String label) {
 		int numElements = parentItem.getChildCount();
 		for (int i = 0; i < numElements; ++i) {
-			if (parentItem.getChild(i).getElement().getTitle().equals(label))
+			if (parentItem.getChild(i).getUserObject().equals(label))
 				return parentItem.getChild(i);
 		}
 		return null;
@@ -190,7 +209,7 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 	private TreeItem findElement(Tree tree, String label) {
 		int numElements = tree.getItemCount();
 		for (int i = 0; i < numElements; ++i)
-			if (tree.getItem(i).getElement().getTitle().equals(label)) {
+			if (tree.getItem(i).getUserObject().equals(label)) {
 				return tree.getItem(i);
 			}
 		return null;
@@ -200,8 +219,8 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 		String shortLabel = label.length() > MAX_LABEL_LEN ? label.substring(0,
 				MAX_LABEL_LEN) : label;
 		final Anchor anchor = new Anchor(shortLabel);
-//		if (shortLabel.length() != label.length())
-//			anchor.addMouseListener(new TooltipListener(label, 4000));
+		// if (shortLabel.length() != label.length())
+		// anchor.addMouseListener(new TooltipListener(label, 4000));
 		return anchor;
 	}
 
