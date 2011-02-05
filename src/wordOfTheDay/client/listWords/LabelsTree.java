@@ -129,7 +129,7 @@ public class LabelsTree {
 		final Anchor anchor = new Anchor(shortLabel);
 		anchor.addMouseDownHandler(new MouseDownHandler() {
 			public void onMouseDown(MouseDownEvent event) {
-				Dashboard.tooltip.show();
+				Dashboard.tooltipListener.labelWasPressed();
 				Dashboard.tooltip.getContainer().setText(labelSoFar);
 			}
 		});

@@ -1,8 +1,8 @@
-<!-- Indices written at Sat, 5 Feb 2011 22:51:32 UTC -->
+<!-- Indices written at Sat, 5 Feb 2011 23:21:25 UTC -->
 
 <datastore-indexes>
 
-    <!-- Used 2 times in query history -->
+    <!-- Used 4 times in query history -->
     <datastore-index kind="PersistentWord25" ancestor="false" source="auto">
         <property name="email" direction="asc"/>
         <property name="date" direction="asc"/>

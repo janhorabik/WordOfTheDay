@@ -32,6 +32,9 @@ public class Dashboard implements DatabaseUpdatedNotifier {
 
 	public static MobileTooltip tooltip = new MobileTooltip("");
 
+	public static MobileTooltipMouseListener tooltipListener = new MobileTooltipMouseListener(
+			tooltip);
+
 	Dashboard(final RootPanel rootPanelArg, DatabaseOnClient database) {
 		rootPanel = rootPanelArg;
 		this.database = database;
@@ -61,7 +64,7 @@ public class Dashboard implements DatabaseUpdatedNotifier {
 
 		// List Words tab
 		final FocusPanel focusPanel = new FocusPanel();
-		focusPanel.addMouseListener(new MobileTooltipMouseListener(tooltip));
+		focusPanel.addMouseListener(tooltipListener);
 		final VerticalPanel listWordsPanel = new VerticalPanel();
 		focusPanel.add(listWordsPanel);
 		listWords = new ListWords(listWordsPanel, database);
