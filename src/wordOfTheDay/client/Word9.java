@@ -7,7 +7,7 @@ import java.util.List;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Word9 implements IsSerializable, Serializable, Comparable<Word9> {
-	public static final int SHORT_LEN = 50;
+	public static final int SHORT_LEN = 45;
 
 	public static final int SHORT_LEN_LABELS = 20;
 

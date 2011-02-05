@@ -10,7 +10,13 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.user.client.ui.Anchor;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 
@@ -58,17 +64,42 @@ public class LabelsTree {
 
 	private TreeItem createItem(TreeItem parentItem, final String label,
 			String labelSoFar) {
-		Anchor anchor = createAnchor(label, labelSoFar);
-		TreeItem currentItem = parentItem.addItem(anchor);
+		HorizontalPanel panel = createPanelElement(label, labelSoFar);
+		TreeItem currentItem = parentItem.addItem(panel);
 		currentItem.setTitle(labelSoFar);
 		currentItem.setUserObject(label);
 		return currentItem;
 	}
 
+	private HorizontalPanel createPanelElement(String label, String labelSoFar) {
+		HorizontalPanel panel = new HorizontalPanel();
+		final Anchor arrow = new Anchor("&nbsp;&nbsp;&nbsp;&nbsp;", true);
+		class ArrowMouseOverHandler implements MouseOverHandler {
+			public void onMouseOver(MouseOverEvent event) {
+				arrow.setText(AdvancedTable.SORT_DESC_SYMBOL);
+			}
+		}
+		;
+		class ArrowMouseOutHandler implements MouseOutHandler {
+			public void onMouseOut(MouseOutEvent event) {
+				arrow.setHTML("&nbsp;&nbsp;&nbsp;&nbsp;");
+			}
+		}
+		;
+		arrow.addMouseOverHandler(new ArrowMouseOverHandler());
+		arrow.addMouseOutHandler(new ArrowMouseOutHandler());
+		panel.add(arrow);
+		Anchor anchor = createAnchor(label, labelSoFar);
+		anchor.addMouseOverHandler(new ArrowMouseOverHandler());
+		anchor.addMouseOutHandler(new ArrowMouseOutHandler());
+		panel.add(anchor);
+		return panel;
+	}
+
 	private TreeItem createItem(Tree tree, final String label,
 			final String labelSoFar) {
-		Anchor anchor = createAnchor(label, labelSoFar);
-		TreeItem parentItem = tree.addItem(anchor);
+		HorizontalPanel panel = createPanelElement(label, labelSoFar);
+		TreeItem parentItem = tree.addItem(panel);
 		parentItem.setTitle(labelSoFar);
 		parentItem.setUserObject(label);
 		return parentItem;
@@ -104,6 +135,7 @@ public class LabelsTree {
 		});
 		anchor.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
+				Dashboard.tooltip.hide();
 				DataFilter filter = new LabelBeginFilter(labelSoFar);
 				DataFilter[] filters = { filter };
 				table.applyFilters(filters);

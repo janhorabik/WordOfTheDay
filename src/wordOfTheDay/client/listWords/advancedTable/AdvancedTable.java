@@ -59,7 +59,7 @@ public class AdvancedTable extends Composite {
 	private static final int STATUS_ERROR = 1002;
 	private static final int STATUS_WAIT = 1003;
 	private static final String SORT_ASC_SYMBOL = " \u25b2";
-	private static final String SORT_DESC_SYMBOL = " \u25bc";
+	public static final String SORT_DESC_SYMBOL = " \u25bc";
 	private static final String MARK_COLUMN_TITLE = "\u00bb";
 	private static final int NO_ROW_SELECTED = -1;
 	private static final String DEFAULT_ROW_STYLE = "advancedTableRow";
