@@ -11,4 +11,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("addWordServlet")
 public interface AddWordService extends RemoteService {
 	String addWord(Word9 word, boolean add);
+	void addLabel(int date, String label);
 }

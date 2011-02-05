@@ -9,4 +9,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  */
 public interface AddWordServiceAsync {
 	public void addWord(Word9 word, boolean add, AsyncCallback<String> callback);
+
+	void addLabel(int date, String label, AsyncCallback<Void> callback);
 }

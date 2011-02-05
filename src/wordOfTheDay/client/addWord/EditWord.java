@@ -133,4 +133,14 @@ public class EditWord {
 	public void setVisible(boolean visible) {
 		this.addWordPanel.setVisible(visible);
 	}
+
+	public void setEmptyFields() {
+		this.nameField.setText("");
+		this.explanationField.setText("");
+		this.exampleField.setText("");
+		this.tagField.setText("");
+		this.askServer = new AskServerToAddWord(nameField, explanationField,
+				exampleField, tagField, date, database, true);
+		MyPopup myPopup = new MyPopup("Add Word", askServer, sendButton, true);
+	}
 }

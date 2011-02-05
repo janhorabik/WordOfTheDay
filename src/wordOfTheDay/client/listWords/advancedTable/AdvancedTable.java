@@ -22,7 +22,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import wordOfTheDay.client.Dashboard;
 import wordOfTheDay.client.TooltipListener;
+import wordOfTheDay.client.test.MobileTooltip;
+import wordOfTheDay.client.test.MobileTooltipMouseListener;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.MouseUpEvent;
@@ -93,6 +96,7 @@ public class AdvancedTable extends Composite {
 	private int selectedRowIndex;
 	private Set markedRows = new HashSet();
 	private CheckBoxesListener checkBoxesListener;
+	private AddLabelListener addLabelListener;
 	private String[][] pageLongRows;
 
 	public AdvancedTable() {
@@ -324,6 +328,10 @@ public class AdvancedTable extends Composite {
 		this.checkBoxesListener = listener;
 	}
 
+	public void addAddLabelListener(AddLabelListener listener) {
+		this.addLabelListener = listener;
+	}
+
 	/**
 	 * Updates and redraws the table columns based on the table data coming from
 	 * the server.
@@ -545,6 +553,15 @@ public class AdvancedTable extends Composite {
 						if (!cellValue.equals(cellLongValue)) {
 							label.setTitle(cellLongValue);
 						}
+						final int r = row;
+						label.addMouseUpHandler(new MouseUpHandler() {
+							public void onMouseUp(MouseUpEvent event) {
+								addLabelListener.addLabel(pageLongRows[r][0],
+										Dashboard.tooltip.getContainer()
+												.getHTML().toString());
+								Dashboard.tooltip.hide();
+							}
+						});
 						grid.setWidget(row + 1, col, label);
 					} else {
 						grid.setHTML(row + 1, col, NULL_DISPLAY_VALUE);

@@ -9,26 +9,40 @@
 
 package wordOfTheDay.client.listWords;
 
+import wordOfTheDay.client.Dashboard;
 import wordOfTheDay.client.DateHelper;
 import wordOfTheDay.client.Word9;
 import wordOfTheDay.client.MyPopup.AskServer;
 import wordOfTheDay.client.MyPopup.MyPopup;
+import wordOfTheDay.client.addWord.AddWordService;
+import wordOfTheDay.client.addWord.AddWordServiceAsync;
 import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
+import wordOfTheDay.client.listWords.advancedTable.AddLabelListener;
 import wordOfTheDay.client.listWords.advancedTable.AdvancedTable;
 import wordOfTheDay.client.listWords.advancedTable.CheckBoxesListener;
 import wordOfTheDay.client.listWords.advancedTable.DataFilter;
 import wordOfTheDay.client.listWords.advancedTable.RowSelectionListener;
+import wordOfTheDay.client.test.MobileTooltip;
+import wordOfTheDay.client.test.MobileTooltipMouseListener;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class ListWordsWithAdvancedTable implements CheckBoxesListener,
-		RowSelectionListener {
+		RowSelectionListener, AddLabelListener {
 
 	private DatabaseOnClient database;
 
@@ -69,6 +83,7 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 		table.setPageSize(10);
 		table.addCheckBoxesListener(this);
 		table.addRowSelectionListener(this);
+		table.addAddLabelListener(this);
 		LocalGetWordsServiceImpl serice = new LocalGetWordsServiceImpl(database);
 		table.setTableModelService(serice);
 	}
@@ -84,6 +99,43 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 		textBoxFilter.setWidth("100%");
 		horizontalPanel.setCellWidth(textBoxFilter, "100%");
 
+		addSearchButton(horizontalPanel, textBoxFilter);
+		// addNewWordButton(horizontalPanel);
+
+		buttonRemoveSelected = new Button("Remove");
+		buttonRemoveSelected.addMouseUpHandler(new MouseUpHandler() {
+			public void onMouseUp(MouseUpEvent event) {
+				buttonRemoveSelected.setText(event.getSource().toString());
+			}
+		});
+		buttonRemoveSelected.setVisible(false);
+		horizontalPanel.add(buttonRemoveSelected);
+		buttonRemoveSelected.setWidth("100");
+		AskServer askServer = new AskServerToRemoveSelected(table, listWords,
+				database);
+		MyPopup myPopup = new MyPopup("Remove words", askServer,
+				buttonRemoveSelected, false);
+		return horizontalPanel;
+	}
+
+	private void addNewWordButton(HorizontalPanel horizontalPanel) {
+		final Button addWordButton = new Button();
+		horizontalPanel.add(addWordButton);
+		final ListWords listWords = this.listWords;
+		addWordButton.addClickListener(new ClickListener() {
+			public void onClick(Widget sender) {
+				listWords.showEmptyEdit();
+			}
+		});
+		addWordButton.setWidth("100");
+		horizontalPanel.setCellWidth(addWordButton, "100");
+		horizontalPanel.setCellHorizontalAlignment(addWordButton,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		addWordButton.setText("Add Word");
+	}
+
+	private void addSearchButton(final HorizontalPanel horizontalPanel,
+			final TextBox textBoxFilter) {
 		final Button buttonApplyFilter = new Button();
 		horizontalPanel.add(buttonApplyFilter);
 		buttonApplyFilter.addClickListener(new ClickListener() {
@@ -100,16 +152,6 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 		horizontalPanel.setCellHorizontalAlignment(buttonApplyFilter,
 				HasHorizontalAlignment.ALIGN_RIGHT);
 		buttonApplyFilter.setText("Search");
-
-		buttonRemoveSelected = new Button("Remove");
-		buttonRemoveSelected.setVisible(false);
-		horizontalPanel.add(buttonRemoveSelected);
-		buttonRemoveSelected.setWidth("100");
-		AskServer askServer = new AskServerToRemoveSelected(table, listWords,
-				database);
-		MyPopup myPopup = new MyPopup("Remove words", askServer,
-				buttonRemoveSelected, false);
-		return horizontalPanel;
 	}
 
 	public void checkBoxesChanged(boolean someRowsSelected) {
@@ -132,4 +174,24 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 		}
 	}
 
+	private final AddWordServiceAsync addWordService = GWT
+			.create(AddWordService.class);
+
+	public void addLabel(String date, String label) {
+		if (!database.getWord(DateHelper.toIntWithoutSpace(date)).getLabels()
+				.contains(label)) {
+			addWordService.addLabel(DateHelper.toIntWithoutSpace(date), label,
+					new AsyncCallback<Void>() {
+
+						@Override
+						public void onSuccess(Void result) {
+							database.update();
+						}
+
+						@Override
+						public void onFailure(Throwable caught) {
+						}
+					});
+		}
+	}
 }

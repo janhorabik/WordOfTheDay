@@ -6,6 +6,7 @@ import wordOfTheDay.client.home.Home;
 import wordOfTheDay.client.login.Login;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 

@@ -1,14 +1,15 @@
 package wordOfTheDay.client.listWords;
 
+import wordOfTheDay.client.Dashboard;
 import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
 import wordOfTheDay.client.listWords.advancedTable.AdvancedTable;
 import wordOfTheDay.client.listWords.advancedTable.DataFilter;
 import wordOfTheDay.client.listWords.advancedTable.LabelBeginFilter;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
-import com.google.gwt.event.logical.shared.SelectionEvent;
-import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
@@ -29,66 +30,46 @@ public class LabelsTree {
 		tree.setStyleName("wordOfTheDayLeft");
 		for (final String treeLabel : database.getLabels()) {
 			TreeItem parentItem = null;
-			for (final String label : treeLabel.split(":")) {
+			String[] labels = treeLabel.split(":");
+			String labelSoFar = "";
+			for (int i = 0; i < labels.length; ++i) {
+				String label = labels[i];
+				labelSoFar += label;
 				if (parentItem == null) {
 					// look at top:
 					parentItem = findElement(tree, label);
 					if (parentItem == null) {
 						// create new
-						parentItem = createItem(tree, label);
+						parentItem = createItem(tree, label, labelSoFar);
 					}
 				} else {
 					TreeItem currentItem = findElement(parentItem, label);
 					if (currentItem == null) {
 						// create new
-						currentItem = createItem(parentItem, label);
+						currentItem = createItem(parentItem, label, labelSoFar);
 					}
 					parentItem = currentItem;
 				}
+				labelSoFar += ":";
 			}
 		}
-		tree.addSelectionHandler(new SelectionHandler<TreeItem>() {
-			public void onSelection(SelectionEvent<TreeItem> event) {
-				String labelToFilter = "";
-				TreeItem item = event.getSelectedItem();
-				while (item != null) {
-					labelToFilter = item.getText() + ":" + labelToFilter;
-					item = item.getParentItem();
-				}
-				DataFilter filter = new LabelBeginFilter(labelToFilter
-						.substring(0, labelToFilter.length() - 2));
-				DataFilter[] filters = { filter };
-				table.applyFilters(filters);
-			}
-		});
-
-		tree.addMouseDownHandler(new MouseDownHandler() {
-
-			public void onMouseDown(MouseDownEvent event) {
-				event.getSource().toString();
-			}
-		});
 		return tree;
 	}
 
-	private TreeItem createItem(TreeItem parentItem, final String label) {
-		TreeItem currentItem;
-		Anchor anchor = createAnchor(label);
-		currentItem = parentItem.addItem(anchor);
-		if (label.length() > MAX_LABEL_LEN) {
-			currentItem.setTitle(label);
-		}
+	private TreeItem createItem(TreeItem parentItem, final String label,
+			String labelSoFar) {
+		Anchor anchor = createAnchor(label, labelSoFar);
+		TreeItem currentItem = parentItem.addItem(anchor);
+		currentItem.setTitle(labelSoFar);
 		currentItem.setUserObject(label);
 		return currentItem;
 	}
 
-	private TreeItem createItem(Tree tree, final String label) {
-		TreeItem parentItem;
-		Anchor anchor = createAnchor(label);
-		parentItem = tree.addItem(anchor);
-		if (label.length() > MAX_LABEL_LEN) {
-			parentItem.setTitle(label);
-		}
+	private TreeItem createItem(Tree tree, final String label,
+			final String labelSoFar) {
+		Anchor anchor = createAnchor(label, labelSoFar);
+		TreeItem parentItem = tree.addItem(anchor);
+		parentItem.setTitle(labelSoFar);
 		parentItem.setUserObject(label);
 		return parentItem;
 	}
@@ -111,11 +92,23 @@ public class LabelsTree {
 		return null;
 	}
 
-	private Anchor createAnchor(final String label) {
+	private Anchor createAnchor(final String label, final String labelSoFar) {
 		String shortLabel = label.length() > MAX_LABEL_LEN ? label.substring(0,
 				MAX_LABEL_LEN) : label;
 		final Anchor anchor = new Anchor(shortLabel);
+		anchor.addMouseDownHandler(new MouseDownHandler() {
+			public void onMouseDown(MouseDownEvent event) {
+				Dashboard.tooltip.show();
+				Dashboard.tooltip.getContainer().setText(labelSoFar);
+			}
+		});
+		anchor.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				DataFilter filter = new LabelBeginFilter(labelSoFar);
+				DataFilter[] filters = { filter };
+				table.applyFilters(filters);
+			}
+		});
 		return anchor;
 	}
-
 }

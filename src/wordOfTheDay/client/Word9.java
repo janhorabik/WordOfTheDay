@@ -9,6 +9,8 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public class Word9 implements IsSerializable, Serializable, Comparable<Word9> {
 	public static final int SHORT_LEN = 50;
 
+	public static final int SHORT_LEN_LABELS = 20;
+
 	private String name;
 
 	private String explanation;
@@ -76,17 +78,17 @@ public class Word9 implements IsSerializable, Serializable, Comparable<Word9> {
 
 	}
 
-	private List<String> getShort(List<String> list) {
+	private List<String> getShort(List<String> list, int maxLen) {
 		List<String> ret = new LinkedList<String>();
 		int len = 0;
 		for (String string : list) {
 			String v = getShort(string);
 			int oldlen = len;
 			len += v.length();
-			if (len < Word9.SHORT_LEN)
+			if (len < maxLen)
 				ret.add(v);
 			else {
-				ret.add(getShort(v, Word9.SHORT_LEN - oldlen));
+				ret.add(getShort(v, maxLen - oldlen));
 				break;
 			}
 		}
@@ -98,7 +100,7 @@ public class Word9 implements IsSerializable, Serializable, Comparable<Word9> {
 	}
 
 	public List<String> getShortUsage() {
-		return getShort(this.usage);
+		return getShort(this.usage, Word9.SHORT_LEN);
 	}
 
 	public int getDate() {
@@ -151,6 +153,6 @@ public class Word9 implements IsSerializable, Serializable, Comparable<Word9> {
 
 	public List<String> getShortLabels() {
 		List<String> lastDots = getLastDots(labels);
-		return getShort(lastDots);
+		return getShort(lastDots, Word9.SHORT_LEN_LABELS);
 	}
 }

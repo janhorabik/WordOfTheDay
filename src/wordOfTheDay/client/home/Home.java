@@ -7,10 +7,15 @@ import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
 import wordOfTheDay.client.dbOnClient.DatabaseUpdatedNotifier;
 import wordOfTheDay.client.listWords.ListWordsService;
 import wordOfTheDay.client.listWords.ListWordsServiceAsync;
+import wordOfTheDay.client.test.MainEntryPoint;
+import wordOfTheDay.client.test.MobileTooltip;
+import wordOfTheDay.client.test.MobileTooltipMouseListener;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
@@ -39,7 +44,7 @@ public class Home implements DatabaseUpdatedNotifier {
 		dateLinkPanel.add(dateLabel);
 		dateLinkPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_RIGHT);
 		dateLinkPanel.add(nextLink);
-		
+
 		wordPanel.add(dateLinkPanel);
 		wordPanel.setWidgetPosition(dateLinkPanel, 500, 150);
 		wordPanel.add(wordName);
@@ -129,6 +134,8 @@ public class Home implements DatabaseUpdatedNotifier {
 		}
 		currentIndexOfWord = -1;
 		todayIndex = -1;
+		// Event e = Event.FOCUSEVENTS
+		// DOM.eventPreventDefault(Event.ONMOUSEDOWN);
 	}
 
 	public void initiate() {

@@ -42,4 +42,10 @@ public class ListWords {
 
 	private VerticalPanel listWordsPanel;
 
+	public void showEmptyEdit() {
+		this.editWord.setEmptyFields();
+		this.listWordsWithAdvancedTable.setVisible(false);
+		this.editWord.setVisible(true);
+	}
+
 }

@@ -6,11 +6,14 @@ import wordOfTheDay.client.dbOnClient.DatabaseUpdatedNotifier;
 import wordOfTheDay.client.deleteWords.DeleteWords;
 import wordOfTheDay.client.downloadFile.DownloadXml;
 import wordOfTheDay.client.listWords.ListWords;
+import wordOfTheDay.client.test.MobileTooltip;
+import wordOfTheDay.client.test.MobileTooltipMouseListener;
 import wordOfTheDay.client.uploadFile.AddWordsXml;
 
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.ui.DecoratedTabPanel;
+import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -26,6 +29,8 @@ public class Dashboard implements DatabaseUpdatedNotifier {
 	DecoratedTabPanel tabPanel = new DecoratedTabPanel();
 
 	EditWord addWord = null;
+
+	public static MobileTooltip tooltip = new MobileTooltip("");
 
 	Dashboard(final RootPanel rootPanelArg, DatabaseOnClient database) {
 		rootPanel = rootPanelArg;
@@ -55,10 +60,13 @@ public class Dashboard implements DatabaseUpdatedNotifier {
 		tabPanel.add(deleteWordsPanel, "Delete Words");
 
 		// List Words tab
+		final FocusPanel focusPanel = new FocusPanel();
+		focusPanel.addMouseListener(new MobileTooltipMouseListener(tooltip));
 		final VerticalPanel listWordsPanel = new VerticalPanel();
+		focusPanel.add(listWordsPanel);
 		listWords = new ListWords(listWordsPanel, database);
 		listWords.initiate();
-		tabPanel.add(listWordsPanel, "List Words");
+		tabPanel.add(focusPanel, "List Words");
 		tabPanel.addSelectionHandler(new SelectionHandler<Integer>() {
 			public void onSelection(SelectionEvent<Integer> event) {
 				if (event.getSelectedItem() == listNum) {
