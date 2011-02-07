@@ -63,13 +63,11 @@ public class Dashboard implements DatabaseUpdatedNotifier {
 		tabPanel.add(deleteWordsPanel, "Delete Words");
 
 		// List Words tab
-		final FocusPanel focusPanel = new FocusPanel();
-		focusPanel.addMouseListener(tooltipListener);
+
 		final VerticalPanel listWordsPanel = new VerticalPanel();
-		focusPanel.add(listWordsPanel);
 		listWords = new ListWords(listWordsPanel, database);
 		listWords.initiate();
-		tabPanel.add(focusPanel, "List Words");
+		tabPanel.add(listWordsPanel, "List Words");
 		tabPanel.addSelectionHandler(new SelectionHandler<Integer>() {
 			public void onSelection(SelectionEvent<Integer> event) {
 				if (event.getSelectedItem() == listNum) {

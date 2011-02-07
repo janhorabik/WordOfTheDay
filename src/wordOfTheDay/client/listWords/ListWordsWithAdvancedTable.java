@@ -34,6 +34,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -65,14 +66,18 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 		final HorizontalPanel searchPanel = createHorizontalPanel(listWords,
 				database);
 
+		final FocusPanel focusPanel = new FocusPanel();
+		focusPanel.addMouseListener(Dashboard.tooltipListener);
 		HorizontalPanel pairPanel = new HorizontalPanel();
+		focusPanel.add(pairPanel);
+
 		LabelsTree labelsTree = new LabelsTree(this.database, this.table);
 		pairPanel.add(labelsTree.createTree());
 		pairPanel.add(table);
 
 		this.tablePanel = new VerticalPanel();
 		this.tablePanel.add(searchPanel);
-		this.tablePanel.add(pairPanel);
+		this.tablePanel.add(focusPanel);
 
 		rootPanel.add(this.tablePanel);
 	}
