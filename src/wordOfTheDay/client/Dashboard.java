@@ -6,13 +6,14 @@ import wordOfTheDay.client.dbOnClient.DatabaseUpdatedNotifier;
 import wordOfTheDay.client.deleteWords.DeleteWords;
 import wordOfTheDay.client.downloadFile.DownloadXml;
 import wordOfTheDay.client.listWords.ListWords;
-import wordOfTheDay.client.test.MobileTooltip;
-import wordOfTheDay.client.test.MobileTooltipMouseListener;
+import wordOfTheDay.client.tooltip.MobileTooltip;
+import wordOfTheDay.client.tooltip.MobileTooltipMouseListener;
 import wordOfTheDay.client.uploadFile.AddWordsXml;
 
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.ui.DecoratedTabPanel;
+import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
@@ -26,7 +27,7 @@ public class Dashboard implements DatabaseUpdatedNotifier {
 
 	private DatabaseOnClient database;
 
-	DecoratedTabPanel tabPanel = new DecoratedTabPanel();
+	DecoratorPanel tabPanel = new DecoratorPanel();
 
 	EditWord addWord = null;
 
@@ -43,51 +44,40 @@ public class Dashboard implements DatabaseUpdatedNotifier {
 		// Create a tab panel
 
 		tabPanel.setWidth("1000px");
-		tabPanel.setAnimationEnabled(true);
-
-		// Add Word tab
-		VerticalPanel addWordPanel = new VerticalPanel();
-		addWord = new EditWord(addWordPanel, database, true);
-		tabPanel.add(addWordPanel, "Add Word");
+//		tabPanel.setAnimationEnabled(true);
 
 		// Add Words XML tab
-		VerticalPanel addWordsXmlPanel = new VerticalPanel();
-		AddWordsXml addWords = new AddWordsXml();
-		addWords.initiateUploadFile(addWordsXmlPanel, database);
-		tabPanel.add(addWordsXmlPanel, "Add Words from xml");
-
-		// Delete Words tab
-		VerticalPanel deleteWordsPanel = new VerticalPanel();
-		DeleteWords deleteWords = new DeleteWords();
-		deleteWords.initiateDeleteWords(deleteWordsPanel, database);
-		tabPanel.add(deleteWordsPanel, "Delete Words");
+//		VerticalPanel addWordsXmlPanel = new VerticalPanel();
+//		AddWordsXml addWords = new AddWordsXml();
+//		addWords.initiateUploadFile(addWordsXmlPanel, database);
+//		tabPanel.add(addWordsXmlPanel, "Add Words from xml");
 
 		// List Words tab
 
 		final VerticalPanel listWordsPanel = new VerticalPanel();
 		listWords = new ListWords(listWordsPanel, database);
 		listWords.initiate();
-		tabPanel.add(listWordsPanel, "List Words");
-		tabPanel.addSelectionHandler(new SelectionHandler<Integer>() {
-			public void onSelection(SelectionEvent<Integer> event) {
-				if (event.getSelectedItem() == listNum) {
-					listWords.initiate();
-				}
-			}
-		});
+		tabPanel.add(listWordsPanel);
+//		tabPanel.addSelectionHandler(new SelectionHandler<Integer>() {
+//			public void onSelection(SelectionEvent<Integer> event) {
+//				if (event.getSelectedItem() == listNum) {
+//					listWords.initiate();
+//				}
+//			}
+//		});
 
 		// Download Words tab
-		VerticalPanel downloadWordsPanel = new VerticalPanel();
-		DownloadXml downloadXml = new DownloadXml();
-		downloadXml.initiateDownloadFile(downloadWordsPanel);
-		tabPanel.add(downloadWordsPanel, "Download Words");
+//		VerticalPanel downloadWordsPanel = new VerticalPanel();
+//		DownloadXml downloadXml = new DownloadXml();
+//		downloadXml.initiateDownloadFile(downloadWordsPanel);
+//		tabPanel.add(downloadWordsPanel, "Download Words");
 
-		tabPanel.selectTab(0);
-		Label l = new Label("Word of the day");
+//		tabPanel.selectTab(0);
+		Label l = new Label("Personal Knowledge Base");
 		l.setStyleName("h1");
 		rootPanel.add(l);
 		rootPanel.add(tabPanel);
-		setVisible(false);
+		setVisible(true);
 	}
 
 	public void setVisible(boolean isVisible) {
@@ -111,8 +101,9 @@ public class Dashboard implements DatabaseUpdatedNotifier {
 			notLoggedIn.setVisible(false);
 			// initiate();
 
-			if (listWords != null)
-				listWords.initiate();
+			if (listWords != null) {
+				listWords.update();
+			}
 			if (addWord != null)
 				addWord.update();
 		}

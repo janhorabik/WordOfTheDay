@@ -17,8 +17,8 @@
 
 package wordOfTheDay.client.listWords.advancedTable;
 
-import wordOfTheDay.client.Word9;
+import wordOfTheDay.client.Note;
 
 public interface DataFilter {
-	public boolean accept(Word9 word);
+	public boolean accept(Note note);
 }

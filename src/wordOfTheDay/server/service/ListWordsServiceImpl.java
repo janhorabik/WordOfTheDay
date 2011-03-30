@@ -46,4 +46,19 @@ public class ListWordsServiceImpl extends RemoteServiceServlet implements
 		// log.warning("words sorted");
 		return ret;
 	}
+
+	@Override
+	public void removeLabel(String label) {
+		// TODO Auto-generated method stub
+		String email = (String) this.getThreadLocalRequest().getSession()
+				.getAttribute("email");
+		PMF.removeLabel(email, label);
+	}
+
+	@Override
+	public void renameLabel(String oldName, String newName) {
+		String email = (String) this.getThreadLocalRequest().getSession()
+				.getAttribute("email");
+		PMF.replaceLabel(email, oldName, newName);
+	}
 }

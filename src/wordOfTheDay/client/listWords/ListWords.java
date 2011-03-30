@@ -48,4 +48,9 @@ public class ListWords {
 		this.editWord.setVisible(true);
 	}
 
+	public void update() {
+		this.listWordsWithAdvancedTable.update();
+		this.editWord.update();
+	}
+
 }

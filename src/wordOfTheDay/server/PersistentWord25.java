@@ -77,6 +77,14 @@ public class PersistentWord25 {
 		return ret;
 	}
 
+	private static List<Text> toText(List<String> list) {
+		List<Text> ret = new LinkedList<Text>();
+		for (String s : list) {
+			ret.add(ValidationManager.validate(s));
+		}
+		return ret;
+	}
+
 	public List<String> getUsage() {
 		return toString(this.usage);
 	}
@@ -96,5 +104,9 @@ public class PersistentWord25 {
 
 	public List<String> getLabels() {
 		return toString(this.labele);
+	}
+
+	public void setLabels(List<String> labels) {
+		this.labele = toText(labels);
 	}
 }

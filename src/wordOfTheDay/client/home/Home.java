@@ -7,9 +7,9 @@ import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
 import wordOfTheDay.client.dbOnClient.DatabaseUpdatedNotifier;
 import wordOfTheDay.client.listWords.ListWordsService;
 import wordOfTheDay.client.listWords.ListWordsServiceAsync;
-import wordOfTheDay.client.test.MainEntryPoint;
-import wordOfTheDay.client.test.MobileTooltip;
-import wordOfTheDay.client.test.MobileTooltipMouseListener;
+import wordOfTheDay.client.tooltip.MainEntryPoint;
+import wordOfTheDay.client.tooltip.MobileTooltip;
+import wordOfTheDay.client.tooltip.MobileTooltipMouseListener;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -72,7 +72,7 @@ public class Home implements DatabaseUpdatedNotifier {
 				updateWord();
 			}
 		});
-		setVisible(true);
+		setVisible(false);
 		setAllVisible(false);
 		this.image.setVisible(true);
 	}

@@ -24,8 +24,8 @@ import java.util.Set;
 
 import wordOfTheDay.client.Dashboard;
 import wordOfTheDay.client.TooltipListener;
-import wordOfTheDay.client.test.MobileTooltip;
-import wordOfTheDay.client.test.MobileTooltipMouseListener;
+import wordOfTheDay.client.tooltip.MobileTooltip;
+import wordOfTheDay.client.tooltip.MobileTooltipMouseListener;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.MouseUpEvent;

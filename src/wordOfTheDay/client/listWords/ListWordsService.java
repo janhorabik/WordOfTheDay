@@ -13,4 +13,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("listWordsServlet")
 public interface ListWordsService extends RemoteService {
 	Vector<Word9> listWords();
+	void removeLabel(String label);
+	void renameLabel(String oldName, String newName);
 }

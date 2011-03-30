@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import wordOfTheDay.client.Note;
+import wordOfTheDay.client.Services;
 import wordOfTheDay.client.Word9;
 import wordOfTheDay.client.MyPopup.AskServer;
 import wordOfTheDay.client.MyPopup.ServerResponse;
@@ -12,6 +14,7 @@ import wordOfTheDay.client.deleteWords.DeleteWordsService;
 import wordOfTheDay.client.deleteWords.DeleteWordsServiceAsync;
 import wordOfTheDay.client.home.Home;
 import wordOfTheDay.client.listWords.advancedTable.AdvancedTable;
+import wordOfTheDay.client.listWords.notesTable.NotesTable;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -20,7 +23,7 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 
 class AskServerToRemoveSelected implements AskServer {
-	private AdvancedTable table;
+	private NotesTable table;
 
 	private final DeleteWordsServiceAsync deleteWordService = GWT
 			.create(DeleteWordsService.class);
@@ -29,7 +32,7 @@ class AskServerToRemoveSelected implements AskServer {
 
 	private DatabaseOnClient database;
 
-	public AskServerToRemoveSelected(final AdvancedTable table,
+	public AskServerToRemoveSelected(final NotesTable table,
 			ListWords listWords, DatabaseOnClient database) {
 		System.out.println("const");
 		this.table = table;
@@ -39,29 +42,24 @@ class AskServerToRemoveSelected implements AskServer {
 
 	private void clearFields() {
 		System.out.println("clear fields");
-		this.listWords.initiate();
+//		this.listWords.initiate();
 		this.database.update();
 	}
 
 	public void askServer(final ServerResponse serverResponse) {
 		System.out.println("askServer");
-		Set set = this.table.getMarkedRows();
-		List<String> dates = new LinkedList<String>();
-		int i = 1;
-		for (Object o : set) {
-			dates.add((String) o);
-		}
-		System.out.println(set);
-		deleteWordService.deleteWords(dates, new AsyncCallback<String>() {
+		Set<Note> set = this.table.getSelectedNoteIds();
+		Services.noteService.removeNotes(set, new AsyncCallback<Void>() {
+
 			public void onFailure(Throwable caught) {
 				serverResponse.error(caught.toString());
 				clearFields();
 			}
 
-			public void onSuccess(String result) {
+			public void onSuccess(Void result) {
 				System.out.println("success");
-				serverResponse.serverReplied(result);
 				clearFields();
+				serverResponse.serverReplied("Notes were removed.");
 			}
 		});
 	}

@@ -1,5 +1,7 @@
 package wordOfTheDay.client.MyPopup;
 
+import wordOfTheDay.client.listWords.notesTable.MessagesPanel;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
@@ -12,6 +14,27 @@ public class MyPopup {
 	private final HTML serverResponseLabel = new HTML();
 	private final boolean showPopup;
 
+	public MyPopup(final AskServer askServer, final Button sendButton, final MessagesPanel messagePanel)
+	{
+		showPopup = true;
+		class MyHandler implements ClickHandler, ServerResponse {
+			public void onClick(ClickEvent event) {
+				System.out.println("handler called");
+				askServer.askServer(this);
+			}
+
+			public void error(String error) {
+				messagePanel.showMessage(error);
+			}
+
+			public void serverReplied(String reply) {
+				messagePanel.showMessage(reply);
+			}
+		}
+		MyHandler handler = new MyHandler();
+		sendButton.addClickHandler(handler);
+	}
+	
 	public MyPopup(String title, final AskServer askServer,
 			final Button sendButton, boolean showPopupArg) {
 		System.out.println("popup");
@@ -50,6 +73,7 @@ public class MyPopup {
 
 			public void serverReplied(String reply) {
 				serverResponseLabel.setHTML(reply);
+				// ListWordsWithAdvancedTable.messagesLabel.setText(reply);
 				if (showPopup) {
 					dialogBox.center();
 				}

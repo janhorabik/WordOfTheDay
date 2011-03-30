@@ -18,6 +18,16 @@ HTML,BODY {
 	background: #42484e;
 }
 
+.anchorClicked{
+	padding: 3px 3px 3px 3px;
+	text-decoration: none;
+	/*margin: 15px 15px 15px 15px;*/
+	font-size: 1.2em;
+	font-weight: normal;
+	text-align: center;
+	background: yellow;
+}
+
 /***********************************************/
 .content {
 	background: #34393e;
@@ -94,6 +104,16 @@ h2 {
 	text-align: right;
 	color: #acc8d7;
 	font-size: 1em;
+}
+
+.whiteBackground {
+	background: white;
+}
+
+.messageBackground {
+	background: #777777;
+	padding: 3px 0px 3px 0px;
+	text-align: center;
 }
 
 /************************ AdvancedTable *****************/
@@ -198,9 +218,18 @@ h2 {
 	font-size: 20px;
 }
 
+.message{
+	color: yellow;
+	text-align: center;
+}
+
 .textArea {
 	width: 300px;
 	height: 100px;
+}
+
+.cellTableHeader {
+	color: #777777;
 }
 
 .textBox {

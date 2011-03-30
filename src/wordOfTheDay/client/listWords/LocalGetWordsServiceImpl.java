@@ -112,8 +112,8 @@ public class LocalGetWordsServiceImpl implements TableModelService {
 			}
 		} else
 			for (Word9 word : this.allWords) {
-				if (filters[0].accept(word))
-					this.filteredWords.add(word);
+				// if (filters[0].accept(word))
+				this.filteredWords.add(word);
 			}
 	}
 

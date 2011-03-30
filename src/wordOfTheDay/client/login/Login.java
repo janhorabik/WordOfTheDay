@@ -22,7 +22,7 @@ public class Login implements DatabaseUpdatedNotifier {
 	private RootPanel rootPanel;
 	private Home home;
 	private Dashboard dashboard;
-	private boolean isHome = true;
+	private boolean isHome = false;
 	private Anchor link;
 	private DatabaseOnClient database;
 	private HorizontalPanel loginPanel;
@@ -42,7 +42,7 @@ public class Login implements DatabaseUpdatedNotifier {
 		Button createAccountButton = new Button("Create an account");
 		Button logoutButton = new Button("logout");
 
-		link = createLink();
+//		link = createLink();
 
 		loginPanel = new HorizontalPanel();
 		// loginPanel.setWidth("100%");
@@ -53,7 +53,7 @@ public class Login implements DatabaseUpdatedNotifier {
 		loginPanel.add(loginButton);
 		loginPanel.add(createAccountButton);
 		loginPanel.add(logoutButton);
-		loginPanel.add(link);
+//		loginPanel.add(link);
 
 		// loginPanel.add(new HTML("<div id='date'>"
 		// + (isHome ? "<a href='Dashboard.html'>Dashboard</a></div>"
@@ -110,7 +110,7 @@ public class Login implements DatabaseUpdatedNotifier {
 	}
 
 	private void update() {
-		link.setText(isHome ? "Dashboard" : "Home");
+//		link.setText(isHome ? "Dashboard" : "Home");
 		home.setVisible(isHome);
 		dashboard.setVisible(!isHome);
 	}

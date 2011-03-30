@@ -62,7 +62,6 @@
 		<url-pattern>/wordoftheday/fileDownloadServlet</url-pattern>
 	</servlet-mapping>
 
-
 	<!-- ListWords -->
 	<servlet>
 		<servlet-name>listWordsServlet</servlet-name>
@@ -73,7 +72,18 @@
 		<servlet-name>listWordsServlet</servlet-name>
 		<url-pattern>/wordoftheday/listWordsServlet</url-pattern>
 	</servlet-mapping>
+	
+	<!-- Notes -->
+	<servlet>
+		<servlet-name>noteServlet</servlet-name>
+		<servlet-class>wordOfTheDay.server.service.NoteServiceImpl</servlet-class>
+	</servlet>
 
+	<servlet-mapping>
+		<servlet-name>noteServlet</servlet-name>
+		<url-pattern>/wordoftheday/noteServlet</url-pattern>
+	</servlet-mapping>
+	
 	<!-- Login -->
 	<servlet>
 		<servlet-name>loginServlet</servlet-name>
@@ -98,7 +108,7 @@
 
 	<!-- Default page to serve -->
 	<welcome-file-list>
-		<welcome-file>WordOfTheDay.html</welcome-file>
+		<welcome-file>Dashboard.html</welcome-file>
 	</welcome-file-list>
 
 </web-app>

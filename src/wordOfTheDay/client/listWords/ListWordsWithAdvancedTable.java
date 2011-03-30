@@ -16,28 +16,30 @@ import wordOfTheDay.client.MyPopup.AskServer;
 import wordOfTheDay.client.MyPopup.MyPopup;
 import wordOfTheDay.client.addWord.AddWordService;
 import wordOfTheDay.client.addWord.AddWordServiceAsync;
+import wordOfTheDay.client.addWord.AskServerToAddModel;
+import wordOfTheDay.client.addWord.AskServerToAddNote;
 import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
 import wordOfTheDay.client.listWords.advancedTable.AddLabelListener;
 import wordOfTheDay.client.listWords.advancedTable.AdvancedTable;
 import wordOfTheDay.client.listWords.advancedTable.CheckBoxesListener;
 import wordOfTheDay.client.listWords.advancedTable.DataFilter;
 import wordOfTheDay.client.listWords.advancedTable.RowSelectionListener;
-import wordOfTheDay.client.test.MobileTooltip;
-import wordOfTheDay.client.test.MobileTooltipMouseListener;
+import wordOfTheDay.client.listWords.advancedTable.SearchFilter;
+import wordOfTheDay.client.listWords.notesTable.MessagesPanel;
+import wordOfTheDay.client.listWords.notesTable.NotesTable;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.MouseDownEvent;
-import com.google.gwt.event.dom.client.MouseDownHandler;
-import com.google.gwt.event.dom.client.MouseUpEvent;
-import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -49,11 +51,35 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 
 	private Button buttonRemoveSelected;
 
+	private Button buttonAddNote;
+
 	private AdvancedTable table;
 
 	private ListWords listWords;
 
 	private VerticalPanel tablePanel;
+
+	private LabelsTree labelsTree;
+
+	private NotesTable notesTable;
+
+	private HorizontalPanel notesTablePanel = new HorizontalPanel();
+
+	private HorizontalPanel labelsPanel = new HorizontalPanel();
+
+	private HorizontalPanel modelsPanel = new HorizontalPanel();
+
+	private HorizontalPanel panelForMessages = new HorizontalPanel();
+
+	private ModelsList modelsList;
+
+	private DockPanel pairPanel = new DockPanel();
+
+	private Button buttonAddModel;
+
+	private MessagesPanel messagesPanel = new MessagesPanel(panelForMessages);
+
+	// public static Label messagesLabel;
 
 	public void initiate(VerticalPanel rootPanel, ListWords listWords,
 			DatabaseOnClient database) {
@@ -63,23 +89,33 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 		// create this.table
 		createAdvancedTable(database);
 
-		final HorizontalPanel searchPanel = createHorizontalPanel(listWords,
-				database);
-
 		final FocusPanel focusPanel = new FocusPanel();
 		focusPanel.addMouseListener(Dashboard.tooltipListener);
-		HorizontalPanel pairPanel = new HorizontalPanel();
 		focusPanel.add(pairPanel);
 
-		LabelsTree labelsTree = new LabelsTree(this.database, this.table);
-		pairPanel.add(labelsTree.createTree());
-		pairPanel.add(table);
+		this.notesTable = new NotesTable(this.database, this.notesTablePanel,
+				this);
+		this.labelsTree = new LabelsTree(this.database, this.notesTable,
+				this.labelsPanel, this.messagesPanel);
+		this.modelsList = new ModelsList(this.database, this.notesTable,
+				this.labelsTree, this.modelsPanel, this.messagesPanel);
+		labelsPanel.clear();
+		pairPanel.add(labelsPanel, DockPanel.WEST);
+		notesTablePanel.clear();
+		pairPanel.add(modelsPanel, DockPanel.EAST);
+		pairPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_CENTER);
+		pairPanel.add(panelForMessages, DockPanel.NORTH);
+		pairPanel.add(notesTablePanel, DockPanel.NORTH);
 
 		this.tablePanel = new VerticalPanel();
+		final HorizontalPanel searchPanel = createHorizontalPanel(listWords,
+				database);
 		this.tablePanel.add(searchPanel);
 		this.tablePanel.add(focusPanel);
 
 		rootPanel.add(this.tablePanel);
+
+		update();
 	}
 
 	private void createAdvancedTable(DatabaseOnClient database) {
@@ -97,7 +133,7 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 			DatabaseOnClient database) {
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(5);
-		horizontalPanel.setSize("402px", "23px");
+		horizontalPanel.setSize("600px", "23px");
 
 		final TextBox textBoxFilter = new TextBox();
 		horizontalPanel.add(textBoxFilter);
@@ -107,19 +143,32 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 		addSearchButton(horizontalPanel, textBoxFilter);
 		// addNewWordButton(horizontalPanel);
 
+		/*************** Remove *****************/
 		buttonRemoveSelected = new Button("Remove");
-		buttonRemoveSelected.addMouseUpHandler(new MouseUpHandler() {
-			public void onMouseUp(MouseUpEvent event) {
-				buttonRemoveSelected.setText(event.getSource().toString());
-			}
-		});
 		buttonRemoveSelected.setVisible(false);
 		horizontalPanel.add(buttonRemoveSelected);
 		buttonRemoveSelected.setWidth("100");
-		AskServer askServer = new AskServerToRemoveSelected(table, listWords,
-				database);
-		MyPopup myPopup = new MyPopup("Remove words", askServer,
-				buttonRemoveSelected, false);
+		AskServer askServer = new AskServerToRemoveSelected(notesTable,
+				listWords, database);
+		MyPopup myPopup = new MyPopup(askServer, buttonRemoveSelected,
+				this.messagesPanel);
+
+		/**************** AddNote ***************/
+		buttonAddNote = new Button("Add note");
+		buttonAddNote.setWidth("100");
+		horizontalPanel.add(buttonAddNote);
+		AskServer askServerToAddNote = new AskServerToAddNote(database);
+		MyPopup addNotePopup = new MyPopup(askServerToAddNote, buttonAddNote,
+				this.messagesPanel);
+
+		/**************** AddModel ****************/
+		buttonAddModel = new Button("Add model");
+		buttonAddModel.setWidth("100");
+		horizontalPanel.add(buttonAddModel);
+		AskServer askServerToAddModel = new AskServerToAddModel(database);
+		MyPopup addModelPopup = new MyPopup(askServerToAddModel,
+				buttonAddModel, this.messagesPanel);
+
 		return horizontalPanel;
 	}
 
@@ -139,6 +188,7 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 		addWordButton.setText("Add Word");
 	}
 
+	@SuppressWarnings("deprecation")
 	private void addSearchButton(final HorizontalPanel horizontalPanel,
 			final TextBox textBoxFilter) {
 		final Button buttonApplyFilter = new Button();
@@ -146,10 +196,8 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 		buttonApplyFilter.addClickListener(new ClickListener() {
 			public void onClick(Widget sender) {
 				String filterText = textBoxFilter.getText();
-				DataFilter filter = new wordOfTheDay.client.listWords.advancedTable.SearchFilter(
-						filterText);
-				DataFilter[] filters = { filter };
-				table.applyFilters(filters);
+				DataFilter filter = new SearchFilter(filterText);
+				notesTable.applyFilter(filter);
 			}
 		});
 		buttonApplyFilter.setWidth("100");
@@ -198,5 +246,19 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 						}
 					});
 		}
+	}
+
+	public void update() {
+		this.table.updateTableData();
+		// this.pairPanel.clear();
+		this.labelsTree.draw();
+		// labelsPanel.clear();
+		// this.pairPanel.add(labelsPanel);
+		// this.notesTablePanel.clear();
+		this.notesTable.drawTable();
+		// this.pairPanel.add(notesTablePanel);
+		// this.modelsList.
+		this.modelsList.update();
+		// this.pairPanel.add(this.modelsList.createTree());
 	}
 }
