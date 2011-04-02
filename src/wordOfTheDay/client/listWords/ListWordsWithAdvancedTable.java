@@ -80,7 +80,8 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 	public void initiate(VerticalPanel rootPanel, ListWords listWords,
 			DatabaseOnClient database) {
 
-//		rootPanel.add(example);
+		database.setListWordsWithAdvancedTable(this);
+		// rootPanel.add(example);
 		this.listWords = listWords;
 		this.database = database;
 		// create this.table
@@ -155,6 +156,7 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 
 		/**************** AddNote ***************/
 		buttonAddNote = new Button("Add note");
+		buttonAddNote.setVisible(false);
 		buttonAddNote.setWidth("100");
 		horizontalPanel.add(buttonAddNote);
 		AskServer askServerToAddNote = new AskServerToAddNote(database);
@@ -238,7 +240,7 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 
 						@Override
 						public void onSuccess(Void result) {
-//							database.update();
+							// database.update();
 						}
 
 						@Override
@@ -249,6 +251,7 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 	}
 
 	public void update() {
+		this.buttonAddNote.setVisible(database.getModels().size() > 0);
 		this.table.updateTableData();
 		// this.pairPanel.clear();
 		this.labelsTree.draw();
@@ -264,5 +267,10 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 
 	public void hideRemoveButton() {
 		this.buttonRemoveSelected.setVisible(false);
+	}
+
+	public void actNumModels(int size) {
+		buttonAddNote.setVisible(size > 0);
+		
 	}
 }

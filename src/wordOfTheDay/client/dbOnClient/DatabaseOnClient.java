@@ -18,6 +18,7 @@ import wordOfTheDay.client.Word9;
 import wordOfTheDay.client.listWords.LabelsTree;
 import wordOfTheDay.client.listWords.ListWordsService;
 import wordOfTheDay.client.listWords.ListWordsServiceAsync;
+import wordOfTheDay.client.listWords.ListWordsWithAdvancedTable;
 import wordOfTheDay.client.listWords.ModelsList;
 import wordOfTheDay.client.listWords.notesTable.NotesTable;
 
@@ -42,8 +43,14 @@ public class DatabaseOnClient {
 
 	private int currentDataModel = -1;
 
+	private ListWordsWithAdvancedTable listWordsWithAdvancedTable;
+
 	public DatabaseOnClient() {
 		// update();
+	}
+	
+	public void setListWordsWithAdvancedTable(ListWordsWithAdvancedTable table){
+		this.listWordsWithAdvancedTable = table;
 	}
 
 	public void setNotesTable(NotesTable notesTableArg) {
@@ -240,6 +247,7 @@ public class DatabaseOnClient {
 		notes.put(model.getSeqNum(), new LinkedList<Note>());
 		labels.put(model.getSeqNum(), new HashSet<String>());
 		modelsList.newModelWasAdded(model);
+		listWordsWithAdvancedTable.actNumModels(models.size());
 	}
 
 	public void labelWasRemoved(String label) {
@@ -279,6 +287,7 @@ public class DatabaseOnClient {
 			labelsTree.draw();
 			notesTable.drawTable();
 		}
+		listWordsWithAdvancedTable.actNumModels(models.size());
 	}
 
 	public void modelWasRenamed(int seqNum, String newName) {
