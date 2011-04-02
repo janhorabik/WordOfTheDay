@@ -272,7 +272,7 @@ public final class PMF {
 	public static void changeNote(String email, Note note) {
 		PersistenceManager pmi = pmfInstance.getPersistenceManager();
 		PersistentNote noteToChange = pmi.getObjectById(PersistentNote.class,
-				PersistentNote.generateKey(note.getEmail(), note.getSeqNum()));
+				PersistentNote.generateKey(email, note.getSeqNum()));
 		noteToChange.setLabels(note.getLabels());
 		noteToChange.setFields(note.getFields());
 		pmi.close();

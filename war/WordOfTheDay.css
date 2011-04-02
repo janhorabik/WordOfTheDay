@@ -28,6 +28,16 @@ HTML,BODY {
 	background: yellow;
 }
 
+.StyleWithArrow
+{
+	background: white;
+}
+
+.StyleWithArrow:hover
+{
+	background: green;
+}
+
 /***********************************************/
 .content {
 	background: #34393e;

@@ -9,14 +9,20 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
+import org.apache.tools.ant.types.selectors.NotSelector;
+
 import wordOfTheDay.client.DataModel;
 import wordOfTheDay.client.Note;
 import wordOfTheDay.client.Services;
 import wordOfTheDay.client.Word9;
+import wordOfTheDay.client.listWords.LabelsTree;
 import wordOfTheDay.client.listWords.ListWordsService;
 import wordOfTheDay.client.listWords.ListWordsServiceAsync;
+import wordOfTheDay.client.listWords.ModelsList;
+import wordOfTheDay.client.listWords.notesTable.NotesTable;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class DatabaseOnClient {
@@ -38,6 +44,18 @@ public class DatabaseOnClient {
 
 	public DatabaseOnClient() {
 		// update();
+	}
+
+	public void setNotesTable(NotesTable notesTableArg) {
+		this.notesTable = notesTableArg;
+	}
+
+	public void setLabelsTree(LabelsTree labelsTreeArg) {
+		this.labelsTree = labelsTreeArg;
+	}
+
+	public void setModelsList(ModelsList modelsListArg) {
+		this.modelsList = modelsListArg;
 	}
 
 	public void setCurrentDataModel(int num) {
@@ -95,9 +113,7 @@ public class DatabaseOnClient {
 		});
 		Services.noteService.listNotes(new AsyncCallback<List<Note>>() {
 
-			@Override
 			public void onSuccess(List<Note> result) {
-				labels.clear();
 				notes.clear();
 				for (Note note : result) {
 					Integer key = note.getDataModelSeqNum();
@@ -108,29 +124,41 @@ public class DatabaseOnClient {
 						newList.add(note);
 						notes.put(key, newList);
 					}
-					if (labels.containsKey(key)) {
-						Set<String> set = labels.get(key);
-						set.addAll(note.getLabels());
-						labels.put(key, set);
-					} else {
-						Set<String> newSet = new HashSet<String>();
-						newSet.addAll(note.getLabels());
-						labels.put(key, newSet);
-					}
 				}
 				++servicesFinished;
 				checkIfNotify();
 			}
 
-			@Override
 			public void onFailure(Throwable caught) {
 			}
 		});
 	}
 
+	private void rebuildLabels() {
+		labels.clear();
+		for (Integer modelSeqNum : models.keySet()) {
+			Set<String> newSet = new HashSet<String>();
+			labels.put(modelSeqNum, newSet);
+		}
+		for (List<Note> notesSet : notes.values())
+			for (Note note : notesSet) {
+				int key = note.getDataModelSeqNum();
+				if (!labels.containsKey(key)) {
+					Window.alert("Wrong note: " + note
+							+ " its model seqNum is not in " + models);
+
+				} else {
+					Set<String> set = labels.get(key);
+					set.addAll(note.getLabels());
+					labels.put(key, set);
+				}
+			}
+	}
+
 	protected void checkIfNotify() {
 		if (servicesFinished == 2) {
 			for (DatabaseUpdatedNotifier notifier : notifiers) {
+				rebuildLabels();
 				notifier.databaseUpdated();
 			}
 		}
@@ -179,6 +207,12 @@ public class DatabaseOnClient {
 
 	private Vector<Word9> words = new Vector<Word9>();
 
+	private LabelsTree labelsTree;
+
+	private NotesTable notesTable;
+
+	private ModelsList modelsList;
+
 	public final static ListWordsServiceAsync listWordsService = GWT
 			.create(ListWordsService.class);
 
@@ -188,5 +222,91 @@ public class DatabaseOnClient {
 
 	public Collection<String> getLabels() {
 		return new LinkedList<String>();
+	}
+
+	public void newNoteWasAdded(Note note) {
+		if (notes.get(note.getDataModelSeqNum()) == null) {
+			Window.alert("Note: " + note + " wrong datamodelseqNum");
+		} else {
+			notes.get(note.getDataModelSeqNum()).add(note);
+			labels.get(note.getDataModelSeqNum()).addAll(note.getLabels());
+			labelsTree.newNoteWasAdded(note);
+			notesTable.newNoteWasAdded(note);
+		}
+	}
+
+	public void newModelWasAdded(DataModel model) {
+		models.put(model.getSeqNum(), model);
+		notes.put(model.getSeqNum(), new LinkedList<Note>());
+		labels.put(model.getSeqNum(), new HashSet<String>());
+		modelsList.newModelWasAdded(model);
+	}
+
+	public void labelWasRemoved(String label) {
+		for (Set<String> set : labels.values())
+			set.remove(label);
+		for (List<Note> notesList : notes.values())
+			for (Note note : notesList)
+				note.removeLabel(label);
+		labelsTree.draw();
+		notesTable.databaseChanged();
+	}
+
+	public void labelWasRenamed(String label, String newLabel) {
+		for (Set<String> set : labels.values())
+			if (set.contains(label)) {
+				set.remove(label);
+				set.add(newLabel);
+			}
+		for (List<Note> notesList : notes.values())
+			for (Note note : notesList) {
+				if (note.getLabels().contains(label)) {
+					note.getLabels().remove(label);
+					note.getLabels().add(newLabel);
+				}
+			}
+		labelsTree.draw();
+		notesTable.databaseChanged();
+	}
+
+	public void modelWasRemoved(int seqNum) {
+		models.remove(seqNum);
+		notes.remove(seqNum);
+		labels.remove(seqNum);
+		modelsList.modelWasRemoved(seqNum);
+		if (currentDataModel == seqNum) {
+			currentDataModel = -1;
+			labelsTree.draw();
+			notesTable.drawTable();
+		}
+	}
+
+	public void modelWasRenamed(int seqNum, String newName) {
+		models.get(seqNum).setName(newName);
+		modelsList.modelWasRenamed(seqNum, newName);
+	}
+
+	public void notesWereRemoved(Set<Note> set) {
+		if (set.isEmpty())
+			return;
+		int dataModelSeqNum = set.iterator().next().getDataModelSeqNum();
+		notes.get(dataModelSeqNum).removeAll(set);
+		rebuildLabels();
+		labelsTree.notesWereRemoved(set);
+		notesTable.notesWereRemoved(set);
+	}
+
+	public void noteWasChanged(Note note) {
+
+		for (Note n : notes.get(note.getDataModelSeqNum())) {
+			if (n.getSeqNum() == note.getSeqNum()) {
+				n.setFields(note.getFields());
+				n.setLabels(note.getLabels());
+				break;
+			}
+		}
+		rebuildLabels();
+		labelsTree.draw();
+//		notesTable.databaseChanged();
 	}
 }

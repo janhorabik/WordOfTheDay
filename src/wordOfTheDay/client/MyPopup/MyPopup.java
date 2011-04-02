@@ -30,6 +30,11 @@ public class MyPopup {
 			public void serverReplied(String reply) {
 				messagePanel.showMessage(reply);
 			}
+
+			@Override
+			public void askedServer(String messageAtTheBeginning) {
+				messagePanel.showMessage(messageAtTheBeginning);
+			}
 		}
 		MyHandler handler = new MyHandler();
 		sendButton.addClickHandler(handler);
@@ -77,6 +82,12 @@ public class MyPopup {
 				if (showPopup) {
 					dialogBox.center();
 				}
+			}
+
+			@Override
+			public void askedServer(String messageAtTheBeginning) {
+				// TODO Auto-generated method stub
+				
 			}
 		}
 		MyHandler handler = new MyHandler();

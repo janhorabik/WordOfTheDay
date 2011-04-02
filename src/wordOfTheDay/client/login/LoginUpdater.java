@@ -45,4 +45,8 @@ public class LoginUpdater implements ServerResponse, ClickHandler {
 	private AskServer askServer;
 	private HorizontalPanel loginNamePanel;
 	private DatabaseOnClient database;
+	@Override
+	public void askedServer(String messageAtTheBeginning) {
+		
+	}
 }

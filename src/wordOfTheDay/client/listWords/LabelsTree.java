@@ -2,7 +2,9 @@ package wordOfTheDay.client.listWords;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
+import wordOfTheDay.client.Note;
 import wordOfTheDay.client.MyPopup.ServerResponse;
 import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
 import wordOfTheDay.client.listWords.advancedTable.AdvancedTable;
@@ -47,6 +49,7 @@ public class LabelsTree {
 	private DatabaseOnClient database;
 	private NotesTable table;
 	private List<Anchor> anchors = new LinkedList<Anchor>();
+	private Tree tree;
 	private static AskServerToChangeLabel askServerToChangeLabel;
 	protected static PopupPanel popup;
 
@@ -57,37 +60,41 @@ public class LabelsTree {
 
 	ScrollPanel createTree() {
 		askServerToChangeLabel = new AskServerToChangeLabel(database);
-		Tree tree = new Tree();
+		tree = new Tree();
 		tree.setStyleName("wordOfTheDayLeft");
 		for (final String treeLabel : database.getLabelsOfCurrentDataModel()) {
-			TreeItem parentItem = null;
-			String[] labels = treeLabel.split(":");
-			String labelSoFar = "";
-			for (int i = 0; i < labels.length; ++i) {
-				String label = labels[i];
-				labelSoFar += label;
-				if (parentItem == null) {
-					// look at top:
-					parentItem = findElement(tree, label);
-					if (parentItem == null) {
-						// create new
-						parentItem = createItem(tree, label, labelSoFar);
-					}
-				} else {
-					TreeItem currentItem = findElement(parentItem, label);
-					if (currentItem == null) {
-						// create new
-						currentItem = createItem(parentItem, label, labelSoFar);
-					}
-					parentItem = currentItem;
-				}
-				labelSoFar += ":";
-			}
+			addLabel(treeLabel);
 		}
 		ScrollPanel panel = new ScrollPanel(tree);
 		panel.setHeight("500px");
 		panel.setWidth("200px");
 		return panel;
+	}
+
+	private void addLabel(final String treeLabel) {
+		TreeItem parentItem = null;
+		String[] labels = treeLabel.split(":");
+		String labelSoFar = "";
+		for (int i = 0; i < labels.length; ++i) {
+			String label = labels[i];
+			labelSoFar += label;
+			if (parentItem == null) {
+				// look at top:
+				parentItem = findElement(tree, label);
+				if (parentItem == null) {
+					// create new
+					parentItem = createItem(tree, label, labelSoFar);
+				}
+			} else {
+				TreeItem currentItem = findElement(parentItem, label);
+				if (currentItem == null) {
+					// create new
+					currentItem = createItem(parentItem, label, labelSoFar);
+				}
+				parentItem = currentItem;
+			}
+			labelSoFar += ":";
+		}
 	}
 
 	private TreeItem createItem(TreeItem parentItem, final String label,
@@ -102,6 +109,7 @@ public class LabelsTree {
 	private HorizontalPanel createPanelElement(String label,
 			final String labelSoFar) {
 		HorizontalPanel panel = new HorizontalPanel();
+//		panel.setStyleName("StyleWithArrow");
 		final Anchor arrow = Arrow.createArrow();
 		new Anchor("&nbsp;&nbsp;&nbsp;&nbsp;", true);
 		class ArrowMouseOverHandler implements MouseOverHandler {
@@ -159,6 +167,11 @@ public class LabelsTree {
 
 					public void serverReplied(String reply) {
 						messagesPanel.showMessage(reply);
+					}
+
+					@Override
+					public void askedServer(String messageAtTheBeginning) {
+						messagesPanel.showMessage(messageAtTheBeginning);
 					}
 				}
 				String newLabel = isRename ? newLabel = Window.prompt(
@@ -225,13 +238,13 @@ public class LabelsTree {
 		final Anchor anchor = new Anchor(shortLabel);
 		anchor.addMouseDownHandler(new MouseDownHandler() {
 			public void onMouseDown(MouseDownEvent event) {
-//				Dashboard.tooltipListener.labelWasPressed();
-//				Dashboard.tooltip.getContainer().setText(labelSoFar);
+				// Dashboard.tooltipListener.labelWasPressed();
+				// Dashboard.tooltip.getContainer().setText(labelSoFar);
 			}
 		});
 		anchor.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-//				Dashboard.tooltip.hide();
+				// Dashboard.tooltip.hide();
 				DataFilter filter = new LabelBeginFilter(labelSoFar);
 				table.applyFilter(filter);
 				refreshAnchors();
@@ -240,11 +253,19 @@ public class LabelsTree {
 		});
 		return anchor;
 	}
-	
-	private void refreshAnchors()
-	{
+
+	private void refreshAnchors() {
 		for (Anchor anchor : anchors) {
 			anchor.setStyleName("gwt-Anchor");
 		}
 	}
+
+	public void newNoteWasAdded(Note note) {
+		draw();
+	}
+
+	public void notesWereRemoved(Set<Note> set) {
+		draw();
+	}
+
 }

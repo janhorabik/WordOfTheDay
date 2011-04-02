@@ -25,7 +25,7 @@ class AskServerToDeleteWords implements AskServer {
 
 			public void onSuccess(String result) {
 				serverResponse.serverReplied(result);
-				database.update();
+//				database.update();
 			}
 		});
 	}

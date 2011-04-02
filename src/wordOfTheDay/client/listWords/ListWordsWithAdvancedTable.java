@@ -29,16 +29,12 @@ import wordOfTheDay.client.listWords.notesTable.MessagesPanel;
 import wordOfTheDay.client.listWords.notesTable.NotesTable;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.DockPanel;
-import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -84,6 +80,7 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 	public void initiate(VerticalPanel rootPanel, ListWords listWords,
 			DatabaseOnClient database) {
 
+//		rootPanel.add(example);
 		this.listWords = listWords;
 		this.database = database;
 		// create this.table
@@ -99,6 +96,9 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 				this.labelsPanel, this.messagesPanel);
 		this.modelsList = new ModelsList(this.database, this.notesTable,
 				this.labelsTree, this.modelsPanel, this.messagesPanel);
+		this.database.setLabelsTree(labelsTree);
+		this.database.setNotesTable(notesTable);
+		this.database.setModelsList(modelsList);
 		labelsPanel.clear();
 		pairPanel.add(labelsPanel, DockPanel.WEST);
 		notesTablePanel.clear();
@@ -238,7 +238,7 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 
 						@Override
 						public void onSuccess(Void result) {
-							database.update();
+//							database.update();
 						}
 
 						@Override
@@ -260,5 +260,9 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener,
 		// this.modelsList.
 		this.modelsList.update();
 		// this.pairPanel.add(this.modelsList.createTree());
+	}
+
+	public void hideRemoveButton() {
+		this.buttonRemoveSelected.setVisible(false);
 	}
 }

@@ -1,26 +1,18 @@
 package wordOfTheDay.client.listWords;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
 import wordOfTheDay.client.Note;
 import wordOfTheDay.client.Services;
-import wordOfTheDay.client.Word9;
 import wordOfTheDay.client.MyPopup.AskServer;
 import wordOfTheDay.client.MyPopup.ServerResponse;
 import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
 import wordOfTheDay.client.deleteWords.DeleteWordsService;
 import wordOfTheDay.client.deleteWords.DeleteWordsServiceAsync;
-import wordOfTheDay.client.home.Home;
-import wordOfTheDay.client.listWords.advancedTable.AdvancedTable;
 import wordOfTheDay.client.listWords.notesTable.NotesTable;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.SuggestBox;
-import com.google.gwt.user.client.ui.TextArea;
-import com.google.gwt.user.client.ui.TextBox;
 
 class AskServerToRemoveSelected implements AskServer {
 	private NotesTable table;
@@ -42,13 +34,13 @@ class AskServerToRemoveSelected implements AskServer {
 
 	private void clearFields() {
 		System.out.println("clear fields");
-//		this.listWords.initiate();
-		this.database.update();
+		this.listWords.hideRemoveButton();
 	}
 
 	public void askServer(final ServerResponse serverResponse) {
 		System.out.println("askServer");
-		Set<Note> set = this.table.getSelectedNoteIds();
+		final Set<Note> set = this.table.getSelectedNoteIds();
+		serverResponse.askedServer("Removing the notes.");
 		Services.noteService.removeNotes(set, new AsyncCallback<Void>() {
 
 			public void onFailure(Throwable caught) {
@@ -59,6 +51,7 @@ class AskServerToRemoveSelected implements AskServer {
 			public void onSuccess(Void result) {
 				System.out.println("success");
 				clearFields();
+				database.notesWereRemoved(set);
 				serverResponse.serverReplied("Notes were removed.");
 			}
 		});

@@ -49,7 +49,7 @@ class AskServerToAddWord implements AskServer {
 		this.explanationField.setText("");
 		this.exampleField.setText("");
 		this.tagField.setText("");
-		this.database.update();
+//		this.database.update();
 	}
 
 	public void askServer(final ServerResponse serverResponse) {

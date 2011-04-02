@@ -53,4 +53,8 @@ public class ListWords {
 		this.editWord.update();
 	}
 
+	public void hideRemoveButton() {
+		this.listWordsWithAdvancedTable.hideRemoveButton();
+	}
+
 }
