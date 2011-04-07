@@ -1,0 +1,2 @@
+serviceClass: wordOfTheDay.client.login.LoginService
+path: 9A3981634F21BEBDC90514272D563479.gwt.rpc

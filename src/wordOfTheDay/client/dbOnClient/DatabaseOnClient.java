@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
-import org.apache.tools.ant.types.selectors.NotSelector;
-
 import wordOfTheDay.client.DataModel;
 import wordOfTheDay.client.Note;
 import wordOfTheDay.client.Services;
@@ -48,8 +46,8 @@ public class DatabaseOnClient {
 	public DatabaseOnClient() {
 		// update();
 	}
-	
-	public void setListWordsWithAdvancedTable(ListWordsWithAdvancedTable table){
+
+	public void setListWordsWithAdvancedTable(ListWordsWithAdvancedTable table) {
 		this.listWordsWithAdvancedTable = table;
 	}
 
@@ -67,6 +65,8 @@ public class DatabaseOnClient {
 
 	public void setCurrentDataModel(int num) {
 		currentDataModel = num;
+		notesTable.drawTable();
+		labelsTree.draw();
 	}
 
 	public void addNotifier(DatabaseUpdatedNotifier notifier) {
@@ -151,7 +151,7 @@ public class DatabaseOnClient {
 			for (Note note : notesSet) {
 				int key = note.getDataModelSeqNum();
 				if (!labels.containsKey(key)) {
-					Window.alert("Wrong note: " + note
+					System.out.println("Wrong note: " + note
 							+ " its model seqNum is not in " + models);
 
 				} else {
@@ -316,6 +316,6 @@ public class DatabaseOnClient {
 		}
 		rebuildLabels();
 		labelsTree.draw();
-//		notesTable.databaseChanged();
+		// notesTable.databaseChanged();
 	}
 }

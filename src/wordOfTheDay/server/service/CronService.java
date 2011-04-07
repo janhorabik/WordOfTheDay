@@ -43,6 +43,8 @@ public class CronService extends HttpServlet {
 			log.severe("converting word finished");
 		}
 		log.warning("getting Word: returning empty word");
+		PMF.getAllModels(email);
+		PMF.getAllNotes(email);
 		res.getOutputStream().print("ok");
 	}
 

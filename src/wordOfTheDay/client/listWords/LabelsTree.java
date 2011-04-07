@@ -7,9 +7,8 @@ import java.util.Set;
 import wordOfTheDay.client.Note;
 import wordOfTheDay.client.MyPopup.ServerResponse;
 import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
-import wordOfTheDay.client.listWords.advancedTable.AdvancedTable;
-import wordOfTheDay.client.listWords.advancedTable.DataFilter;
-import wordOfTheDay.client.listWords.advancedTable.LabelBeginFilter;
+import wordOfTheDay.client.listWords.notesTable.DataFilter;
+import wordOfTheDay.client.listWords.notesTable.LabelBeginFilter;
 import wordOfTheDay.client.listWords.notesTable.MessagesPanel;
 import wordOfTheDay.client.listWords.notesTable.NotesTable;
 
@@ -108,13 +107,12 @@ public class LabelsTree {
 
 	private HorizontalPanel createPanelElement(String label,
 			final String labelSoFar) {
+		
 		HorizontalPanel panel = new HorizontalPanel();
-//		panel.setStyleName("StyleWithArrow");
 		final Anchor arrow = Arrow.createArrow();
-		new Anchor("&nbsp;&nbsp;&nbsp;&nbsp;", true);
 		class ArrowMouseOverHandler implements MouseOverHandler {
 			public void onMouseOver(MouseOverEvent event) {
-				arrow.setText(AdvancedTable.SORT_DESC_SYMBOL);
+				arrow.setText("^");
 			}
 		}
 		;
@@ -144,6 +142,7 @@ public class LabelsTree {
 		// panel.add(menu);
 
 		Anchor anchor = createAnchor(label, labelSoFar);
+//		anchor.setStyleName("AnchorInLabelsTree");
 		this.anchors.add(anchor);
 		anchor.addMouseOverHandler(new ArrowMouseOverHandler());
 		anchor.addMouseOutHandler(new ArrowMouseOutHandler());
@@ -199,7 +198,7 @@ public class LabelsTree {
 		MenuItem remove = new MenuItem("Remove", removeCommand);
 		possibilities.addItem(rename);
 		possibilities.addItem(remove);
-		menu.addItem(new MenuItem(AdvancedTable.SORT_DESC_SYMBOL, possibilities));
+		menu.addItem(new MenuItem("^", possibilities));
 		menu.setWidth("15px");
 		return possibilities;
 		// return menu;

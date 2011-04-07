@@ -1,0 +1,2 @@
+serviceClass: wordOfTheDay.client.listWords.ListWordsService
+path: 808010F4B4F5884016168B91449D8A8D.gwt.rpc

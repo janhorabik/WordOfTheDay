@@ -2,11 +2,9 @@ package wordOfTheDay.client;
 
 import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
 import wordOfTheDay.client.dbOnClient.DatabaseUpdatedNotifier;
-import wordOfTheDay.client.home.Home;
 import wordOfTheDay.client.login.Login;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -18,19 +16,13 @@ public class WordOfTheDay implements EntryPoint, DatabaseUpdatedNotifier {
 	private DatabaseOnClient database = new DatabaseOnClient();
 
 	public void onModuleLoad() {
-//		DragAndDrop.test();
-		final RootPanel homePanel = RootPanel.get("home");
-		Home home = new Home(homePanel, database);
-		database.addNotifier(home);
-		// home.initiate();
-
 		final RootPanel dashboardPanel = RootPanel.get("dashboard");
 		Dashboard dashboard = new Dashboard(dashboardPanel, database);
 		database.addNotifier(dashboard);
 		// dashboard.initiate("Anonymous", home);
 
 		final RootPanel loginPanel = RootPanel.get("login");
-		Login login = new Login(loginPanel, home, dashboard, database);
+		Login login = new Login(loginPanel, dashboard, database);
 		database.addNotifier(login);
 		database.addNotifier(this);
 
