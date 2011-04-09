@@ -18,6 +18,7 @@ import wordOfTheDay.client.listWords.ListWordsService;
 import wordOfTheDay.client.listWords.ListWordsServiceAsync;
 import wordOfTheDay.client.listWords.ListWordsWithAdvancedTable;
 import wordOfTheDay.client.listWords.ModelsList;
+import wordOfTheDay.client.listWords.notesTable.BeginSearcher;
 import wordOfTheDay.client.listWords.notesTable.DataFilter;
 import wordOfTheDay.client.listWords.notesTable.LabelBeginFilter;
 import wordOfTheDay.client.listWords.notesTable.NotesTable;
@@ -253,27 +254,56 @@ public class DatabaseOnClient {
 	}
 
 	public void labelWasRemoved(String label) {
-		for (Set<String> set : labels.values())
-			set.remove(label);
+		for (Set<String> set : labels.values()) {
+			Set<String> toRemove = new HashSet<String>();
+			for (String labelToCheck : set) {
+				if (BeginSearcher.lookFor(label.split(":"), labelToCheck))
+					toRemove.add(labelToCheck);
+			}
+			set.removeAll(toRemove);
+		}
 		for (List<Note> notesList : notes.values())
-			for (Note note : notesList)
-				note.removeLabel(label);
+			for (Note note : notesList) {
+				Set<String> toRemove = new HashSet<String>();
+				for (String labelToCheck : note.getLabels()) {
+					if (BeginSearcher.lookFor(label.split(":"), labelToCheck))
+						toRemove.add(labelToCheck);
+				}
+				note.getLabels().removeAll(toRemove);
+			}
 		labelsTree.update();
 		notesTable.databaseChanged();
 	}
 
 	public void labelWasRenamed(String label, String newLabel) {
-		for (Set<String> set : labels.values())
-			if (set.contains(label)) {
-				set.remove(label);
-				set.add(newLabel);
+		for (Set<String> set : labels.values()) {
+			Set<String> toRemove = new HashSet<String>();
+			Set<String> toAdd = new HashSet<String>();
+			for (String labelToCheck : set) {
+				if (BeginSearcher.lookFor(label.split(":"), labelToCheck)) {
+					toRemove.add(labelToCheck);
+					toAdd.add(newLabel
+							+ labelToCheck.substring(label.length(),
+									labelToCheck.length()));
+				}
 			}
+			set.removeAll(toRemove);
+			set.addAll(toAdd);
+		}
 		for (List<Note> notesList : notes.values())
 			for (Note note : notesList) {
-				if (note.getLabels().contains(label)) {
-					note.getLabels().remove(label);
-					note.getLabels().add(newLabel);
+				Set<String> toRemove = new HashSet<String>();
+				Set<String> toAdd = new HashSet<String>();
+				for (String labelToCheck : note.getLabels()) {
+					if (BeginSearcher.lookFor(label.split(":"), labelToCheck)) {
+						toRemove.add(labelToCheck);
+						toAdd.add(newLabel
+								+ labelToCheck.substring(label.length(),
+										labelToCheck.length()));
+					}
 				}
+				note.getLabels().removeAll(toRemove);
+				note.getLabels().addAll(toAdd);
 			}
 		labelsTree.update();
 		notesTable.databaseChanged();

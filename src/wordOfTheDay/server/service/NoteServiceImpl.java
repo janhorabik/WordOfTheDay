@@ -114,7 +114,6 @@ public class NoteServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public void removeLabel(String label, int dataModelSeqNum) {
-		// TODO Auto-generated method stub
 		String email = (String) this.getThreadLocalRequest().getSession()
 				.getAttribute("email");
 		PMF.removeLabel(email, label, dataModelSeqNum);

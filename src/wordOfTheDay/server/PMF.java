@@ -324,6 +324,8 @@ public final class PMF {
 	private static void removeOrReplaceLabel(String email, String oldLabel,
 			String newLabel, boolean replace, int dataModelSeqNum) {
 		List<PersistentNote> notesToDel = getNotesWithLabel(email, oldLabel);
+		System.out.println("getNotesWithLabel returned " + notesToDel.size()
+				+ " notes: " + notesToDel);
 		PersistenceManager pmi = PMF.get().getPersistenceManager();
 		for (PersistentNote note : notesToDel) {
 			PersistentNote noteToChange = pmi.getObjectById(
@@ -339,16 +341,25 @@ public final class PMF {
 
 	private static List<String> changeLabels(List<String> labels,
 			String oldLabel, String newLabel, boolean replace) {
+		System.out.println("Change labels of " + labels + " oldLabel: "
+				+ oldLabel + " new label: " + newLabel);
 		List<String> newLabels = new LinkedList<String>();
 		for (String currentLabel : labels) {
 			if (BeginSearcher.lookFor(oldLabel.split(":"), currentLabel)) {
+				System.out.println(" lookFor returned: true");
 				if (replace) {
+					System.out.println("replacing old label with "
+							+ newLabel
+							+ currentLabel.substring(oldLabel.length(),
+									currentLabel.length()));
 					newLabels.add(newLabel
 							+ currentLabel.substring(oldLabel.length(),
 									currentLabel.length()));
 				}
-			} else
+			} else {
+				System.out.println("lookFor returned false");
 				newLabels.add(currentLabel);
+			}
 		}
 		return newLabels;
 	}
@@ -370,6 +381,11 @@ public final class PMF {
 // copy paste!
 class BeginSearcher {
 	public static boolean lookFor(String[] search, String label) {
+		System.out.println("look for ");
+		for (String string : search) {
+			System.out.println(string + " ");
+		}
+		System.out.println(" in " + label);
 		String[] labelCut = label.split(":");
 		if (search.length > labelCut.length)
 			return false;
