@@ -323,9 +323,9 @@ public final class PMF {
 
 	private static void removeOrReplaceLabel(String email, String oldLabel,
 			String newLabel, boolean replace, int dataModelSeqNum) {
-		List<PersistentNote> wordsToDel = getNotesWithLabel(email, oldLabel);
+		List<PersistentNote> notesToDel = getNotesWithLabel(email, oldLabel);
 		PersistenceManager pmi = PMF.get().getPersistenceManager();
-		for (PersistentNote note : wordsToDel) {
+		for (PersistentNote note : notesToDel) {
 			PersistentNote noteToChange = pmi.getObjectById(
 					PersistentNote.class,
 					PersistentNote.generateKey(note.getEmail(),
@@ -341,7 +341,7 @@ public final class PMF {
 			String oldLabel, String newLabel, boolean replace) {
 		List<String> newLabels = new LinkedList<String>();
 		for (String currentLabel : labels) {
-			if (currentLabel.startsWith(oldLabel)) {
+			if (BeginSearcher.lookFor(oldLabel.split(":"), currentLabel)) {
 				if (replace) {
 					newLabels.add(newLabel
 							+ currentLabel.substring(oldLabel.length(),
@@ -358,13 +358,42 @@ public final class PMF {
 		List<PersistentNote> allNotes = getAllNotes(email);
 		List<PersistentNote> ret = new LinkedList<PersistentNote>();
 		for (PersistentNote note : allNotes) {
-			for (String labelOfNote : note.getLabels()) {
-				if (labelOfNote.startsWith(label)) {
-					ret.add(note);
-					break;
-				}
-			}
+			List<String> labels = note.getLabels();
+			String[] search = label.split(":");
+			if (BeginSearcher.lookFor(search, labels))
+				ret.add(note);
 		}
 		return ret;
+	}
+}
+
+// copy paste!
+class BeginSearcher {
+	public static boolean lookFor(String[] search, String label) {
+		String[] labelCut = label.split(":");
+		if (search.length > labelCut.length)
+			return false;
+		if (checkIn(search, labelCut))
+			return true;
+		return false;
+	}
+
+	public static boolean lookFor(String[] search, List<String> labels) {
+		if (labels == null) {
+			labels = new LinkedList<String>();
+		}
+		for (String label : labels) {
+			if (lookFor(search, label))
+				return true;
+		}
+		return false;
+	}
+
+	private static boolean checkIn(String[] search, String[] labelCut) {
+		for (int i = 0; i < search.length; ++i) {
+			if (!labelCut[i].equals(search[i]))
+				return false;
+		}
+		return true;
 	}
 }

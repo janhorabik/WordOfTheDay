@@ -65,8 +65,8 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener {
 		this.database = database;
 		this.notesTable = new NotesTable(this.database, this.notesTablePanel,
 				this);
-		this.labelsTree = new LabelsTree(this.database, this.notesTable,
-				this.labelsPanel, this.messagesPanel);
+		this.labelsTree = new LabelsTree(this.database, this.labelsPanel,
+				this.messagesPanel);
 		this.modelsList = new ModelsList(this.database, this.modelsPanel,
 				this.messagesPanel);
 		this.database.setLabelsTree(labelsTree);
@@ -166,7 +166,7 @@ public class ListWordsWithAdvancedTable implements CheckBoxesListener {
 
 	public void update() {
 		this.buttonAddNote.setVisible(database.getModels().size() > 0);
-		this.labelsTree.draw();
+		this.labelsTree.update();
 		this.notesTable.drawTable();
 		this.modelsList.update();
 	}

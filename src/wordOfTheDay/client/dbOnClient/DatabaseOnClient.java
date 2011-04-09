@@ -18,6 +18,8 @@ import wordOfTheDay.client.listWords.ListWordsService;
 import wordOfTheDay.client.listWords.ListWordsServiceAsync;
 import wordOfTheDay.client.listWords.ListWordsWithAdvancedTable;
 import wordOfTheDay.client.listWords.ModelsList;
+import wordOfTheDay.client.listWords.notesTable.DataFilter;
+import wordOfTheDay.client.listWords.notesTable.LabelBeginFilter;
 import wordOfTheDay.client.listWords.notesTable.NotesTable;
 
 import com.google.gwt.core.client.GWT;
@@ -66,7 +68,7 @@ public class DatabaseOnClient {
 	public void setCurrentDataModel(int num) {
 		currentDataModel = num;
 		notesTable.drawTable();
-		labelsTree.draw();
+		labelsTree.update();
 	}
 
 	public void addNotifier(DatabaseUpdatedNotifier notifier) {
@@ -256,7 +258,7 @@ public class DatabaseOnClient {
 		for (List<Note> notesList : notes.values())
 			for (Note note : notesList)
 				note.removeLabel(label);
-		labelsTree.draw();
+		labelsTree.update();
 		notesTable.databaseChanged();
 	}
 
@@ -273,7 +275,7 @@ public class DatabaseOnClient {
 					note.getLabels().add(newLabel);
 				}
 			}
-		labelsTree.draw();
+		labelsTree.update();
 		notesTable.databaseChanged();
 	}
 
@@ -284,7 +286,7 @@ public class DatabaseOnClient {
 		modelsList.modelWasRemoved(seqNum);
 		if (currentDataModel == seqNum) {
 			currentDataModel = -1;
-			labelsTree.draw();
+			labelsTree.update();
 			notesTable.drawTable();
 		}
 		listWordsWithAdvancedTable.actNumModels(models.size());
@@ -315,7 +317,12 @@ public class DatabaseOnClient {
 			}
 		}
 		rebuildLabels();
-		labelsTree.draw();
+		labelsTree.update();
 		// notesTable.databaseChanged();
+	}
+
+	public void setCurrentLabel(String longName) {
+		DataFilter filter = new LabelBeginFilter(longName);
+		notesTable.applyFilter(filter);
 	}
 }

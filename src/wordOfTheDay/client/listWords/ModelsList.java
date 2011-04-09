@@ -32,11 +32,11 @@ class DataModelElement extends TreeNode {
 	}
 }
 
-class LabelCommand implements Command {
+class ModelChangeCommand implements Command {
 
 	private MessagesPanel messagesPanel;
 
-	public LabelCommand(DataModel modelArg, boolean rename,
+	public ModelChangeCommand(DataModel modelArg, boolean rename,
 			MessagesPanel messagesPanel) {
 		this.model = modelArg;
 		this.isRename = rename;
@@ -99,7 +99,7 @@ public class ModelsList {
 
 	private TreeGrid createSmartTree() {
 		treeGrid = new TreeGrid();
-		treeGrid.addStyleName("modelsList");
+		// treeGrid.addStyleName("modelsList");
 		treeGrid.setWidth(100);
 		treeGrid.setHeight(400);
 		treeGrid.setNodeIcon(null);
@@ -164,7 +164,7 @@ public class ModelsList {
 		renameItem
 				.addClickHandler(new com.smartgwt.client.widgets.menu.events.ClickHandler() {
 					public void onClick(MenuItemClickEvent event) {
-						LabelCommand renameCommand = new LabelCommand(
+						ModelChangeCommand renameCommand = new ModelChangeCommand(
 								((DataModelElement) treeGrid
 										.getSelectedRecord()).getModel(), true,
 								messagesPanel);
@@ -176,7 +176,7 @@ public class ModelsList {
 		removeItem
 				.addClickHandler(new com.smartgwt.client.widgets.menu.events.ClickHandler() {
 					public void onClick(MenuItemClickEvent event) {
-						LabelCommand removeCommand = new LabelCommand(
+						ModelChangeCommand removeCommand = new ModelChangeCommand(
 								((DataModelElement) treeGrid
 										.getSelectedRecord()).getModel(),
 								false, messagesPanel);
