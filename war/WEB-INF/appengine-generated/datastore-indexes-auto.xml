@@ -1,21 +1,15 @@
-<!-- Indices written at Sat, 9 Apr 2011 21:15:42 UTC -->
+<!-- Indices written at Sun, 10 Apr 2011 11:43:06 UTC -->
 
 <datastore-indexes>
 
-    <!-- Used 8 times in query history -->
+    <!-- Used 1 time in query history -->
     <datastore-index kind="PersistentDataModel" ancestor="false" source="auto">
         <property name="email" direction="asc"/>
         <property name="name" direction="asc"/>
     </datastore-index>
 
-    <!-- Used 2 times in query history -->
+    <!-- Used 1 time in query history -->
     <datastore-index kind="PersistentDataModel" ancestor="false" source="auto">
-        <property name="email" direction="asc"/>
-        <property name="seqNum" direction="desc"/>
-    </datastore-index>
-
-    <!-- Used 2 times in query history -->
-    <datastore-index kind="PersistentNote" ancestor="false" source="auto">
         <property name="email" direction="asc"/>
         <property name="seqNum" direction="desc"/>
     </datastore-index>

@@ -1,5 +1,6 @@
 package wordOfTheDay.client;
 
+import wordOfTheDay.client.dashboard.Dashboard;
 import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
 import wordOfTheDay.client.dbOnClient.DatabaseUpdatedNotifier;
 import wordOfTheDay.client.login.Login;
@@ -19,14 +20,12 @@ public class WordOfTheDay implements EntryPoint, DatabaseUpdatedNotifier {
 		final RootPanel dashboardPanel = RootPanel.get("dashboard");
 		Dashboard dashboard = new Dashboard(dashboardPanel, database);
 		database.addNotifier(dashboard);
-		// dashboard.initiate("Anonymous", home);
 
 		final RootPanel loginPanel = RootPanel.get("login");
 		Login login = new Login(loginPanel, dashboard, database);
 		database.addNotifier(login);
 		database.addNotifier(this);
 
-		// database.update();
 	}
 
 	private void initiate(String id, String content) {

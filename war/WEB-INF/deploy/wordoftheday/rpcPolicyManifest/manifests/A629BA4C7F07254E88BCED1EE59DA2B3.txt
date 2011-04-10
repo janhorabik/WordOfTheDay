@@ -1,2 +1,0 @@
-serviceClass: wordOfTheDay.client.deleteWords.DeleteWordsService
-path: 75CAA830DE232EB1B728427B7E85A6E5.gwt.rpc

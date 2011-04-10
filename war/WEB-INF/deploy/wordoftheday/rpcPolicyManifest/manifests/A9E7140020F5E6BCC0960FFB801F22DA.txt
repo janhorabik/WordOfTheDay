@@ -1,2 +1,0 @@
-serviceClass: wordOfTheDay.client.listWords.NoteService
-path: D885C10D244E2392391E3151CF2D2CB5.gwt.rpc

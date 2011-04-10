@@ -13,11 +13,14 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 
 public class LoginUpdater implements ServerResponse, ClickHandler {
 
+	private Button loginButton;
+
 	public LoginUpdater(HorizontalPanel loginNamePanel2,
 			AskServer askServerArg, Button loginButton,
 			DatabaseOnClient database) {
 		loginNamePanel = loginNamePanel2;
 		askServer = askServerArg;
+		this.loginButton = loginButton;
 		if (loginButton != null) {
 			loginButton.addClickHandler(this);
 		} else {
@@ -35,7 +38,7 @@ public class LoginUpdater implements ServerResponse, ClickHandler {
 		loginNamePanel
 				.add(new HTML("<div id='date'>Hello " + reply + "</div>"));
 		database.setLogin(reply);
-		database.update();
+		database.initiate();
 	}
 
 	public void onClick(ClickEvent event) {
@@ -45,8 +48,9 @@ public class LoginUpdater implements ServerResponse, ClickHandler {
 	private AskServer askServer;
 	private HorizontalPanel loginNamePanel;
 	private DatabaseOnClient database;
+
 	@Override
 	public void askedServer(String messageAtTheBeginning) {
-		
+
 	}
 }

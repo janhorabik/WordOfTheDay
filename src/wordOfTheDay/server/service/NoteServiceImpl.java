@@ -10,7 +10,7 @@ import org.apache.james.mime4j.io.EOLConvertingInputStream;
 
 import wordOfTheDay.client.DataModel;
 import wordOfTheDay.client.Note;
-import wordOfTheDay.client.listWords.NoteService;
+import wordOfTheDay.client.dashboard.NoteService;
 import wordOfTheDay.server.PMF;
 import wordOfTheDay.server.PersistentDataModel;
 import wordOfTheDay.server.PersistentNote;

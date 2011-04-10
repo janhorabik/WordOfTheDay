@@ -1,6 +1,6 @@
 package wordOfTheDay.client.MyPopup;
 
-import wordOfTheDay.client.listWords.notesTable.MessagesPanel;
+import wordOfTheDay.client.dashboard.notesTable.MessagesPanel;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;

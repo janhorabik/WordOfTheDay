@@ -1,8 +1,7 @@
 package wordOfTheDay.client.multiFieldsPanels;
 
 import java.util.List;
-
-import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
+import java.util.Set;
 
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
@@ -10,30 +9,30 @@ import com.google.gwt.user.client.ui.SuggestBox;
 
 public class MultiFieldsPanelWithSuggest extends MultiFieldsPanel {
 
-	private DatabaseOnClient database;
+	private Set<String> database;
 
 	protected MultiFieldsPanelWithSuggest(String title, String buttonTitle,
-			DatabaseOnClient databaseArg) {
+			Set<String> databaseArg) {
 		super(title, buttonTitle);
 		this.database = databaseArg;
 	}
 
 	protected MultiFieldsPanelWithSuggest(String title, String buttonTitle,
-			DatabaseOnClient databaseOnClientArg, List<String> fields) {
+			Set<String> databaseArg, List<String> fields) {
 		super(title, buttonTitle, fields);
-		this.database = databaseOnClientArg;
+		this.database = databaseArg;
 	}
 
 	public static MultiFieldsPanelWithSuggest create(String title,
-			String buttonTitleArg, DatabaseOnClient db) {
+			String buttonTitleArg, Set<String> databaseArg) {
 		MultiFieldsPanelWithSuggest ret = new MultiFieldsPanelWithSuggest(
-				title, buttonTitleArg, db);
+				title, buttonTitleArg, databaseArg);
 		ret.updateFieldsPanel();
 		return ret;
 	}
 
 	public static MultiFieldsPanelWithSuggest create(String title,
-			String buttonTitleArg, DatabaseOnClient db, List<String> fields) {
+			String buttonTitleArg, Set<String> db, List<String> fields) {
 		MultiFieldsPanelWithSuggest ret = new MultiFieldsPanelWithSuggest(
 				title, buttonTitleArg, db, fields);
 		ret.updateFieldsPanel();
@@ -43,7 +42,8 @@ public class MultiFieldsPanelWithSuggest extends MultiFieldsPanel {
 	public HasText createTextField() {
 		MultiWordSuggestOracle oracle = new MultiWordSuggestOracle(" :");
 		oracle.clear();
-		oracle.addAll(database.getLabelsOfCurrentDataModel());
+		oracle.addAll(database);
 		return new SuggestBox(oracle);
 	}
+
 }

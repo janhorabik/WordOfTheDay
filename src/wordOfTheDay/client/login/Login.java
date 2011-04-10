@@ -1,8 +1,8 @@
 package wordOfTheDay.client.login;
 
-import wordOfTheDay.client.Dashboard;
 import wordOfTheDay.client.MyPopup.AskServer;
 import wordOfTheDay.client.MyPopup.MyPopup;
+import wordOfTheDay.client.dashboard.Dashboard;
 import wordOfTheDay.client.dbOnClient.DatabaseOnClient;
 import wordOfTheDay.client.dbOnClient.DatabaseUpdatedNotifier;
 
@@ -72,11 +72,10 @@ public class Login implements DatabaseUpdatedNotifier {
 		LoginUpdater logoutUpdater = new LoginUpdater(loginNamePanel,
 				askServerToLogout, logoutButton, database);
 
-		setVisible(false);
+//		setVisible(false);
 	}
 
 	private void update() {
-		dashboard.setVisible(true);
 	}
 
 	public void databaseUpdated() {

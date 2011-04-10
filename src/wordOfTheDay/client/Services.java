@@ -1,10 +1,9 @@
 package wordOfTheDay.client;
 
-import com.google.gwt.core.client.GWT;
+import wordOfTheDay.client.dashboard.NoteService;
+import wordOfTheDay.client.dashboard.NoteServiceAsync;
 
-import wordOfTheDay.client.addWord.AddWordService;
-import wordOfTheDay.client.listWords.NoteService;
-import wordOfTheDay.client.listWords.NoteServiceAsync;
+import com.google.gwt.core.client.GWT;
 
 public class Services {
 	public static final NoteServiceAsync noteService = GWT

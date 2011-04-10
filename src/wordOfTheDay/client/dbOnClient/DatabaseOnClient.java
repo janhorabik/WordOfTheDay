@@ -13,15 +13,14 @@ import wordOfTheDay.client.DataModel;
 import wordOfTheDay.client.Note;
 import wordOfTheDay.client.Services;
 import wordOfTheDay.client.Word9;
-import wordOfTheDay.client.listWords.LabelsTree;
-import wordOfTheDay.client.listWords.ListWordsService;
-import wordOfTheDay.client.listWords.ListWordsServiceAsync;
-import wordOfTheDay.client.listWords.ListWordsWithAdvancedTable;
-import wordOfTheDay.client.listWords.ModelsList;
-import wordOfTheDay.client.listWords.notesTable.BeginSearcher;
-import wordOfTheDay.client.listWords.notesTable.DataFilter;
-import wordOfTheDay.client.listWords.notesTable.LabelBeginFilter;
-import wordOfTheDay.client.listWords.notesTable.NotesTable;
+import wordOfTheDay.client.dashboard.Dashboard;
+import wordOfTheDay.client.dashboard.ListWordsWithAdvancedTable;
+import wordOfTheDay.client.dashboard.labelsTree.LabelsTree;
+import wordOfTheDay.client.dashboard.modelsList.ModelsList;
+import wordOfTheDay.client.dashboard.notesTable.BeginSearcher;
+import wordOfTheDay.client.dashboard.notesTable.DataFilter;
+import wordOfTheDay.client.dashboard.notesTable.LabelBeginFilter;
+import wordOfTheDay.client.dashboard.notesTable.NotesTable;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
@@ -48,6 +47,10 @@ public class DatabaseOnClient {
 
 	public DatabaseOnClient() {
 		// update();
+	}
+
+	public void setDashboard(Dashboard dashboard) {
+		this.dashboard = dashboard;
 	}
 
 	public void setListWordsWithAdvancedTable(ListWordsWithAdvancedTable table) {
@@ -223,8 +226,7 @@ public class DatabaseOnClient {
 
 	private ModelsList modelsList;
 
-	public final static ListWordsServiceAsync listWordsService = GWT
-			.create(ListWordsService.class);
+	private Dashboard dashboard;
 
 	public int getCurrentDataModelSeqNum() {
 		return this.currentDataModel;
@@ -354,5 +356,10 @@ public class DatabaseOnClient {
 	public void setCurrentLabel(String longName) {
 		DataFilter filter = new LabelBeginFilter(longName);
 		notesTable.applyFilter(filter);
+	}
+
+	public void initiate() {
+		dashboard.initiate();
+		update();
 	}
 }

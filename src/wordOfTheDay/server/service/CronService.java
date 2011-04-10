@@ -23,7 +23,7 @@ public class CronService extends HttpServlet {
 			throws ServletException, IOException {
 		log.info("Cron servlet called");
 		log.warning("gettingWord entered");
-		String email = GetTodaysWordServiceImpl.defaultEmail;
+		String email = "test";
 		int date = Date.getCurrentDate();
 		System.out.println("day: " + date);
 		log.warning("getting Word: getting instance of WordsCache");

@@ -1,8 +1,6 @@
 package wordOfTheDay.server;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -14,11 +12,11 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import wordOfTheDay.server.service.GetTodaysWordServiceImpl;
+import wordOfTheDay.server.service.NoteServiceImpl;
 
 public class XMLParser {
 	private static final Logger log = Logger
-			.getLogger(GetTodaysWordServiceImpl.class.getName());
+			.getLogger(NoteServiceImpl.class.getName());
 
 	public static String initiateWords(ByteArrayInputStream stream, String email) {
 		try {

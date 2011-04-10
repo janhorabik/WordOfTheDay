@@ -1,2 +1,4 @@
 # Module wordoftheday
 # RPC service class, partial path of RPC policy file
+wordOfTheDay.client.login.LoginService, 9A3981634F21BEBDC90514272D563479.gwt.rpc
+wordOfTheDay.client.dashboard.NoteService, 675177F9BCCDC5F720F8B61B89F320BF.gwt.rpc

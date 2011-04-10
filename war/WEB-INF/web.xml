@@ -7,39 +7,6 @@
 
 	<!-- Servlets -->
 
-	<!-- GetTodaysWord -->
-	<servlet>
-		<servlet-name>getTodaysWordServlet</servlet-name>
-		<servlet-class>wordOfTheDay.server.service.GetTodaysWordServiceImpl</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>getTodaysWordServlet</servlet-name>
-		<url-pattern>/wordoftheday/getTodaysWordServlet</url-pattern>
-	</servlet-mapping>
-
-	<!-- AddWord -->
-	<servlet>
-		<servlet-name>addWordServlet</servlet-name>
-		<servlet-class>wordOfTheDay.server.service.AddWordServiceImpl</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>addWordServlet</servlet-name>
-		<url-pattern>/wordoftheday/addWordServlet</url-pattern>
-	</servlet-mapping>
-
-	<!-- DeleteWords -->
-	<servlet>
-		<servlet-name>deleteWordsServlet</servlet-name>
-		<servlet-class>wordOfTheDay.server.service.DeleteWordsServiceImpl</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>deleteWordsServlet</servlet-name>
-		<url-pattern>/wordoftheday/deleteWordsServlet</url-pattern>
-	</servlet-mapping>
-
 	<!-- FileUpload -->
 	<servlet>
 		<servlet-name>fileUploadServlet</servlet-name>
@@ -62,17 +29,6 @@
 		<url-pattern>/wordoftheday/fileDownloadServlet</url-pattern>
 	</servlet-mapping>
 
-	<!-- ListWords -->
-	<servlet>
-		<servlet-name>listWordsServlet</servlet-name>
-		<servlet-class>wordOfTheDay.server.service.ListWordsServiceImpl</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>listWordsServlet</servlet-name>
-		<url-pattern>/wordoftheday/listWordsServlet</url-pattern>
-	</servlet-mapping>
-	
 	<!-- Notes -->
 	<servlet>
 		<servlet-name>noteServlet</servlet-name>
@@ -83,7 +39,7 @@
 		<servlet-name>noteServlet</servlet-name>
 		<url-pattern>/wordoftheday/noteServlet</url-pattern>
 	</servlet-mapping>
-	
+
 	<!-- Login -->
 	<servlet>
 		<servlet-name>loginServlet</servlet-name>
@@ -95,7 +51,7 @@
 		<url-pattern>/wordoftheday/loginServlet</url-pattern>
 	</servlet-mapping>
 
-	<!-- Login -->
+	<!-- Cron -->
 	<servlet>
 		<servlet-name>cronServlet</servlet-name>
 		<servlet-class>wordOfTheDay.server.service.CronService</servlet-class>
